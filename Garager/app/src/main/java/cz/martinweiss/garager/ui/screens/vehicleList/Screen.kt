@@ -10,11 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import cz.martinweiss.garager.navigation.INavigationRouter
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VehicleListScreen() {
+fun VehicleListScreen(navigation: INavigationRouter) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(

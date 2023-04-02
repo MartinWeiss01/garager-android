@@ -17,6 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.martinweiss.garager.navigation.Destination
+import cz.martinweiss.garager.navigation.NavGraph
 import cz.martinweiss.garager.ui.screens.vehicleList.VehicleListScreen
 import cz.martinweiss.garager.ui.theme.GaragerTheme
 import java.time.LocalDate
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    VehicleListScreen()
+                    NavGraph(startDestination = Destination.VehicleListScreen.route)
                 }
             }
         }
