@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Garager</string>
+    <string name="btn_add_new_vehicle">Add new vehicle</string>
+</resources>

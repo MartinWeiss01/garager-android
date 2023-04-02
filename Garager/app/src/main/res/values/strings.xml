@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Garager</string>
+    <string name="btn_add_new_vehicle">Přidat vozidlo</string>
+</resources>
