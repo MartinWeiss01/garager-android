@@ -14,7 +14,7 @@ fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         Destination.VehicleListScreen
     )
-    
+
     NavigationBar() {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -22,13 +22,18 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEach {
             NavigationBarItem(
                 icon = {
-                    Icon(painterResource(id = if (currentRoute == it.route) it.iconActive else it.icon), stringResource(id = it.title))
+                    Icon(
+                        painterResource(id = if (currentRoute == it.route) it.iconActive else it.icon),
+                        stringResource(id = it.title)
+                    )
                 },
                 label = {
                     Text(text = stringResource(id = it.title))
                 },
                 selected = currentRoute == it.route,
-                onClick = { /*TODO*/ }
+                onClick = {
+                    if(currentRoute != it.route) navController.navigate(it.route)
+                }
             )
         }
     }
