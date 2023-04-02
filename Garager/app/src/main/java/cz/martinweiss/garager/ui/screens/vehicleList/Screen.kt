@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import cz.martinweiss.garager.navigation.INavigationRouter
+import cz.martinweiss.garager.ui.elements.BottomNavigationBar
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +31,9 @@ fun VehicleListScreen(navigation: INavigationRouter) {
                 text = { Text(text = stringResource(id = R.string.btn_add_new_vehicle)) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "") },
                 onClick = { /*TODO*/ })
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navigation.getNavController())
         }
     ) {
         VehicleListContent(paddingValues = it)

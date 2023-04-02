@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">Garager</string>
     <string name="btn_add_new_vehicle">Add new vehicle</string>
+
+    <string name="navigation_item_list">Home</string>
 </resources>
