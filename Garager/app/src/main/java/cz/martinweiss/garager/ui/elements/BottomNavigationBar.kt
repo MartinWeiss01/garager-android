@@ -20,21 +20,23 @@ fun BottomNavigationBar(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
 
         items.forEach {
-            NavigationBarItem(
-                icon = {
-                    Icon(
-                        painterResource(id = if (currentRoute == it.route) it.iconActive else it.icon),
-                        stringResource(id = it.title)
-                    )
-                },
-                label = {
-                    Text(text = stringResource(id = it.title))
-                },
-                selected = currentRoute == it.route,
-                onClick = {
-                    if(currentRoute != it.route) navController.navigate(it.route)
-                }
-            )
+            if(it.iconActive != null && it.title != null && it.icon != null) {
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            painterResource(id = if (currentRoute == it.route) it.iconActive else it.icon),
+                            stringResource(id = it.title)
+                        )
+                    },
+                    label = {
+                        Text(text = stringResource(id = it.title))
+                    },
+                    selected = currentRoute == it.route,
+                    onClick = {
+                        if(currentRoute != it.route) navController.navigate(it.route)
+                    }
+                )
+            }
         }
     }
 }

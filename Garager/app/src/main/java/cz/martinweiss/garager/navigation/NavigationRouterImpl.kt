@@ -7,5 +7,9 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.popBackStack()
     }
 
+    override fun navigateToAddEditVehicleScreen(id: Long?) {
+        navController.navigate(Destination.AddEditVehicleScreen.route + "/" + id)
+    }
+
     override fun getNavController(): NavController = navController
 }

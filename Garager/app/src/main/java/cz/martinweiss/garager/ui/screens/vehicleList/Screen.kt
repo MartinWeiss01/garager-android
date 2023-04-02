@@ -30,7 +30,7 @@ fun VehicleListScreen(navigation: INavigationRouter) {
             ExtendedFloatingActionButton(
                 text = { Text(text = stringResource(id = R.string.btn_add_new_vehicle)) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "") },
-                onClick = { /*TODO*/ })
+                onClick = { navigation.navigateToAddEditVehicleScreen(-1L) })
         },
         bottomBar = {
             BottomNavigationBar(navController = navigation.getNavController())
