@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import cz.martinweiss.garager.model.Vehicle
 
-@Database(entities = [Vehicle::class], version = 1, exportSchema = true)
+@Database(entities = [Vehicle::class], version = 2, exportSchema = true)
 abstract class VehiclesDatabase : RoomDatabase() {
     abstract fun VehiclesDao(): VehiclesDao
 
