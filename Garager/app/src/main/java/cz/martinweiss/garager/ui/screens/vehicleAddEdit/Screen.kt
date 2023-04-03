@@ -55,10 +55,10 @@ fun AddEditVehicleContent(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    var f_name = remember { mutableStateOf("") }
-    var f_licensePlate = remember { mutableStateOf("") }
-    var f_vin = remember { mutableStateOf("") }
-    var f_manufacturer = remember { mutableStateOf(manufacturers.firstOrNull()) }
+    var fName = remember { mutableStateOf("") }
+    var fLicensePlate = remember { mutableStateOf("") }
+    var fVin = remember { mutableStateOf("") }
+    var fManufacturer = remember { mutableStateOf(manufacturers.firstOrNull()) }
 
     Column(
         modifier = Modifier.padding(10.dp),
@@ -66,37 +66,37 @@ fun AddEditVehicleContent(
     ) {
         Column {
             TextField(
-                value = f_name.value,
+                value = fName.value,
                 label = { Text(text = stringResource(id = R.string.add_edit_vehicle_name_field)) },
                 onValueChange = {
-                    f_name.value = it
+                    fName.value = it
                 },
                 modifier = Modifier.fillMaxWidth(),
-                isError = !actions.isNameValid(f_name.value)
+                isError = !actions.isNameValid(fName.value)
             )
             Text(
-                text = if(actions.isNameValid(f_name.value)) "" else stringResource(id = R.string.add_edit_vehicle_name_required),
+                text = if(actions.isNameValid(fName.value)) "" else stringResource(id = R.string.add_edit_vehicle_name_required),
                 color = MaterialTheme.colorScheme.error
             )
         }
 
         TextField(
-            value = f_licensePlate.value,
+            value = fLicensePlate.value,
             label = { Text(text = stringResource(id = R.string.add_edit_vehicle_license_plate_field)) },
-            onValueChange = { f_licensePlate.value = it },
+            onValueChange = { fLicensePlate.value = it },
             modifier = Modifier.fillMaxWidth()
         )
 
         Column {
             TextField(
-                value = f_vin.value,
+                value = fVin.value,
                 label = { Text(text = stringResource(id = R.string.add_edit_vehicle_vin_field)) },
-                onValueChange = { f_vin.value = it },
+                onValueChange = { fVin.value = it },
                 modifier = Modifier.fillMaxWidth(),
-                isError = !actions.isVINValid(f_vin.value)
+                isError = !actions.isVINValid(fVin.value)
             )
             Text(
-                text = if(actions.isVINValid(f_vin.value)) "" else stringResource(id = R.string.add_edit_vehicle_vin_format_error),
+                text = if(actions.isVINValid(fVin.value)) "" else stringResource(id = R.string.add_edit_vehicle_vin_format_error),
                 color = MaterialTheme.colorScheme.error
             )
         }
@@ -107,7 +107,7 @@ fun AddEditVehicleContent(
         ) {
             TextField(
                 readOnly = true,
-                value = f_manufacturer.value?.name ?: "",
+                value = fManufacturer.value?.name ?: "",
                 onValueChange = {},
                 label = { Text(text = stringResource(id = R.string.add_edit_vehicle_manufacturer_field)) },
                 trailingIcon = {
@@ -127,7 +127,7 @@ fun AddEditVehicleContent(
                     DropdownMenuItem(
                         text = { Text(text = it.name) },
                         onClick = {
-                            f_manufacturer.value = it
+                            fManufacturer.value = it
                             expanded = false
                         }
                     )
@@ -142,13 +142,13 @@ fun AddEditVehicleContent(
             Button(
                 onClick = {
                     actions.saveVehicle(
-                        name = f_name.value,
-                        licensePlate = f_licensePlate.value,
-                        vin = f_vin.value,
-                        manufacturerId = f_manufacturer.value?.id
+                        name = fName.value,
+                        licensePlate = fLicensePlate.value,
+                        vin = fVin.value,
+                        manufacturerId = fManufacturer.value?.id
                     )
                 },
-                enabled = (actions.isNameValid(f_name.value) && actions.isVINValid(f_vin.value))
+                enabled = (actions.isNameValid(fName.value) && actions.isVINValid(fVin.value))
             ) {
                 Text(text = stringResource(id = R.string.add_edit_vehicle_save_btn))
             }
