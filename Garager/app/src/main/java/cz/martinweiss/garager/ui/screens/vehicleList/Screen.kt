@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import cz.martinweiss.garager.R
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,6 +24,8 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewModel = getViewModel()) {
+    val listState = rememberLazyListState()
+
     val vehicles = remember {
         mutableStateListOf<Vehicle>()
     }
@@ -52,7 +55,9 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
             ExtendedFloatingActionButton(
                 text = { Text(text = stringResource(id = R.string.btn_add_new_vehicle)) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "") },
-                onClick = { navigation.navigateToAddEditVehicleScreen(-1L) })
+                onClick = { navigation.navigateToAddEditVehicleScreen(-1L) },
+                expanded = listState.isScrollingUp()
+            )
         },
         bottomBar = {
             BottomNavigationBar(navController = navigation.getNavController())
@@ -60,7 +65,8 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
     ) {
         VehicleListContent(
             paddingValues = it,
-            vehicles = vehicles
+            vehicles = vehicles,
+            listState = listState
         )
     }
 }
@@ -68,7 +74,8 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
 @Composable
 fun VehicleListContent(
     paddingValues: PaddingValues,
-    vehicles: MutableList<Vehicle>
+    vehicles: MutableList<Vehicle>,
+    listState: LazyListState
 ) {
     Surface(
         color = MaterialTheme.colorScheme.inverseSurface,
@@ -77,15 +84,15 @@ fun VehicleListContent(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        Box(modifier = Modifier.padding(30.dp)) {
-            VehicleItemList(vehicles = vehicles)
+        Box(modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)) {
+            VehicleItemList(vehicles = vehicles, listState = listState)
         }
     }
 }
 
 @Composable
-fun VehicleItemList(vehicles: MutableList<Vehicle>) {
-    LazyColumn() {
+fun VehicleItemList(vehicles: MutableList<Vehicle>, listState: LazyListState) {
+    LazyColumn(state = listState) {
         vehicles.forEach {
             item(key = it.id) {
                 VehicleItem(vehicle = it)
@@ -97,7 +104,7 @@ fun VehicleItemList(vehicles: MutableList<Vehicle>) {
 @Composable
 fun VehicleItem(vehicle: Vehicle) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary
         )
@@ -109,4 +116,25 @@ fun VehicleItem(vehicle: Vehicle) {
         
         Icon(imageVector = Icons.Filled.Info, contentDescription = "")
     }
+}
+
+/** Google Code Labs source code
+ * Returns whether the lazy list is currently scrolling up.
+ */
+@Composable
+private fun LazyListState.isScrollingUp(): Boolean {
+    var previousIndex by remember(this) { mutableStateOf(firstVisibleItemIndex) }
+    var previousScrollOffset by remember(this) { mutableStateOf(firstVisibleItemScrollOffset) }
+    return remember(this) {
+        derivedStateOf {
+            if (previousIndex != firstVisibleItemIndex) {
+                previousIndex > firstVisibleItemIndex
+            } else {
+                previousScrollOffset >= firstVisibleItemScrollOffset
+            }.also {
+                previousIndex = firstVisibleItemIndex
+                previousScrollOffset = firstVisibleItemScrollOffset
+            }
+        }
+    }.value
 }
