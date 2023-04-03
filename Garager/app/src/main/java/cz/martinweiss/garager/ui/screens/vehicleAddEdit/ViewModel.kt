@@ -1,16 +1,13 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
 import android.util.Log
-import androidx.compose.runtime.*
-import androidx.compose.ui.res.stringResource
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
-import cz.martinweiss.garager.ui.screens.vehicleList.VehicleListUIState
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import cz.martinweiss.garager.R
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
     val addEditVehicleUIState: MutableState<AddEditVehicleUIState> = mutableStateOf(AddEditVehicleUIState.Default)
@@ -23,21 +20,42 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
         }
     }
 
-    override fun saveVehicle(name: String, licensePlate: String, vin: String, manufacturerId: Long?) {
+    override fun loadManufacturersWithVehicle(id: Long) {
         launch {
-            val id = repository.insertVehicle(
-                Vehicle(
-                    name = name,
-                    vin = vin,
-                    licensePlate = licensePlate,
-                    manufacturer = manufacturerId
-                )
-            )
+            var vehicle: Vehicle = repository.getVehicleById(id)
 
-            if(id > 0) {
+            repository.getManufacturers().collect() {
+                addEditVehicleUIState.value = AddEditVehicleUIState.SuccessEdit(vehicle = vehicle, manufacturers = it)
+            }
+        }
+    }
+
+    override fun saveVehicle(id: Long?, name: String, licensePlate: String, vin: String, manufacturerId: Long?) {
+        launch {
+            if(id != null) {
+                repository.updateVehicle(
+                    vehicleId = id,
+                    vehicleName = name,
+                    vehicleVin = vin,
+                    vehicleLicensePlate = licensePlate,
+                    vehicleManufacturerId = manufacturerId
+                )
                 addEditVehicleUIState.value = AddEditVehicleUIState.VehicleSaved
             } else {
-                Log.d("[ERROR::AddEditVehicleViewModel]", "saveVehicle condition, invalid insertion")
+                val insertedId = repository.insertVehicle(
+                    Vehicle(
+                        name = name,
+                        vin = vin,
+                        licensePlate = licensePlate,
+                        manufacturer = manufacturerId
+                    )
+                )
+
+                if(insertedId > 0) {
+                    addEditVehicleUIState.value = AddEditVehicleUIState.VehicleSaved
+                } else {
+                    Log.d("[ERROR::AddEditVehicleViewModel]", "saveVehicle condition, invalid insertion")
+                }
             }
         }
     }

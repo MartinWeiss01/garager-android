@@ -1,5 +1,6 @@
 package cz.martinweiss.garager.ui.screens.vehicleList
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import cz.martinweiss.garager.R
 import androidx.compose.foundation.lazy.LazyColumn
@@ -71,6 +72,7 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
     ) {
         VehicleListContent(
             paddingValues = it,
+            navigation = navigation,
             vehicles = vehicles,
             listState = listState
         )
@@ -80,6 +82,7 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
 @Composable
 fun VehicleListContent(
     paddingValues: PaddingValues,
+    navigation: INavigationRouter,
     vehicles: MutableList<Vehicle>,
     listState: LazyListState
 ) {
@@ -94,29 +97,37 @@ fun VehicleListContent(
             EmptyVehicleList()
         } else {
             Box(modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)) {
-                VehicleItemList(vehicles = vehicles, listState = listState)
+                VehicleItemList(vehicles = vehicles, listState = listState, navigation = navigation)
             }
         }
     }
 }
 
 @Composable
-fun VehicleItemList(vehicles: MutableList<Vehicle>, listState: LazyListState) {
+fun VehicleItemList(
+    vehicles: MutableList<Vehicle>,
+    listState: LazyListState,
+    navigation: INavigationRouter
+) {
     LazyColumn(state = listState) {
         vehicles.forEach {
             item(key = it.id) {
-                VehicleItem(vehicle = it)
+                VehicleItem(vehicle = it, onClick = { navigation.navigateToAddEditVehicleScreen(it.id) })
             }
         }
     }
 }
 
 @Composable
-fun VehicleItem(vehicle: Vehicle) {
+fun VehicleItem(
+    vehicle: Vehicle,
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(10.dp)
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary
         )

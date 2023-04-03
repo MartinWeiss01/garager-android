@@ -1,5 +1,7 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -8,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Manufacturer
+import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import org.koin.androidx.compose.getViewModel
@@ -15,14 +18,19 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: AddEditVehicleViewModel = getViewModel()) {
     val manufacturers = remember {
-        mutableStateListOf<Manufacturer>()
+        mutableStateListOf<Manufacturer>(Manufacturer(""))
     }
+
+    var fetchedVehicle = remember { mutableStateOf(Vehicle("", "", "", null) ) }
 
     viewModel.addEditVehicleUIState.value.let {
         when(it) {
             AddEditVehicleUIState.Default -> {
-                manufacturers.add(Manufacturer(""))
-                viewModel.loadManufacturers()
+                if(id == null) {
+                    viewModel.loadManufacturers()
+                } else {
+                    viewModel.loadManufacturersWithVehicle(id)
+                }
             }
             AddEditVehicleUIState.VehicleSaved -> {
                 LaunchedEffect(it) {
@@ -33,6 +41,11 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
                 manufacturers.clear()
                 manufacturers.addAll(it.manufacturers)
             }
+            is AddEditVehicleUIState.SuccessEdit -> {
+                manufacturers.clear()
+                manufacturers.addAll(it.manufacturers)
+                fetchedVehicle.value = it.vehicle
+            }
         }
     }
 
@@ -42,23 +55,42 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
     ) {
         AddEditVehicleContent(
             actions = viewModel,
-            manufacturers = manufacturers
+            manufacturers = manufacturers,
+            id = id,
+            fetchedVehicle = fetchedVehicle.value
         )
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditVehicleContent(
     actions: AddEditVehicleViewModel,
-    manufacturers: MutableList<Manufacturer>
+    manufacturers: MutableList<Manufacturer>,
+    id: Long?,
+    fetchedVehicle: Vehicle
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    var fName = remember { mutableStateOf("") }
-    var fLicensePlate = remember { mutableStateOf("") }
-    var fVin = remember { mutableStateOf("") }
-    var fManufacturer = remember { mutableStateOf(manufacturers.firstOrNull()) }
+    val fName = remember { mutableStateOf("") }
+    val fLicensePlate = remember { mutableStateOf("") }
+    val fVin = remember { mutableStateOf("") }
+    val fManufacturer = remember { mutableStateOf(manufacturers.firstOrNull()) }
+
+    LaunchedEffect(fetchedVehicle) {
+        fName.value = fetchedVehicle.name
+        fLicensePlate.value = fetchedVehicle.licensePlate
+        fVin.value = fetchedVehicle.vin
+
+        if(id != null && fetchedVehicle.manufacturer != null) {
+            val findManufacturer = manufacturers.find {
+                it.id == fetchedVehicle.manufacturer
+            }
+
+            fManufacturer.value = findManufacturer
+        }
+    }
 
     Column(
         modifier = Modifier.padding(10.dp),
@@ -68,9 +100,7 @@ fun AddEditVehicleContent(
             TextField(
                 value = fName.value,
                 label = { Text(text = stringResource(id = R.string.add_edit_vehicle_name_field)) },
-                onValueChange = {
-                    fName.value = it
-                },
+                onValueChange = { fName.value = it },
                 modifier = Modifier.fillMaxWidth(),
                 isError = !actions.isNameValid(fName.value)
             )
@@ -142,6 +172,7 @@ fun AddEditVehicleContent(
             Button(
                 onClick = {
                     actions.saveVehicle(
+                        id = id,
                         name = fName.value,
                         licensePlate = fLicensePlate.value,
                         vin = fVin.value,
