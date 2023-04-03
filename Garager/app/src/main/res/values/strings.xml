@@ -7,4 +7,9 @@
 
     <string name="vehicle_list_empty_title">Žádné vozidlo</string>
     <string name="vehicle_list_empty_description">Nové vozidlo můžeš přidat stisknutím tlačítka \'%s\'</string>
+
+    <string name="add_edit_vehicle_name_field">Název</string>
+    <string name="add_edit_vehicle_license_plate_field">SPZ</string>
+    <string name="add_edit_vehicle_vin_field">VIN</string>
+    <string name="add_edit_vehicle_save_btn">Uložit vozidlo</string>
 </resources>

@@ -8,4 +8,9 @@
 
     <string name="vehicle_list_empty_title">No vehicle yet</string>
     <string name="vehicle_list_empty_description">You can add a new vehicle by pressing \'%s\' button</string>
+
+    <string name="add_edit_vehicle_name_field">Name</string>
+    <string name="add_edit_vehicle_license_plate_field">License Plate</string>
+    <string name="add_edit_vehicle_vin_field">VIN</string>
+    <string name="add_edit_vehicle_save_btn">Save vehicle</string>
 </resources>
