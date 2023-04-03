@@ -4,4 +4,7 @@
     <string name="btn_add_new_vehicle">Přidat vozidlo</string>
 
     <string name="navigation_item_list">Přehled</string>
+
+    <string name="vehicle_list_empty_title">Žádné vozidlo</string>
+    <string name="vehicle_list_empty_description">Nové vozidlo můžeš přidat stisknutím tlačítka \'%s\'</string>
 </resources>

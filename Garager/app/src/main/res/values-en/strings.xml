@@ -5,4 +5,7 @@
     <string name="btn_add_new_vehicle">Add new vehicle</string>
 
     <string name="navigation_item_list">Home</string>
+
+    <string name="vehicle_list_empty_title">No vehicle yet</string>
+    <string name="vehicle_list_empty_description">You can add a new vehicle by pressing \'%s\' button</string>
 </resources>

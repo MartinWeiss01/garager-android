@@ -11,15 +11,21 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BottomNavigationBar
 import org.koin.androidx.compose.getViewModel
 import java.util.*
+import kotlin.text.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,8 +90,12 @@ fun VehicleListContent(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        Box(modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)) {
-            VehicleItemList(vehicles = vehicles, listState = listState)
+        if(vehicles.size == 0) {
+            EmptyVehicleList()
+        } else {
+            Box(modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)) {
+                VehicleItemList(vehicles = vehicles, listState = listState)
+            }
         }
     }
 }
@@ -104,7 +114,9 @@ fun VehicleItemList(vehicles: MutableList<Vehicle>, listState: LazyListState) {
 @Composable
 fun VehicleItem(vehicle: Vehicle) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(10.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary
         )
@@ -115,6 +127,29 @@ fun VehicleItem(vehicle: Vehicle) {
         }
         
         Icon(imageVector = Icons.Filled.Info, contentDescription = "")
+    }
+}
+
+@Composable
+fun EmptyVehicleList() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(40.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(painter = painterResource(id = R.drawable.icon_car_crash_filled), contentDescription = "", modifier = Modifier.size(70.dp))
+
+        Text(
+            text = stringResource(id = R.string.vehicle_list_empty_title),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(id = R.string.vehicle_list_empty_description, stringResource(id = R.string.btn_add_new_vehicle)),
+            textAlign = TextAlign.Center
+        )
     }
 }
 
