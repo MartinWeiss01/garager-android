@@ -2,6 +2,7 @@ package cz.martinweiss.garager.database
 
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
+import cz.martinweiss.garager.model.VehicleWithManufacturer
 import kotlinx.coroutines.flow.Flow
 
 class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository {
@@ -11,6 +12,10 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
 
     override suspend fun getVehicleById(id: Long): Vehicle {
         return dao.getVehicleById(id)
+    }
+
+    override suspend fun getVehicleWithManufacturerById(id: Long): VehicleWithManufacturer {
+        return dao.getVehicleWithManufacturerById(id)
     }
 
     override suspend fun getManufacturers(): List<Manufacturer> {

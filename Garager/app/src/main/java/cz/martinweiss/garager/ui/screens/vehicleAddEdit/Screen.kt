@@ -91,7 +91,7 @@ fun AddEditVehicleContent(
         ) {
             TextField(
                 readOnly = true,
-                value = data.selectedManufacturer,
+                value = data.selectedManufacturerName,
                 onValueChange = {},
                 label = { Text(text = stringResource(id = R.string.add_edit_vehicle_manufacturer_field)) },
                 trailingIcon = {

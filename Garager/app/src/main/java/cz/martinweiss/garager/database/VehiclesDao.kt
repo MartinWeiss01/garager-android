@@ -7,6 +7,7 @@ import androidx.room.Update
 import cz.martinweiss.garager.model.Manufacturer
 import kotlinx.coroutines.flow.Flow
 import cz.martinweiss.garager.model.Vehicle
+import cz.martinweiss.garager.model.VehicleWithManufacturer
 
 @Dao
 interface VehiclesDao {
@@ -15,6 +16,9 @@ interface VehiclesDao {
 
   @Query("SELECT * FROM vehicles WHERE id = :id")
   suspend fun getVehicleById(id: Long): Vehicle
+
+  @Query("SELECT * FROM vehicles WHERE id = :id")
+  suspend fun getVehicleWithManufacturerById(id: Long): VehicleWithManufacturer
 
   @Query("SELECT * FROM manufacturers")
   suspend fun getManufacturers(): List<Manufacturer>

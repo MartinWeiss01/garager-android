@@ -5,7 +5,7 @@ import cz.martinweiss.garager.model.Vehicle
 
 class AddEditVehicleData {
     var manufacturers: List<Manufacturer> = arrayListOf()
-    var selectedManufacturer: String = ""
+    var selectedManufacturerName: String = ""
     var vehicle: Vehicle = Vehicle("", "", "", null)
     var loading: Boolean = true
 

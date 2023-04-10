@@ -18,7 +18,9 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
             data.manufacturers = repository.getManufacturers()
 
             if(vehicleId != null) {
-                data.vehicle = repository.getVehicleById(vehicleId!!)
+                val vehicleWithManufacturer = repository.getVehicleWithManufacturerById(vehicleId!!)
+                data.vehicle = vehicleWithManufacturer.vehicle
+                data.selectedManufacturerName = vehicleWithManufacturer.manufacturer?.name ?: ""
             }
 
             data.loading = false
@@ -64,7 +66,7 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
 
     override fun onManufacturerChange(manufacturer: Manufacturer?) {
         data.vehicle.manufacturer = manufacturer?.id
-        data.selectedManufacturer = manufacturer?.name ?: ""
+        data.selectedManufacturerName = manufacturer?.name ?: ""
         addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
     }
 
