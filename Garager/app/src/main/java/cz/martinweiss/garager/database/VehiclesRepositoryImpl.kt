@@ -13,7 +13,7 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
         return dao.getVehicleById(id)
     }
 
-    override fun getManufacturers(): Flow<List<Manufacturer>> {
+    override suspend fun getManufacturers(): List<Manufacturer> {
         return dao.getManufacturers()
     }
 

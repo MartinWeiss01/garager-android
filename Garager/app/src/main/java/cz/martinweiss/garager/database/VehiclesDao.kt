@@ -17,7 +17,7 @@ interface VehiclesDao {
   suspend fun getVehicleById(id: Long): Vehicle
 
   @Query("SELECT * FROM manufacturers")
-  fun getManufacturers(): Flow<List<Manufacturer>>
+  suspend fun getManufacturers(): List<Manufacturer>
 
   @Insert
   suspend fun insertVehicle(vehicle: Vehicle): Long

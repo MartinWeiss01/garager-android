@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.Manufacturer
-import cz.martinweiss.garager.model.Vehicle
 import kotlinx.coroutines.launch
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
@@ -16,10 +15,7 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
 
     fun initData() {
         launch {
-            repository.getManufacturers().collect() {
-                data.manufacturers.clear()
-                data.manufacturers.addAll(it)
-            }
+            data.manufacturers = repository.getManufacturers()
 
             if(vehicleId != null) {
                 data.vehicle = repository.getVehicleById(vehicleId!!)

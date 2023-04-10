@@ -52,7 +52,6 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditVehicleContent(
