@@ -1,9 +1,15 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
+import cz.martinweiss.garager.model.Manufacturer
+
 interface AddEditVehicleActions {
-    fun loadManufacturers()
-    fun loadManufacturersWithVehicle(id: Long)
-    fun saveVehicle(id: Long?, name: String, licensePlate: String, vin: String, manufacturerId: Long?)
-    fun isNameValid(name: String): Boolean
-    fun isVINValid(vin: String): Boolean
+    fun saveVehicle()
+    fun onNameChange(name: String)
+    fun onLicensePlateChange(licensePlate: String)
+    fun onVINChange(vin: String)
+    fun onManufacturerChange(manufacturer: Manufacturer?)
+
+    fun isVehicleValid(): Boolean
+    fun isNameValid(): Boolean
+    fun isVINValid(): Boolean
 }

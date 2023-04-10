@@ -10,65 +10,88 @@ import cz.martinweiss.garager.model.Vehicle
 import kotlinx.coroutines.launch
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
-    val addEditVehicleUIState: MutableState<AddEditVehicleUIState> = mutableStateOf(AddEditVehicleUIState.Default)
+    var data: AddEditVehicleData = AddEditVehicleData()
+    var vehicleId: Long? = null
+    val addEditVehicleUIState: MutableState<AddEditVehicleUIState> = mutableStateOf(AddEditVehicleUIState.Loading)
 
-    override fun loadManufacturers() {
+    fun initData() {
         launch {
             repository.getManufacturers().collect() {
-                addEditVehicleUIState.value = AddEditVehicleUIState.Success(it)
+                data.manufacturers.clear()
+                data.manufacturers.addAll(it)
             }
+
+            if(vehicleId != null) {
+                data.vehicle = repository.getVehicleById(vehicleId!!)
+            }
+
+            data.loading = false
+            addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
         }
     }
 
-    override fun loadManufacturersWithVehicle(id: Long) {
-        launch {
-            var vehicle: Vehicle = repository.getVehicleById(id)
+    override fun saveVehicle() {
+        if(isVehicleValid()) {
+            launch {
+                if(vehicleId == null) {
+                    val insertedId = repository.insertVehicle(data.vehicle)
 
-            repository.getManufacturers().collect() {
-                addEditVehicleUIState.value = AddEditVehicleUIState.SuccessEdit(vehicle = vehicle, manufacturers = it)
-            }
-        }
-    }
-
-    override fun saveVehicle(id: Long?, name: String, licensePlate: String, vin: String, manufacturerId: Long?) {
-        launch {
-            if(id != null) {
-                repository.updateVehicle(
-                    vehicleId = id,
-                    vehicleName = name,
-                    vehicleVin = vin,
-                    vehicleLicensePlate = licensePlate,
-                    vehicleManufacturerId = manufacturerId
-                )
-                addEditVehicleUIState.value = AddEditVehicleUIState.VehicleSaved
-            } else {
-                val insertedId = repository.insertVehicle(
-                    Vehicle(
-                        name = name,
-                        vin = vin,
-                        licensePlate = licensePlate,
-                        manufacturer = manufacturerId
-                    )
-                )
-
-                if(insertedId > 0) {
-                    addEditVehicleUIState.value = AddEditVehicleUIState.VehicleSaved
+                    if(insertedId > 0) {
+                        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleSaved
+                    } else {
+                        Log.d("[ERROR::AddEditVehicleViewModel]", "saveVehicle condition, invalid insertion")
+                    }
                 } else {
-                    Log.d("[ERROR::AddEditVehicleViewModel]", "saveVehicle condition, invalid insertion")
+                    repository.updateVehicle(data.vehicle)
+                    addEditVehicleUIState.value = AddEditVehicleUIState.VehicleSaved
                 }
             }
+        } else {
+            addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
         }
     }
 
-    override fun isNameValid(name: String): Boolean {
-        return name.isNotEmpty()
+    override fun onNameChange(name: String) {
+        data.vehicle.name = name
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
     }
 
-    override fun isVINValid(vin: String): Boolean {
-        return (
-            vin.isEmpty() ||
-            (vin.length in 5..13) ||
-            vin.length == 17
-        )
+    override fun onLicensePlateChange(licensePlate: String) {
+        data.vehicle.licensePlate = licensePlate
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
+    }
+
+    override fun onVINChange(vin: String) {
+        data.vehicle.vin = vin
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
+    }
+
+    override fun onManufacturerChange(manufacturer: Manufacturer?) {
+        data.vehicle.manufacturer = manufacturer?.id
+        data.selectedManufacturer = manufacturer?.name ?: ""
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
+    }
+
+    override fun isVehicleValid(): Boolean {
+        var invalidCounter = 0
+        if(!isNameValid()) invalidCounter += 1
+        if(!isVINValid()) invalidCounter += 1
+        return invalidCounter == 0
+    }
+
+    override fun isNameValid(): Boolean {
+        val res = data.vehicle.name.isNotEmpty()
+        if (res) data.vehicleNameError = ""
+        else data.vehicleNameError = "Toto pole je povinné" //R.string.add_edit_vehicle_name_required
+        return res
+    }
+
+    override fun isVINValid(): Boolean {
+        val res1 = data.vehicle.vin.isEmpty()
+        val res2 = ((data.vehicle.vin.length in 5..13) || (data.vehicle.vin.length == 17))
+        if (res1 || res2) data.vehicleVINError = ""
+        else data.vehicleVINError = "Neplatný formát" //R.string.add_edit_vehicle_vin_format_error
+
+        return (res1 || res2)
     }
 }

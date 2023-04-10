@@ -21,7 +21,7 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
         return dao.insertVehicle(vehicle)
     }
 
-    override suspend fun updateVehicle(vehicleId: Long, vehicleName: String, vehicleVin: String, vehicleLicensePlate: String, vehicleManufacturerId: Long?) {
-        return dao.updateVehicle(vehicleId, vehicleName, vehicleVin, vehicleLicensePlate, vehicleManufacturerId)
+    override suspend fun updateVehicle(vehicle: Vehicle) {
+        return dao.updateVehicle(vehicle)
     }
 }

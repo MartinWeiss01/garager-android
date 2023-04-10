@@ -13,38 +13,30 @@ import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.elements.CustomTextField
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: AddEditVehicleViewModel = getViewModel()) {
-    val manufacturers = remember {
-        mutableStateListOf<Manufacturer>(Manufacturer(""))
+    viewModel.vehicleId = id
+    var data: AddEditVehicleData by remember {
+        mutableStateOf(viewModel.data)
     }
-
-    var fetchedVehicle = remember { mutableStateOf(Vehicle("", "", "", null) ) }
 
     viewModel.addEditVehicleUIState.value.let {
         when(it) {
-            AddEditVehicleUIState.Default -> {
-                if(id == null) {
-                    viewModel.loadManufacturers()
-                } else {
-                    viewModel.loadManufacturersWithVehicle(id)
-                }
-            }
+            AddEditVehicleUIState.Default -> { }
             AddEditVehicleUIState.VehicleSaved -> {
                 LaunchedEffect(it) {
                     navigation.returnBack()
                 }
             }
-            is AddEditVehicleUIState.Success -> {
-                manufacturers.clear()
-                manufacturers.addAll(it.manufacturers)
+            AddEditVehicleUIState.Loading -> {
+                viewModel.initData()
             }
-            is AddEditVehicleUIState.SuccessEdit -> {
-                manufacturers.clear()
-                manufacturers.addAll(it.manufacturers)
-                fetchedVehicle.value = it.vehicle
+            AddEditVehicleUIState.VehicleChanged -> {
+                data = viewModel.data
+                viewModel.addEditVehicleUIState.value = AddEditVehicleUIState.Default
             }
         }
     }
@@ -55,9 +47,7 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
     ) {
         AddEditVehicleContent(
             actions = viewModel,
-            manufacturers = manufacturers,
-            id = id,
-            fetchedVehicle = fetchedVehicle.value
+            data = data
         )
     }
 }
@@ -67,69 +57,34 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
 @Composable
 fun AddEditVehicleContent(
     actions: AddEditVehicleViewModel,
-    manufacturers: MutableList<Manufacturer>,
-    id: Long?,
-    fetchedVehicle: Vehicle
+    data: AddEditVehicleData
 ) {
     var expanded by remember { mutableStateOf(false) }
-
-    val fName = remember { mutableStateOf("") }
-    val fLicensePlate = remember { mutableStateOf("") }
-    val fVin = remember { mutableStateOf("") }
-    val fManufacturer = remember { mutableStateOf(manufacturers.firstOrNull()) }
-
-    LaunchedEffect(fetchedVehicle) {
-        fName.value = fetchedVehicle.name
-        fLicensePlate.value = fetchedVehicle.licensePlate
-        fVin.value = fetchedVehicle.vin
-
-        if(id != null && fetchedVehicle.manufacturer != null) {
-            val findManufacturer = manufacturers.find {
-                it.id == fetchedVehicle.manufacturer
-            }
-
-            fManufacturer.value = findManufacturer
-        }
-    }
 
     Column(
         modifier = Modifier.padding(10.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Column {
-            TextField(
-                value = fName.value,
-                label = { Text(text = stringResource(id = R.string.add_edit_vehicle_name_field)) },
-                onValueChange = { fName.value = it },
-                modifier = Modifier.fillMaxWidth(),
-                isError = !actions.isNameValid(fName.value)
-            )
-            Text(
-                text = if(actions.isNameValid(fName.value)) "" else stringResource(id = R.string.add_edit_vehicle_name_required),
-                color = MaterialTheme.colorScheme.error
-            )
-        }
-
-        TextField(
-            value = fLicensePlate.value,
-            label = { Text(text = stringResource(id = R.string.add_edit_vehicle_license_plate_field)) },
-            onValueChange = { fLicensePlate.value = it },
-            modifier = Modifier.fillMaxWidth()
+        CustomTextField(
+            value = data.vehicle.name,
+            label = stringResource(id = R.string.add_edit_vehicle_name_field),
+            onValueChange = { actions.onNameChange(it) },
+            error = data.vehicleNameError
         )
 
-        Column {
-            TextField(
-                value = fVin.value,
-                label = { Text(text = stringResource(id = R.string.add_edit_vehicle_vin_field)) },
-                onValueChange = { fVin.value = it },
-                modifier = Modifier.fillMaxWidth(),
-                isError = !actions.isVINValid(fVin.value)
-            )
-            Text(
-                text = if(actions.isVINValid(fVin.value)) "" else stringResource(id = R.string.add_edit_vehicle_vin_format_error),
-                color = MaterialTheme.colorScheme.error
-            )
-        }
+        CustomTextField(
+            value = data.vehicle.licensePlate,
+            label = stringResource(id = R.string.add_edit_vehicle_license_plate_field),
+            onValueChange = { actions.onLicensePlateChange(it) },
+            error = ""
+        )
+
+        CustomTextField(
+            value = data.vehicle.vin,
+            label = stringResource(id = R.string.add_edit_vehicle_vin_field),
+            onValueChange = { actions.onVINChange(it) },
+            error = data.vehicleVINError
+        )
 
         ExposedDropdownMenuBox(
             expanded = expanded,
@@ -137,7 +92,7 @@ fun AddEditVehicleContent(
         ) {
             TextField(
                 readOnly = true,
-                value = fManufacturer.value?.name ?: "",
+                value = data.selectedManufacturer,
                 onValueChange = {},
                 label = { Text(text = stringResource(id = R.string.add_edit_vehicle_manufacturer_field)) },
                 trailingIcon = {
@@ -153,11 +108,11 @@ fun AddEditVehicleContent(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
-                manufacturers.forEach {
+                data.manufacturers.forEach {
                     DropdownMenuItem(
                         text = { Text(text = it.name) },
                         onClick = {
-                            fManufacturer.value = it
+                            actions.onManufacturerChange(it)
                             expanded = false
                         }
                     )
@@ -171,15 +126,9 @@ fun AddEditVehicleContent(
         ) {
             Button(
                 onClick = {
-                    actions.saveVehicle(
-                        id = id,
-                        name = fName.value,
-                        licensePlate = fLicensePlate.value,
-                        vin = fVin.value,
-                        manufacturerId = fManufacturer.value?.id
-                    )
+                    actions.saveVehicle()
                 },
-                enabled = (actions.isNameValid(fName.value) && actions.isVINValid(fVin.value))
+                //enabled = (actions.isNameValid(fName.value) && actions.isVINValid(fVin.value))
             ) {
                 Text(text = stringResource(id = R.string.add_edit_vehicle_save_btn))
             }
