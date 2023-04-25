@@ -9,7 +9,7 @@ class AddEditVehicleData {
     var vehicle: Vehicle = Vehicle("", "", "", null)
     var loading: Boolean = true
 
-    var vehicleNameError: String = ""
-    var vehicleVINError: String = ""
-    var vehicleManufacturerError: String = ""
+    var vehicleNameError: Int? = null
+    var vehicleVINError: Int? = null
+    var vehicleManufacturerError: Int? = null
 }

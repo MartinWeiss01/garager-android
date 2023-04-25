@@ -7,6 +7,7 @@ import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.Manufacturer
 import kotlinx.coroutines.launch
+import cz.martinweiss.garager.R
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
     var data: AddEditVehicleData = AddEditVehicleData()
@@ -79,16 +80,16 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
 
     override fun isNameValid(): Boolean {
         val res = data.vehicle.name.isNotEmpty()
-        if (res) data.vehicleNameError = ""
-        else data.vehicleNameError = "Toto pole je povinné" //R.string.add_edit_vehicle_name_required
+        if (res) data.vehicleNameError = null
+        else data.vehicleNameError = R.string.add_edit_vehicle_name_required
         return res
     }
 
     override fun isVINValid(): Boolean {
         val res1 = data.vehicle.vin.isEmpty()
         val res2 = ((data.vehicle.vin.length in 5..13) || (data.vehicle.vin.length == 17))
-        if (res1 || res2) data.vehicleVINError = ""
-        else data.vehicleVINError = "Neplatný formát" //R.string.add_edit_vehicle_vin_format_error
+        if (res1 || res2) data.vehicleVINError = null
+        else data.vehicleVINError = R.string.add_edit_vehicle_vin_format_error
 
         return (res1 || res2)
     }

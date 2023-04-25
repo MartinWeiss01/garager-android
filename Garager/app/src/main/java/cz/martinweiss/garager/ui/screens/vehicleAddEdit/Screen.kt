@@ -1,16 +1,27 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
-import android.annotation.SuppressLint
-import android.util.Log
+import android.net.Uri
+import android.os.Build
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import android.Manifest
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.asImageBitmap
 import cz.martinweiss.garager.R
-import cz.martinweiss.garager.model.Manufacturer
-import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.elements.CustomTextField
@@ -68,7 +79,7 @@ fun AddEditVehicleContent(
             value = data.vehicle.name,
             label = stringResource(id = R.string.add_edit_vehicle_name_field),
             onValueChange = { actions.onNameChange(it) },
-            error = data.vehicleNameError
+            error = if(data.vehicleNameError != null) stringResource(id = data.vehicleNameError!!) else ""
         )
 
         CustomTextField(
@@ -82,7 +93,7 @@ fun AddEditVehicleContent(
             value = data.vehicle.vin,
             label = stringResource(id = R.string.add_edit_vehicle_vin_field),
             onValueChange = { actions.onVINChange(it) },
-            error = data.vehicleVINError
+            error = if(data.vehicleVINError != null) stringResource(id = data.vehicleVINError!!) else ""
         )
 
         ExposedDropdownMenuBox(
