@@ -213,6 +213,13 @@ fun FilePickerDev() {
     }
 
     Column() {
+        ReactiveField(
+            value = result.value.toString(),
+            label = stringResource(id = R.string.add_edit_vehicle_file_field),
+            leadingIcon = R.drawable.ic_description_24_filled,
+            onClick = { /*TODO*/ },
+            onClearClick = { /* TODO */ }
+        )
         Text(text = stringResource(id = R.string.add_edit_vehicle_file_field))
         Button(onClick = {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
