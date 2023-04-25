@@ -13,9 +13,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import android.Manifest
+import android.app.DatePickerDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import android.widget.DatePicker
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
@@ -25,7 +27,10 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.elements.CustomTextField
+import cz.martinweiss.garager.ui.elements.ReactiveField
+import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
+import java.util.Calendar
 
 @Composable
 fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: AddEditVehicleViewModel = getViewModel()) {
@@ -97,6 +102,33 @@ fun AddEditVehicleContent(
             error = if(data.vehicleVINError != null) stringResource(id = data.vehicleVINError!!) else ""
         )
 
+        val calendar = Calendar.getInstance()
+        data.vehicle.motDate?.let {
+            calendar.timeInMillis = it
+        }
+
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            LocalContext.current,
+            { dialog: DatePicker, year: Int, month: Int, day: Int ->
+                actions.onDateChange(DateUtils.getUnixTime(year, month, day))
+            },
+            year,
+            month,
+            day
+        )
+
+        ReactiveField(
+            value = if(data.vehicle.motDate != null) DateUtils.getDateString(data.vehicle.motDate!!) else null,
+            label = stringResource(id = R.string.add_edit_vehicle_mot_date_field),
+            leadingIcon = R.drawable.ic_event_24,
+            onClick = { datePickerDialog.show() },
+            onClearClick = { actions.onDateChange(null) }
+        )
+        
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = { expanded = !expanded }

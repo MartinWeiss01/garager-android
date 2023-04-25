@@ -18,4 +18,5 @@
     <string name="add_edit_vehicle_save_btn">Save vehicle</string>
     <string name="add_edit_vehicle_upload_file">Select file</string>
     <string name="add_edit_vehicle_file_field">Green card (PDF or image)</string>
+    <string name="add_edit_vehicle_mot_date_field">MOT due date</string>
 </resources>

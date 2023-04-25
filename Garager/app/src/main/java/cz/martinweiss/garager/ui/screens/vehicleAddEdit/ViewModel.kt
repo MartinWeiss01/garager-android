@@ -71,6 +71,11 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
         addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
     }
 
+    override fun onDateChange(date: Long?) {
+        data.vehicle.motDate = date
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
+    }
+
     override fun isVehicleValid(): Boolean {
         var invalidCounter = 0
         if(!isNameValid()) invalidCounter += 1

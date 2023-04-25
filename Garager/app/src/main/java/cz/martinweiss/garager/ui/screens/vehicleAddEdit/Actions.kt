@@ -8,6 +8,7 @@ interface AddEditVehicleActions {
     fun onLicensePlateChange(licensePlate: String)
     fun onVINChange(vin: String)
     fun onManufacturerChange(manufacturer: Manufacturer?)
+    fun onDateChange(date: Long?)
 
     fun isVehicleValid(): Boolean
     fun isNameValid(): Boolean
