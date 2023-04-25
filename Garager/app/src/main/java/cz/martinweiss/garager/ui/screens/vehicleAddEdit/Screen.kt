@@ -78,7 +78,7 @@ fun AddEditVehicleContent(
     var expanded by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier.padding(10.dp),
+        modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         CustomTextField(
