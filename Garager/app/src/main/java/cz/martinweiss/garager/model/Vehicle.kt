@@ -22,7 +22,7 @@ data class Vehicle(
     @ColumnInfo(name = "id") var id: Long? = null
 
     @ColumnInfo(name = "mot_date")
-    var moteDate: Long? = null
+    var motDate: Long? = null
 }
 
 data class VehicleWithManufacturer(
