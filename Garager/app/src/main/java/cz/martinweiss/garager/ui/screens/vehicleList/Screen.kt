@@ -1,8 +1,8 @@
 package cz.martinweiss.garager.ui.screens.vehicleList
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import cz.martinweiss.garager.R
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -21,12 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BottomNavigationBar
 import org.koin.androidx.compose.getViewModel
 import java.util.*
-import kotlin.text.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -126,18 +126,25 @@ fun VehicleItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .height(140.dp)
             .padding(10.dp)
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
+            .padding(0.dp)
+            .background(Color.Red),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary
         )
     ) {
-        Column {
-            Text(text = vehicle.licensePlate)
-            vehicle.name?.let { Text(text = it) }
+        Row {
+            Icon(imageVector = Icons.Filled.Info, contentDescription = "")
+
+            Column {
+                Text(text = "${vehicle.name} (id: ${vehicle.id})")
+                Text(text = "SPZ: ${vehicle.licensePlate}")
+                Text(text = "VIN: ${vehicle.vin}")
+                Text(text = "MID: ${vehicle.manufacturer}")
+            }
         }
-        
-        Icon(imageVector = Icons.Filled.Info, contentDescription = "")
     }
 }
 
