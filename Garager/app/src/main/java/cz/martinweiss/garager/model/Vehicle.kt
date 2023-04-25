@@ -20,12 +20,12 @@ data class Vehicle(
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") var id: Long? = null
+
+    @ColumnInfo(name = "mot_date")
+    var moteDate: Long? = null
 }
 
 data class VehicleWithManufacturer(
     @Embedded val vehicle: Vehicle,
     @Relation(parentColumn = "manufacturer_id", entityColumn = "id") val manufacturer: Manufacturer?
 )
-/*
-STK date
-*/
