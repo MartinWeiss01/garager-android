@@ -1,5 +1,6 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
+import android.net.Uri
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
 
@@ -8,6 +9,8 @@ class AddEditVehicleData {
     var selectedManufacturerName: String = ""
     var vehicle: Vehicle = Vehicle("", "", "", null)
     var loading: Boolean = true
+    var selectedGreenCardURI: Uri? = null
+    var deleteGreenCardFile: Boolean = false
 
     var vehicleNameError: Int? = null
     var vehicleVINError: Int? = null

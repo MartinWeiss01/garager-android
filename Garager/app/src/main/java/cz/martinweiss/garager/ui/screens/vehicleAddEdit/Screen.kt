@@ -29,6 +29,7 @@ import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.elements.CustomTextField
 import cz.martinweiss.garager.ui.elements.ReactiveField
 import cz.martinweiss.garager.utils.DateUtils
+import cz.martinweiss.garager.utils.FileUtils
 import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
@@ -76,6 +77,7 @@ fun AddEditVehicleContent(
 ) {
     Text(text = "${Build.VERSION.SDK_INT} -- ${Build.VERSION_CODES.Q}")
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -163,7 +165,10 @@ fun AddEditVehicleContent(
             }
         }
 
-        FilePickerDev()
+        FilePickerDev(
+            actions = actions,
+            data = data
+        )
 
         Row(
             Modifier.fillMaxWidth(),
@@ -171,7 +176,7 @@ fun AddEditVehicleContent(
         ) {
             Button(
                 onClick = {
-                    actions.saveVehicle()
+                    actions.saveVehicle(context)
                 },
                 //enabled = (actions.isNameValid(fName.value) && actions.isVINValid(fVin.value))
             ) {
@@ -182,9 +187,11 @@ fun AddEditVehicleContent(
 }
 
 @Composable
-fun FilePickerDev() {
+fun FilePickerDev(
+    actions: AddEditVehicleViewModel,
+    data: AddEditVehicleData
+) {
     val context = LocalContext.current
-    val result = remember { mutableStateOf<Uri?>(null) }
 
     var bitmap by remember {
         mutableStateOf<Bitmap?>(null)
@@ -192,15 +199,12 @@ fun FilePickerDev() {
 
     // Android 10+ (API Level 29+), permissions not required
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) {
-        result.value = it
-        if(it == null) {
-            Log.d("[ ################### ]", "Selected URI is null")
-        } else {
+        if(it != null) {
+            actions.onGreenCardChange(it)
             var fileContent = context.contentResolver.openInputStream(it)?.readBytes()
             bitmap = fileContent?.let { BitmapFactory.decodeByteArray(fileContent, 0, it.size) }
-            Log.d("[ ################### ]", it.toString())
-            //Log.d("[ ################### ]", fileContent.toString())
-        }
+        } // else User didnt select any file
+
     }
 
     // Android <10 (API Level <29), permissions required
@@ -208,29 +212,23 @@ fun FilePickerDev() {
         if (isGranted) {
             launcher.launch(arrayOf("application/pdf", "image/*"))
         } else {
-            Toast.makeText(context, "Oprávnění bylo zamítnuto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.permission_storage_denied, Toast.LENGTH_SHORT).show()
         }
     }
 
-    Column() {
-        ReactiveField(
-            value = result.value.toString(),
-            label = stringResource(id = R.string.add_edit_vehicle_file_field),
-            leadingIcon = R.drawable.ic_description_24_filled,
-            onClick = { /*TODO*/ },
-            onClearClick = { /* TODO */ }
-        )
-        Text(text = stringResource(id = R.string.add_edit_vehicle_file_field))
-        Button(onClick = {
+    ReactiveField(
+        value = FileUtils.getFileNameFromURI(context, data.selectedGreenCardURI),
+        label = stringResource(id = R.string.add_edit_vehicle_file_field),
+        leadingIcon = R.drawable.ic_description_24_filled,
+        onClick = {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             } else {
                 launcher.launch(arrayOf("application/pdf", "image/*"))
             }
-        }) {
-            Text(text = stringResource(id = R.string.add_edit_vehicle_upload_file))
-        }
-    }
+        },
+        onClearClick = { actions.onGreenCardChange(null) }
+    )
 
     var scale by remember { mutableStateOf(1f) }
     val state = rememberTransformableState { zoomChange, _, _ ->

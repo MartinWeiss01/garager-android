@@ -1,5 +1,7 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -8,6 +10,7 @@ import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.Manufacturer
 import kotlinx.coroutines.launch
 import cz.martinweiss.garager.R
+import cz.martinweiss.garager.utils.FileUtils
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
     var data: AddEditVehicleData = AddEditVehicleData()
@@ -29,8 +32,20 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
         }
     }
 
-    override fun saveVehicle() {
+    override fun saveVehicle(context: Context) {
         if(isVehicleValid()) {
+            if(data.deleteGreenCardFile) {
+                data.vehicle.greenCardFilename?.let {
+                    if(FileUtils.deleteInternalFile(context, it)) data.vehicle.greenCardFilename = null
+                }
+            }
+
+            data.selectedGreenCardURI?.let {
+                var newGreenCardFilename: String? = FileUtils.copyExternalFile(context, it)
+                data.vehicle.greenCardFilename = newGreenCardFilename
+            }
+
+
             launch {
                 if(vehicleId == null) {
                     val insertedId = repository.insertVehicle(data.vehicle)
@@ -73,6 +88,12 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
 
     override fun onDateChange(date: Long?) {
         data.vehicle.motDate = date
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
+    }
+
+    override fun onGreenCardChange(uri: Uri?) {
+        if(data.vehicle.greenCardFilename != null) data.deleteGreenCardFile = true
+        data.selectedGreenCardURI = uri
         addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
     }
 
