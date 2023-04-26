@@ -5,5 +5,6 @@ import androidx.navigation.NavController
 interface INavigationRouter {
     fun returnBack()
     fun navigateToAddEditVehicleScreen(id: Long?)
+    fun navigateToDetailVehicleScreen(id: Long)
     fun getNavController(): NavController
 }
