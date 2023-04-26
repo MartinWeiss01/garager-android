@@ -49,7 +49,6 @@ fun ReactiveField(
         trailingIcon = {
             if(value != null) {
                 IconButton(onClick = {
-                    /* TODO ERROR add not working */
                     onClearClick()
                     focusManager.clearFocus()
                 }) {
@@ -61,7 +60,8 @@ fun ReactiveField(
             }
         },
         readOnly = true,
+        maxLines = 1,
         modifier = Modifier.fillMaxWidth(),
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
     )
 }
