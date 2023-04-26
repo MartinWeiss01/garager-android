@@ -23,6 +23,9 @@ data class Vehicle(
 
     @ColumnInfo(name = "mot_date")
     var motDate: Long? = null
+
+    @ColumnInfo(name = "internal_filename")
+    var greenCardFilename: String? = null
 }
 
 data class VehicleWithManufacturer(

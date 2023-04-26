@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Vehicle::class, Manufacturer::class], version = 7, exportSchema = true)
+@Database(entities = [Vehicle::class, Manufacturer::class], version = 8, exportSchema = true)
 abstract class VehiclesDatabase : RoomDatabase() {
     abstract fun VehiclesDao(): VehiclesDao
     abstract fun ManufacturerDao(): ManufacturerDao
