@@ -1,6 +1,8 @@
 package cz.martinweiss.garager.ui.screens.vehicleDetail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
@@ -27,7 +29,9 @@ fun DetailVehicleScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
 
     BackArrowScreen(
         topBarTitle = stringResource(id = R.string.title_detail_vehicle),
-        onBackClick = { navigation.returnBack() }
+        onBackClick = { navigation.returnBack() },
+        actionIcon = Icons.Default.Edit,
+        onActionClick = { navigation.navigateToAddEditVehicleScreen(id) }
     ) {
         DetailVehicleScreenContent(
             navigation = navigation,

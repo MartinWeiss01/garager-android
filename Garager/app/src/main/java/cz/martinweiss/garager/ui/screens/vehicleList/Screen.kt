@@ -112,7 +112,9 @@ fun VehicleItemList(
     LazyColumn(state = listState) {
         vehicles.forEach {
             item(key = it.id) {
-                VehicleItem(vehicle = it, onClick = { navigation.navigateToAddEditVehicleScreen(it.id) })
+                VehicleItem(vehicle = it, onClick = {
+                    it.id?.let { vehicleId -> navigation.navigateToDetailVehicleScreen(vehicleId) }
+                })
             }
         }
     }
