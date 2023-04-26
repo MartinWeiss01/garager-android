@@ -19,5 +19,7 @@
     <string name="add_edit_vehicle_file_field">Zelená karta (PDF či foto)</string>
     <string name="add_edit_vehicle_mot_date_field">Datum splatnosti STK</string>
 
+    <string name="title_detail_vehicle">Detail vozidla</string>
+
     <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
 </resources>
