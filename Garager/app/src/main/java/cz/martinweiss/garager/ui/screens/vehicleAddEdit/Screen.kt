@@ -59,7 +59,9 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
     }
 
     BackArrowScreen(
-        topBarTitle = stringResource(id = R.string.title_add_edit_vehicle),
+        topBarTitle = if(viewModel.vehicleId != null)
+            stringResource(id = R.string.title_add_edit_vehicle_edit) else
+            stringResource(id = R.string.title_add_edit_vehicle_add),
         onBackClick = { navigation.returnBack() }
     ) {
         AddEditVehicleContent(
