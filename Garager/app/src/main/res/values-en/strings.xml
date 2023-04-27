@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Garager</string>
-    <string name="title_add_edit_vehicle">Vehicle Details</string>
     <string name="btn_add_new_vehicle">Add new vehicle</string>
 
     <string name="navigation_item_list">Home</string>
+    <string name="navigation_item_settings">Settings</string>
 
     <string name="vehicle_list_empty_title">No vehicle yet</string>
     <string name="vehicle_list_empty_description">You can add a new vehicle by pressing \'%s\' button</string>
 
+    <string name="title_add_edit_vehicle_add">Add new vehicle</string>
+    <string name="title_add_edit_vehicle_edit">Edit vehicle</string>
     <string name="add_edit_vehicle_name_field">Name</string>
     <string name="add_edit_vehicle_name_required">Required</string>
     <string name="add_edit_vehicle_license_plate_field">License Plate</string>
@@ -21,6 +23,7 @@
     <string name="add_edit_vehicle_mot_date_field">MOT due date</string>
 
     <string name="title_detail_vehicle">Vehicle Detail</string>
+    <string name="title_settings_screen">Settings</string>
 
     <string name="permission_storage_denied">Permission denied</string>
 </resources>

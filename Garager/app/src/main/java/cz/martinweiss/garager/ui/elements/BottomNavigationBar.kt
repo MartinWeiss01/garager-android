@@ -12,7 +12,8 @@ import cz.martinweiss.garager.navigation.Destination
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
-        Destination.VehicleListScreen
+        Destination.VehicleListScreen,
+        Destination.SettingsScreen
     )
 
     NavigationBar() {

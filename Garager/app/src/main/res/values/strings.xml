@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">Garager</string>
-    <string name="title_add_edit_vehicle">Podrobnosti o vozidle</string>
     <string name="btn_add_new_vehicle">Přidat vozidlo</string>
 
     <string name="navigation_item_list">Přehled</string>
+    <string name="navigation_item_settings">Nastavení</string>
 
     <string name="vehicle_list_empty_title">Žádné vozidlo</string>
     <string name="vehicle_list_empty_description">Nové vozidlo můžeš přidat stisknutím tlačítka \'%s\'</string>
 
+    <string name="title_add_edit_vehicle_add">Přidat nové vozidlo</string>
+    <string name="title_add_edit_vehicle_edit">Upravit vozidlo</string>
     <string name="add_edit_vehicle_name_field">Název</string>
     <string name="add_edit_vehicle_name_required">Toto pole je povinné</string>
     <string name="add_edit_vehicle_license_plate_field">SPZ</string>
@@ -20,6 +22,8 @@
     <string name="add_edit_vehicle_mot_date_field">Datum splatnosti STK</string>
 
     <string name="title_detail_vehicle">Detail vozidla</string>
+
+    <string name="title_settings_screen">Nastavení</string>
 
     <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
 </resources>

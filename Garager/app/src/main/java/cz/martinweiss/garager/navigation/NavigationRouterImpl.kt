@@ -15,5 +15,9 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.navigate(Destination.DetailVehicleScreen.route + "/" + id)
     }
 
+    override fun navigateToSettingsScreen() {
+        navController.navigate(Destination.SettingsScreen.route)
+    }
+
     override fun getNavController(): NavController = navController
 }
