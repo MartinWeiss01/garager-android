@@ -33,7 +33,13 @@ fun BottomNavigationBar(navController: NavController) {
                     },
                     selected = currentRoute == it.route,
                     onClick = {
-                        if(currentRoute != it.route) navController.navigate(it.route)
+                        if(currentRoute != it.route) {
+                            navController.navigate(it.route) {
+                                currentRoute?.let { currentRoute ->
+                                    popUpTo(currentRoute) { inclusive = true }
+                                }
+                            }
+                        }
                     }
                 )
             }
