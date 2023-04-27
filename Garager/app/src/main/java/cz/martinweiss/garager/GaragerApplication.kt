@@ -2,10 +2,7 @@ package cz.martinweiss.garager
 
 import android.app.Application
 import android.content.Context
-import cz.martinweiss.garager.di.daoModule
-import cz.martinweiss.garager.di.databaseModule
-import cz.martinweiss.garager.di.repositoryModule
-import cz.martinweiss.garager.di.viewModelModule
+import cz.martinweiss.garager.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -19,7 +16,8 @@ class GaragerApplication : Application() {
                 viewModelModule,
                 repositoryModule,
                 daoModule,
-                databaseModule
+                databaseModule,
+                dataStoreModule
             ))
         }
     }

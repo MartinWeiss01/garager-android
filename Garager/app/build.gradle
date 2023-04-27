@@ -79,4 +79,12 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.0"
     implementation 'androidx.room:room-runtime:2.5.0'
     // End room
+    // DataStore Preferences
+    def datastore_version = "1.0.0"
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
+    // optional - RxJava2 support
+    implementation "androidx.datastore:datastore-preferences-rxjava2:$datastore_version"
+    // optional - RxJava3 support
+    implementation "androidx.datastore:datastore-preferences-rxjava3:$datastore_version"
+    // End DataStore
 }
