@@ -95,14 +95,14 @@ fun AddEditVehicleContent(
             )
 
             CustomTextField(
-                value = data.vehicle.licensePlate,
+                value = data.vehicle.licensePlate ?: "",
                 label = stringResource(id = R.string.add_edit_vehicle_license_plate_field),
                 onValueChange = { actions.onLicensePlateChange(it) },
                 error = ""
             )
 
             CustomTextField(
-                value = data.vehicle.vin,
+                value = data.vehicle.vin ?: "",
                 label = stringResource(id = R.string.add_edit_vehicle_vin_field),
                 onValueChange = { actions.onVINChange(it) },
                 error = if(data.vehicleVINError != null) stringResource(id = data.vehicleVINError!!) else ""

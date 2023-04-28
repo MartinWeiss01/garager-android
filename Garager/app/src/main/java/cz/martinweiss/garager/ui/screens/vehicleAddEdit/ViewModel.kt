@@ -112,8 +112,9 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
     }
 
     override fun isVINValid(): Boolean {
-        val res1 = data.vehicle.vin.isEmpty()
-        val res2 = ((data.vehicle.vin.length in 5..13) || (data.vehicle.vin.length == 17))
+        val tempVin = data.vehicle.vin ?: ""
+        val res1 = tempVin.isEmpty()
+        val res2 = ((tempVin.length in 5..13) || (tempVin.length == 17))
         if (res1 || res2) data.vehicleVINError = null
         else data.vehicleVINError = R.string.add_edit_vehicle_vin_format_error
 

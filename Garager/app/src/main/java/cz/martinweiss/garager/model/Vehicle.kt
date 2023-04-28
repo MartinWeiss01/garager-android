@@ -13,13 +13,19 @@ import androidx.room.*
     ]
 )
 data class Vehicle(
-    @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "vin") var vin: String = "",
-    @ColumnInfo(name = "license_plate") var licensePlate: String = "",
-    @ColumnInfo(name = "manufacturer_id") var manufacturer: Long? = null
+    @ColumnInfo(name = "name") var name: String
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") var id: Long? = null
+
+    @ColumnInfo(name = "vin")
+    var vin: String? = null
+
+    @ColumnInfo(name = "license_plate")
+    var licensePlate: String? = null
+
+    @ColumnInfo(name = "manufacturer_id")
+    var manufacturer: Long? = null
 
     @ColumnInfo(name = "mot_date")
     var motDate: Long? = null
