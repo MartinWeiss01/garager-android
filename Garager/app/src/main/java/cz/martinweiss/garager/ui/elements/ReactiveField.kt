@@ -36,7 +36,7 @@ fun ReactiveField(
 
     val focusManager = LocalFocusManager.current
 
-    TextField(
+    OutlinedTextField(
         value = value ?: "",
         onValueChange = {},
         label = { Text(text = label) },

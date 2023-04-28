@@ -23,6 +23,8 @@ import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
@@ -77,34 +79,68 @@ fun AddEditVehicleContent(
     actions: AddEditVehicleViewModel,
     data: AddEditVehicleData
 ) {
-    Text(text = "${Build.VERSION.SDK_INT} -- ${Build.VERSION_CODES.Q}")
     var expanded by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
-        CustomTextField(
-            value = data.vehicle.name,
-            label = stringResource(id = R.string.add_edit_vehicle_name_field),
-            onValueChange = { actions.onNameChange(it) },
-            error = if(data.vehicleNameError != null) stringResource(id = data.vehicleNameError!!) else ""
-        )
+        Section(title = stringResource(id = R.string.add_edit_vehicle_section_main)) {
+            CustomTextField(
+                value = data.vehicle.name,
+                label = stringResource(id = R.string.add_edit_vehicle_name_field),
+                onValueChange = { actions.onNameChange(it) },
+                error = if(data.vehicleNameError != null) stringResource(id = data.vehicleNameError!!) else ""
+            )
 
-        CustomTextField(
-            value = data.vehicle.licensePlate,
-            label = stringResource(id = R.string.add_edit_vehicle_license_plate_field),
-            onValueChange = { actions.onLicensePlateChange(it) },
-            error = ""
-        )
+            CustomTextField(
+                value = data.vehicle.licensePlate,
+                label = stringResource(id = R.string.add_edit_vehicle_license_plate_field),
+                onValueChange = { actions.onLicensePlateChange(it) },
+                error = ""
+            )
 
-        CustomTextField(
-            value = data.vehicle.vin,
-            label = stringResource(id = R.string.add_edit_vehicle_vin_field),
-            onValueChange = { actions.onVINChange(it) },
-            error = if(data.vehicleVINError != null) stringResource(id = data.vehicleVINError!!) else ""
-        )
+            CustomTextField(
+                value = data.vehicle.vin,
+                label = stringResource(id = R.string.add_edit_vehicle_vin_field),
+                onValueChange = { actions.onVINChange(it) },
+                error = if(data.vehicleVINError != null) stringResource(id = data.vehicleVINError!!) else ""
+            )
+
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = { expanded = !expanded }
+            ) {
+                OutlinedTextField(
+                    readOnly = true,
+                    value = data.selectedManufacturerName,
+                    onValueChange = {},
+                    label = { Text(text = stringResource(id = R.string.add_edit_vehicle_manufacturer_field)) },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    },
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxWidth()
+                )
+
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    data.manufacturers.forEach {
+                        DropdownMenuItem(
+                            text = { Text(text = it.name) },
+                            onClick = {
+                                actions.onManufacturerChange(it)
+                                expanded = false
+                            }
+                        )
+                    }
+                }
+            }
+        }
 
         val calendar = Calendar.getInstance()
         data.vehicle.motDate?.let {
@@ -125,52 +161,20 @@ fun AddEditVehicleContent(
             day
         )
 
-        ReactiveField(
-            value = if(data.vehicle.motDate != null) DateUtils.getDateString(data.vehicle.motDate!!) else null,
-            label = stringResource(id = R.string.add_edit_vehicle_mot_date_field),
-            leadingIcon = R.drawable.ic_event_24,
-            onClick = { datePickerDialog.show() },
-            onClearClick = { actions.onDateChange(null) }
-        )
-        
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded }
-        ) {
-            TextField(
-                readOnly = true,
-                value = data.selectedManufacturerName,
-                onValueChange = {},
-                label = { Text(text = stringResource(id = R.string.add_edit_vehicle_manufacturer_field)) },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                modifier = Modifier
-                    .menuAnchor()
-                    .fillMaxWidth()
+        Section(title = stringResource(id = R.string.add_edit_vehicle_section_docs)) {
+            ReactiveField(
+                value = if(data.vehicle.motDate != null) DateUtils.getDateString(data.vehicle.motDate!!) else null,
+                label = stringResource(id = R.string.add_edit_vehicle_mot_date_field),
+                leadingIcon = R.drawable.ic_event_24,
+                onClick = { datePickerDialog.show() },
+                onClearClick = { actions.onDateChange(null) }
             )
 
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                data.manufacturers.forEach {
-                    DropdownMenuItem(
-                        text = { Text(text = it.name) },
-                        onClick = {
-                            actions.onManufacturerChange(it)
-                            expanded = false
-                        }
-                    )
-                }
-            }
+            FilePickerDev(
+                actions = actions,
+                data = data
+            )
         }
-
-        FilePickerDev(
-            actions = actions,
-            data = data
-        )
 
         Row(
             Modifier.fillMaxWidth(),
@@ -180,7 +184,6 @@ fun AddEditVehicleContent(
                 onClick = {
                     actions.saveVehicle(context)
                 },
-                //enabled = (actions.isNameValid(fName.value) && actions.isVINValid(fVin.value))
             ) {
                 Text(text = stringResource(id = R.string.add_edit_vehicle_save_btn))
             }
@@ -195,18 +198,11 @@ fun FilePickerDev(
 ) {
     val context = LocalContext.current
 
-    var bitmap by remember {
-        mutableStateOf<Bitmap?>(null)
-    }
-
     // Android 10+ (API Level 29+), permissions not required
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) {
         if(it != null) {
             actions.onGreenCardChange(it)
-            var fileContent = context.contentResolver.openInputStream(it)?.readBytes()
-            bitmap = fileContent?.let { BitmapFactory.decodeByteArray(fileContent, 0, it.size) }
         } // else User didnt select any file
-
     }
 
     // Android <10 (API Level <29), permissions required
@@ -219,7 +215,8 @@ fun FilePickerDev(
     }
 
     ReactiveField(
-        value = FileUtils.getFileNameFromURI(context, data.selectedGreenCardURI),
+        value = if(data.selectedGreenCardURI == null && data.vehicle.greenCardFilename != null) data.vehicle.greenCardFilename
+            else FileUtils.getFileNameFromURI(context, data.selectedGreenCardURI),
         label = stringResource(id = R.string.add_edit_vehicle_file_field),
         leadingIcon = R.drawable.ic_description_24_filled,
         onClick = {
@@ -231,22 +228,20 @@ fun FilePickerDev(
         },
         onClearClick = { actions.onGreenCardChange(null) }
     )
+}
 
-    var scale by remember { mutableStateOf(1f) }
-    val state = rememberTransformableState { zoomChange, _, _ ->
-        scale *= zoomChange
-    }
-
-    if(bitmap != null) {
-        Box(
-            Modifier
-                .transformable(state = state)
-        ) {
-            Image(
-                bitmap!!.asImageBitmap(),
-                contentDescription = null,
-                modifier = Modifier.scale(scale)
-            )
-        }
+@Composable
+fun Section(
+    title: String,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Text(
+            text = title,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+        content()
     }
 }

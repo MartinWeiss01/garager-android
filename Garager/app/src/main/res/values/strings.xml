@@ -20,6 +20,8 @@
     <string name="add_edit_vehicle_upload_file">Vybrat soubor</string>
     <string name="add_edit_vehicle_file_field">Zelená karta (PDF či foto)</string>
     <string name="add_edit_vehicle_mot_date_field">Datum splatnosti STK</string>
+    <string name="add_edit_vehicle_section_main">Základní údaje</string>
+    <string name="add_edit_vehicle_section_docs">Doklady</string>
 
     <string name="title_detail_vehicle">Detail vozidla</string>
 

@@ -3,6 +3,7 @@ package cz.martinweiss.garager.ui.elements
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -18,7 +19,7 @@ fun CustomTextField(
     error: String,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 ) {
-    TextField(
+    OutlinedTextField(
         value = value,
         label = { Text(text = label) },
         onValueChange = onValueChange,
