@@ -35,6 +35,9 @@
     <string name="detail_vehicle_delete_button">Smazat</string>
 
     <string name="title_settings_screen">Nastavení</string>
+    <string name="settings_mot_days_warning_label">Upozornění na STK</string>
+    <string name="settings_mot_days_warning_description">Nastavte počet dní předem pro upozornění na blížící se termín STK</string>
+    <string name="settings_mot_days_warning_days">dní</string>
 
     <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
 </resources>
