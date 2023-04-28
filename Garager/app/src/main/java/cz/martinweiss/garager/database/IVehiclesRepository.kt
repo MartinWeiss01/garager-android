@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IVehiclesRepository {
     fun getVehicles(): Flow<List<Vehicle>>
-    suspend fun getVehicleById(id: Long): Vehicle
+    fun getVehicleById(id: Long): Flow<VehicleWithManufacturer>
     suspend fun getVehicleWithManufacturerById(id: Long): VehicleWithManufacturer
     suspend fun getManufacturers(): List<Manufacturer>
     suspend fun insertVehicle(vehicle: Vehicle): Long

@@ -13,11 +13,11 @@ class DetailVehicleViewModel(private val repository: IVehiclesRepository): BaseV
 
     fun initData() {
         launch {
-            val vehicleWithManufacturer = repository.getVehicleWithManufacturerById(vehicleId)
-            data.vehicle = vehicleWithManufacturer.vehicle
-            data.manufacturer = vehicleWithManufacturer.manufacturer
-
-            detailVehicleUIState.value = DetailVehicleUIState.Default
+            repository.getVehicleById(vehicleId).collect { vehicle ->
+                data.vehicle = vehicle.vehicle
+                data.manufacturer = vehicle.manufacturer
+                detailVehicleUIState.value = DetailVehicleUIState.Default
+            }
         }
     }
 }
