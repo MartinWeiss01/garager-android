@@ -2,6 +2,7 @@ package cz.martinweiss.garager.utils
 
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class DateUtils {
     companion object {
@@ -24,6 +25,12 @@ class DateUtils {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, day)
             return calendar.timeInMillis
+        }
+
+        fun getRemainingDays(timestamp: Long): Int {
+            val currentTimestamp = System.currentTimeMillis()
+            val diff = timestamp - currentTimestamp
+            return TimeUnit.MILLISECONDS.toDays(diff).toInt()
         }
     }
 }
