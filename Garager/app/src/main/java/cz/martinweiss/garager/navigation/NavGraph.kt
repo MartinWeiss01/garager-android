@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import cz.martinweiss.garager.ui.screens.settings.SettingsScreen
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleScreen
 import cz.martinweiss.garager.ui.screens.vehicleDetail.DetailVehicleScreen
+import cz.martinweiss.garager.ui.screens.vehicleGreenCard.GreenCardVehicleScreen
 import cz.martinweiss.garager.ui.screens.vehicleList.VehicleListScreen
 
 @Composable
@@ -54,6 +55,19 @@ fun NavGraph(
 
         composable(Destination.SettingsScreen.route) {
             SettingsScreen(navigation = navigation)
+        }
+
+        composable(
+            route = Destination.GreenCardVehicleScreen.route + "/{greenCardFilename}",
+            arguments = listOf(
+                navArgument("greenCardFilename") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) {
+            val greenCardFilename = it.arguments?.getString("greenCardFilename")
+            GreenCardVehicleScreen(navigation = navigation, greenCardFileName = greenCardFilename!!)
         }
     }
 }

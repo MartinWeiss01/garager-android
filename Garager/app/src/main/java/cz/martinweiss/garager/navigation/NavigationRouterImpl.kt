@@ -15,6 +15,10 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.navigate(Destination.DetailVehicleScreen.route + "/" + id)
     }
 
+    override fun navigateToGreenCardVehicleScreen(greenCardFilename: String) {
+        navController.navigate(Destination.GreenCardVehicleScreen.route + "/" + greenCardFilename)
+    }
+
     override fun navigateToSettingsScreen() {
         navController.navigate(Destination.SettingsScreen.route)
     }
