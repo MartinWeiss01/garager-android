@@ -4,9 +4,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,6 +34,11 @@ fun DetailVehicleScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
             DetailVehicleUIState.Loading -> {
                 viewModel.initData()
             }
+            DetailVehicleUIState.VehicleDeleted -> {
+                LaunchedEffect(it) {
+                    navigation.returnBack()
+                }
+            }
         }
     }
 
@@ -54,6 +62,8 @@ fun DetailVehicleScreenContent(
     data: DetailVehicleData,
     actions: DetailVehicleViewModel
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(40.dp)
@@ -112,7 +122,12 @@ fun DetailVehicleScreenContent(
             }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(onClick = { /*TODO*/ }) {
+                Button(
+                    onClick = {
+                        actions.deleteVehicle(context = context)
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
                     Text(text = stringResource(id = R.string.detail_vehicle_delete_button))
                 }
             }
