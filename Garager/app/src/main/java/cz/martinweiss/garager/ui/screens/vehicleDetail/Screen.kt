@@ -98,7 +98,11 @@ fun DetailVehicleScreenContent(
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        data.vehicle.greenCardFilename?.let {
+                            navigation.navigateToGreenCardVehicleScreen(it)
+                        }
+                    },
                     enabled = data.vehicle.greenCardFilename != null
                 ) {
                     Text(text = if(data.vehicle.greenCardFilename != null) stringResource(id = R.string.detail_vehicle_green_card_btn)
