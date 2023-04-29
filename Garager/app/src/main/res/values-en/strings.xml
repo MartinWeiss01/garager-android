@@ -35,6 +35,8 @@
     <string name="detail_vehicle_green_card_btn_unavailable">Green card not available</string>
     <string name="detail_vehicle_delete_button">Delete</string>
 
+    <string name="title_green_card_vehicle">Green Card</string>
+
     <string name="title_settings_screen">Settings</string>
     <string name="settings_mot_days_warning_label">MOT Reminder</string>
     <string name="settings_mot_days_warning_description">Set the number of days in advance to be reminded of upcoming MOT test</string>

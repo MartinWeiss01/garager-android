@@ -34,6 +34,8 @@
     <string name="detail_vehicle_green_card_btn_unavailable">Zelená karta není k dispozici</string>
     <string name="detail_vehicle_delete_button">Smazat</string>
 
+    <string name="title_green_card_vehicle">Zelená karta</string>
+
     <string name="title_settings_screen">Nastavení</string>
     <string name="settings_mot_days_warning_label">Upozornění na STK</string>
     <string name="settings_mot_days_warning_description">Nastavte počet dní předem pro upozornění na blížící se termín STK</string>
