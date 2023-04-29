@@ -215,7 +215,7 @@ fun FilePickerDev(
     }
 
     ReactiveField(
-        value = if(data.selectedGreenCardURI == null && data.vehicle.greenCardFilename != null) data.vehicle.greenCardFilename
+        value = if(data.selectedGreenCardURI == null && !data.deleteGreenCardFile && data.vehicle.greenCardFilename != null) data.vehicle.greenCardFilename
             else FileUtils.getFileNameFromURI(context, data.selectedGreenCardURI),
         label = stringResource(id = R.string.add_edit_vehicle_file_field),
         leadingIcon = R.drawable.ic_description_24_filled,
