@@ -29,4 +29,8 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
     override suspend fun updateVehicle(vehicle: Vehicle) {
         return dao.updateVehicle(vehicle)
     }
+
+    override suspend fun deleteVehicle(vehicle: Vehicle) {
+        return dao.deleteVehicle(vehicle)
+    }
 }

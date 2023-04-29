@@ -12,4 +12,5 @@ interface IVehiclesRepository {
     suspend fun getManufacturers(): List<Manufacturer>
     suspend fun insertVehicle(vehicle: Vehicle): Long
     suspend fun updateVehicle(vehicle: Vehicle)
+    suspend fun deleteVehicle(vehicle: Vehicle)
 }
