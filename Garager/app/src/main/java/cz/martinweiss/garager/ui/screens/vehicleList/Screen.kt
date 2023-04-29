@@ -25,6 +25,7 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BottomNavigationBar
+import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
 import java.util.*
 
@@ -96,7 +97,7 @@ fun VehicleListContent(
         if(vehicles.size == 0) {
             EmptyVehicleList()
         } else {
-            Box(modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)) {
+            Box(modifier = Modifier.padding(top = 40.dp, start = 35.dp, end = 35.dp)) {
                 VehicleItemList(vehicles = vehicles, listState = listState, navigation = navigation)
             }
         }
@@ -109,10 +110,17 @@ fun VehicleItemList(
     listState: LazyListState,
     navigation: INavigationRouter
 ) {
-    LazyColumn(state = listState) {
+    val motDaysWarning = 30
+    LazyColumn(
+        state = listState,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        item {
+            Text(text = stringResource(id = R.string.vehicle_list_title), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        }
         vehicles.forEach {
             item(key = it.id) {
-                VehicleItem(vehicle = it, onClick = {
+                VehicleItem(vehicle = it, motDaysWarning = motDaysWarning, onClick = {
                     it.id?.let { vehicleId -> navigation.navigateToDetailVehicleScreen(vehicleId) }
                 })
             }
@@ -123,28 +131,63 @@ fun VehicleItemList(
 @Composable
 fun VehicleItem(
     vehicle: Vehicle,
+    motDaysWarning: Int,
     onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(140.dp)
-            .padding(10.dp)
             .clickable(onClick = onClick)
-            .padding(0.dp)
             .background(Color.Red),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary
         )
     ) {
-        Row {
-            Icon(imageVector = Icons.Filled.Info, contentDescription = "")
+        Box(modifier = Modifier.padding(20.dp)) {
+            Row {
+                Icon(imageVector = Icons.Filled.Info, contentDescription = "")
 
-            Column {
-                Text(text = "${vehicle.name} (id: ${vehicle.id})")
-                Text(text = "SPZ: ${vehicle.licensePlate}")
-                Text(text = "VIN: ${vehicle.vin}")
-                Text(text = "MID: ${vehicle.manufacturer}")
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Column() {
+                        Text(text = vehicle.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        vehicle.licensePlate?.let {
+                            Text(text = it, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
+                    Column() {
+                        vehicle.vin?.let {
+                            Text(text = stringResource(id = R.string.vehicle_list_vin, it), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        }
+
+                        vehicle.motDate?.let {
+                            val dateString = DateUtils.getDateString(it)
+                            val remainingDays = DateUtils.getRemainingDays(it)
+                            Text(
+                                text = stringResource(id = R.string.vehicle_list_mot, dateString, remainingDays),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if(remainingDays <= motDaysWarning) MaterialTheme.colorScheme.error else LocalContentColor.current
+                            )
+                        }
+
+                        if(vehicle.greenCardFilename != null) {
+                            Text(
+                                text = stringResource(id = R.string.vehicle_list_green_card_available),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        } else {
+                            Text(
+                                text = stringResource(id = R.string.vehicle_list_green_card_unavailable),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                        }
+                    }
+                }
             }
         }
     }

@@ -5,6 +5,11 @@
     <string name="navigation_item_list">Přehled</string>
     <string name="navigation_item_settings">Nastavení</string>
 
+    <string name="vehicle_list_title">Přehled vozidel</string>
+    <string name="vehicle_list_vin">VIN: %s</string>
+    <string name="vehicle_list_mot">STK: %s (zbývá %d dní)</string>
+    <string name="vehicle_list_green_card_available">Zelená karta je k dispozici</string>
+    <string name="vehicle_list_green_card_unavailable">Zelená karta není k dispozici</string>
     <string name="vehicle_list_empty_title">Žádné vozidlo</string>
     <string name="vehicle_list_empty_description">Nové vozidlo můžeš přidat stisknutím tlačítka \'%s\'</string>
 
