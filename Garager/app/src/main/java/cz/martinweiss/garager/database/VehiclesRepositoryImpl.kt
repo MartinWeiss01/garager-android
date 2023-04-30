@@ -35,7 +35,7 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
         return dao.deleteVehicle(vehicle)
     }
 
-    override fun getFuelingRecords(): Flow<List<Vehicle>> {
+    override fun getFuelingRecords(): Flow<List<Fueling>> {
         return dao.getFuelingRecords()
     }
 

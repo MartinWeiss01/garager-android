@@ -31,7 +31,7 @@ interface VehiclesDao {
   suspend fun deleteVehicle(vehicle: Vehicle)
 
   @Query("SELECT * FROM fueling")
-  fun getFuelingRecords(): Flow<List<Vehicle>>
+  fun getFuelingRecords(): Flow<List<Fueling>>
 
   @Query("SELECT * FROM fueling WHERE id = :id")
   fun getFuelingRecordById(id: Long): Flow<Fueling>

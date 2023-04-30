@@ -14,7 +14,7 @@ interface IVehiclesRepository {
     suspend fun insertVehicle(vehicle: Vehicle): Long
     suspend fun updateVehicle(vehicle: Vehicle)
     suspend fun deleteVehicle(vehicle: Vehicle)
-    fun getFuelingRecords(): Flow<List<Vehicle>>
+    fun getFuelingRecords(): Flow<List<Fueling>>
     fun getFuelingRecordById(id: Long): Flow<Fueling>
     suspend fun insertFueling(fueling: Fueling): Long
     suspend fun updateFueling(fueling: Fueling)
