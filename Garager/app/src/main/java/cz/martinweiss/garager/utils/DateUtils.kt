@@ -25,9 +25,9 @@ class DateUtils {
             return format.format(calendar.getTime())
         }
 
-        fun getUnixTime(year: Int, month: Int, day: Int): Long {
+        fun getUnixTime(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0): Long {
             val calendar = Calendar.getInstance()
-            calendar.set(year, month, day)
+            calendar.set(year, month, day, hour, minute)
             return calendar.timeInMillis
         }
 

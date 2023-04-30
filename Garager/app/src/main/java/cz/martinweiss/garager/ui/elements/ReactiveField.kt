@@ -20,6 +20,7 @@ fun ReactiveField(
     value: String?,
     label: String,
     leadingIcon: Int,
+    error: String = "",
     onClick: () -> Unit,
     onClearClick: () -> Unit
 ) {
@@ -61,6 +62,8 @@ fun ReactiveField(
         },
         readOnly = true,
         maxLines = 1,
+        isError = error.isNotEmpty(),
+        supportingText = { if (error.isNotEmpty()) Text(text = error) },
         modifier = Modifier.fillMaxWidth(),
         interactionSource = interactionSource,
     )

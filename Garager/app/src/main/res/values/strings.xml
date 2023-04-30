@@ -37,6 +37,15 @@
 
     <string name="title_add_edit_fueling_add">Přidat nový záznam</string>
     <string name="title_add_edit_fueling_edit">Upravit záznam</string>
+    <string name="add_edit_fueling_vehicle_field">Vozidlo</string>
+    <string name="add_edit_fueling_date_field">Datum</string>
+    <string name="add_edit_fueling_section_main">Základní údaje</string>
+    <string name="add_edit_fueling_section_details">Podrobnosti</string>
+    <string name="add_edit_fueling_price_unit_field">Cena za jednotku</string>
+    <string name="add_edit_fueling_quantity_field">Množství</string>
+    <string name="add_edit_fueling_description_field">Poznámka</string>
+    <string name="add_edit_fueling_save_btn">Uložit záznam</string>
+    <string name="add_edit_fueling_field_required">Povinné</string>
 
     <string name="title_detail_vehicle">Detail vozidla</string>
     <string name="detail_vehicle_vin">VIN</string>

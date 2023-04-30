@@ -1,11 +1,14 @@
 package cz.martinweiss.garager.ui.screens.fuelAddEdit
 
+import cz.martinweiss.garager.model.Vehicle
+
 interface AddEditFuelingActions {
     fun saveFueling()
-    fun onVehicleChange(vehicleId: Long)
+    fun onVehicleChange(vehicle: Vehicle)
+
     fun onDateChange(date: Long)
-    fun onPricePerUnitChange(unitPrice: Float)
-    fun onQuantityChange(quantity: Float)
+    fun onPricePerUnitChange(unitPrice: Float?)
+    fun onQuantityChange(quantity: Float?)
     fun onDescriptionChange(description: String)
 
     fun isVehicleValid(): Boolean

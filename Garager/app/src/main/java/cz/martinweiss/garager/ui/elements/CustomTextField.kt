@@ -18,12 +18,13 @@ fun CustomTextField(
     onValueChange: (String) -> Unit,
     error: String,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+    maxLines: Int = 1
 ) {
     OutlinedTextField(
         value = value,
         label = { Text(text = label) },
         onValueChange = onValueChange,
-        maxLines = 1,
+        maxLines = maxLines,
         isError = !error.isEmpty(),
         modifier = Modifier.fillMaxWidth(),
         supportingText = { if (error.isNotEmpty()) Text(text = error) },

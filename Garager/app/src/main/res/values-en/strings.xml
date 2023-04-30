@@ -38,7 +38,15 @@
 
     <string name="title_add_edit_fueling_add">Add new fueling</string>
     <string name="title_add_edit_fueling_edit">Edit fueling</string>
-
+    <string name="add_edit_fueling_vehicle_field">Vehicle</string>
+    <string name="add_edit_fueling_date_field">Date</string>
+    <string name="add_edit_fueling_section_main">Basic data</string>
+    <string name="add_edit_fueling_section_details">Details</string>
+    <string name="add_edit_fueling_price_unit_field">Price per unit</string>
+    <string name="add_edit_fueling_quantity_field">Quantity</string>
+    <string name="add_edit_fueling_description_field">Description</string>
+    <string name="add_edit_fueling_save_btn">Save fueling</string>
+    <string name="add_edit_fueling_field_required">Required</string>
 
     <string name="title_detail_vehicle">Vehicle Detail</string>
     <string name="detail_vehicle_vin">VIN</string>
