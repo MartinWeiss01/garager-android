@@ -13,7 +13,7 @@ interface IVehiclesRepository {
     suspend fun updateVehicle(vehicle: Vehicle)
     suspend fun deleteVehicle(vehicle: Vehicle)
     fun getFuelingRecords(): Flow<List<Fueling>>
-    fun getFuelingRecordById(id: Long): Flow<Fueling>
+    fun getFuelingRecordById(id: Long): Fueling
     suspend fun insertFueling(fueling: RawFueling): Long
     suspend fun updateFueling(fueling: RawFueling)
     suspend fun deleteFueling(fueling: RawFueling)

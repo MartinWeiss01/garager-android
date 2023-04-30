@@ -34,7 +34,7 @@ interface VehiclesDao {
   fun getFuelingRecords(): Flow<List<Fueling>>
 
   @Query("SELECT * FROM fueling WHERE id = :id")
-  fun getFuelingRecordById(id: Long): Flow<Fueling>
+  fun getFuelingRecordById(id: Long): Fueling
 
   @Insert
   suspend fun insertFueling(fueling: RawFueling): Long
