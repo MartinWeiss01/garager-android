@@ -35,6 +35,9 @@
     <string name="add_edit_vehicle_section_main">Základní údaje</string>
     <string name="add_edit_vehicle_section_docs">Doklady</string>
 
+    <string name="title_add_edit_fueling_add">Přidat nový záznam</string>
+    <string name="title_add_edit_fueling_edit">Upravit záznam</string>
+
     <string name="title_detail_vehicle">Detail vozidla</string>
     <string name="detail_vehicle_vin">VIN</string>
     <string name="detail_vehicle_mot_date">Platnost STK</string>

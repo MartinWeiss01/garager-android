@@ -36,6 +36,10 @@
     <string name="add_edit_vehicle_section_main">Basic information</string>
     <string name="add_edit_vehicle_section_docs">Documents</string>
 
+    <string name="title_add_edit_fueling_add">Add new fueling</string>
+    <string name="title_add_edit_fueling_edit">Edit fueling</string>
+
+
     <string name="title_detail_vehicle">Vehicle Detail</string>
     <string name="detail_vehicle_vin">VIN</string>
     <string name="detail_vehicle_mot_date">MOT due date</string>
