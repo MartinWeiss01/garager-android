@@ -3,7 +3,10 @@ package cz.martinweiss.garager.utils
 import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
+import android.util.Log
+import androidx.core.net.toUri
 import java.io.File
+import java.net.URLConnection
 
 class FileUtils {
     companion object {
@@ -36,6 +39,26 @@ class FileUtils {
         fun deleteInternalFile(context: Context, filename: String): Boolean {
             val file = File(context.filesDir, filename)
             return file.delete()
+        }
+
+        fun getMimeTypeFromURI(context: Context, uri: Uri): String? {
+            //content:// vs file:// problem
+            return context.contentResolver.getType(uri)
+        }
+
+        fun getMimeTypeFromInternalFile(context: Context, filename: String): String {
+            val file = File(context.filesDir, filename)
+            val uri = file.toUri()
+            return getMimeTypeFromURI(context, uri) ?: "unknown"
+        }
+
+        fun getMimeFromFilename(filename: String): String {
+            return URLConnection.guessContentTypeFromName(filename)
+        }
+
+        fun isInternalFilePDF(filename: String): Boolean {
+            val file_ext = getMimeFromFilename(filename)
+            return file_ext == "application/pdf"
         }
     }
 }
