@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 interface INavigationRouter {
     fun returnBack()
     fun navigateToAddEditVehicleScreen(id: Long?)
+    fun navigateToAddEditFuelingScreen(id: Long?)
     fun navigateToDetailVehicleScreen(id: Long)
     fun navigateToGreenCardVehicleScreen(greenCardFilename: String)
     fun navigateToSettingsScreen()

@@ -11,6 +11,10 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.navigate(Destination.AddEditVehicleScreen.route + "/" + id)
     }
 
+    override fun navigateToAddEditFuelingScreen(id: Long?) {
+        navController.navigate(Destination.AddEditFuelingScreen.route + "/" + id)
+    }
+
     override fun navigateToDetailVehicleScreen(id: Long) {
         navController.navigate(Destination.DetailVehicleScreen.route + "/" + id)
     }

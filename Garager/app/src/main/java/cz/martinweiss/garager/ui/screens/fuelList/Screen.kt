@@ -68,7 +68,7 @@ fun FuelListScreen(navigation: INavigationRouter, viewModel: FuelListViewModel =
             ExtendedFloatingActionButton(
                 text = { Text(text = stringResource(id = R.string.btn_add_new_fueling)) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "") },
-                onClick = { /*TODO*/ },
+                onClick = { navigation.navigateToAddEditFuelingScreen(-1L) },
                 expanded = listState.isScrollingUp()
             )
         },

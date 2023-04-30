@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import cz.martinweiss.garager.ui.screens.fuelAddEdit.AddEditFuelingScreen
 import cz.martinweiss.garager.ui.screens.fuelList.FuelListScreen
 import cz.martinweiss.garager.ui.screens.settings.SettingsScreen
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleScreen
@@ -43,6 +44,19 @@ fun NavGraph(
         ) {
             val id = it.arguments?.getLong("id")
             AddEditVehicleScreen(navigation, id = if (id != -1L) id else null)
+        }
+
+        composable(
+            route = Destination.AddEditFuelingScreen.route + "/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ) {
+            val id = it.arguments?.getLong("id")
+            AddEditFuelingScreen(navigation, id = if (id != -1L) id else null)
         }
 
         composable(
