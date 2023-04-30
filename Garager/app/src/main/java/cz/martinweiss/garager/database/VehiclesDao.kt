@@ -9,6 +9,9 @@ interface VehiclesDao {
   @Query("SELECT * FROM vehicles")
   fun getVehicles(): Flow<List<Vehicle>>
 
+  @Query("SELECT * FROM vehicles")
+  suspend fun getAvailableVehicles(): List<Vehicle>
+
   @Query("SELECT * FROM vehicles WHERE id = :id")
   fun getVehicleById(id: Long): Flow<VehicleWithManufacturer>
 
