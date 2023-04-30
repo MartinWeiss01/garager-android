@@ -1,9 +1,6 @@
 package cz.martinweiss.garager.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "fueling",
@@ -15,7 +12,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class Fueling(
+data class RawFueling(
     @ColumnInfo(name = "vehicle_id") var vehicleId: Long,
     @ColumnInfo(name = "date") var date: Long,
     @ColumnInfo(name = "price_unit") var priceUnit: Float,
@@ -30,3 +27,8 @@ data class Fueling(
     @ColumnInfo(name = "price_sale")
     var priceSale: Float = 0F
 }
+
+data class Fueling(
+    @Embedded val fueling: RawFueling,
+    @Relation(parentColumn = "vehicle_id", entityColumn = "id") val vehicle: Vehicle
+)
