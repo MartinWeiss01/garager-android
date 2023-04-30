@@ -1,5 +1,6 @@
 package cz.martinweiss.garager.database
 
+import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.model.VehicleWithManufacturer
@@ -32,5 +33,25 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
 
     override suspend fun deleteVehicle(vehicle: Vehicle) {
         return dao.deleteVehicle(vehicle)
+    }
+
+    override fun getFuelingRecords(): Flow<List<Vehicle>> {
+        return dao.getFuelingRecords()
+    }
+
+    override fun getFuelingRecordById(id: Long): Flow<Fueling> {
+        return dao.getFuelingRecordById(id)
+    }
+
+    override suspend fun insertFueling(fueling: Fueling): Long {
+        return dao.insertFueling(fueling)
+    }
+
+    override suspend fun updateFueling(fueling: Fueling) {
+        return dao.updateFueling(fueling)
+    }
+
+    override suspend fun deleteFueling(fueling: Fueling) {
+        return dao.deleteFueling(fueling)
     }
 }

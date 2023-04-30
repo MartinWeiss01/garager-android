@@ -1,5 +1,6 @@
 package cz.martinweiss.garager.database
 
+import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.model.VehicleWithManufacturer
@@ -13,4 +14,9 @@ interface IVehiclesRepository {
     suspend fun insertVehicle(vehicle: Vehicle): Long
     suspend fun updateVehicle(vehicle: Vehicle)
     suspend fun deleteVehicle(vehicle: Vehicle)
+    fun getFuelingRecords(): Flow<List<Vehicle>>
+    fun getFuelingRecordById(id: Long): Flow<Fueling>
+    suspend fun insertFueling(fueling: Fueling): Long
+    suspend fun updateFueling(fueling: Fueling)
+    suspend fun deleteFueling(fueling: Fueling)
 }

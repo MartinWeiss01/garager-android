@@ -6,13 +6,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.Vehicle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Vehicle::class, Manufacturer::class], version = 9, exportSchema = true)
+@Database(entities = [Vehicle::class, Manufacturer::class, Fueling::class], version = 10, exportSchema = true)
 abstract class VehiclesDatabase : RoomDatabase() {
     abstract fun VehiclesDao(): VehiclesDao
     abstract fun ManufacturerDao(): ManufacturerDao
