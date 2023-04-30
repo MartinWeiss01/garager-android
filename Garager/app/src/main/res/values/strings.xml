@@ -4,6 +4,7 @@
     <string name="btn_add_new_fueling">Přidat nový záznam</string>
 
     <string name="navigation_item_list">Přehled</string>
+    <string name="navigation_item_fuelings">Tankování</string>
     <string name="navigation_item_settings">Nastavení</string>
 
     <string name="vehicle_list_title">Přehled vozidel</string>

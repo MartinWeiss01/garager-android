@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import cz.martinweiss.garager.ui.screens.fuelList.FuelListScreen
 import cz.martinweiss.garager.ui.screens.settings.SettingsScreen
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleScreen
 import cz.martinweiss.garager.ui.screens.vehicleDetail.DetailVehicleScreen
@@ -25,6 +26,10 @@ fun NavGraph(
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Destination.VehicleListScreen.route) {
             VehicleListScreen(navigation)
+        }
+
+        composable(Destination.FuelListScreen.route) {
+            FuelListScreen(navigation)
         }
 
         composable(

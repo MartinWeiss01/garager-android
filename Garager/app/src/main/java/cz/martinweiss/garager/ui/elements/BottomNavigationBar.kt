@@ -13,6 +13,7 @@ import cz.martinweiss.garager.navigation.Destination
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         Destination.VehicleListScreen,
+        Destination.FuelListScreen,
         Destination.SettingsScreen
     )
 
