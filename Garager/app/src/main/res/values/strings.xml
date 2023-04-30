@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Garager</string>
     <string name="btn_add_new_vehicle">Přidat vozidlo</string>
+    <string name="btn_add_new_fueling">Přidat nový záznam</string>
 
     <string name="navigation_item_list">Přehled</string>
     <string name="navigation_item_settings">Nastavení</string>
@@ -12,6 +13,11 @@
     <string name="vehicle_list_green_card_unavailable">Zelená karta není k dispozici</string>
     <string name="vehicle_list_empty_title">Žádné vozidlo</string>
     <string name="vehicle_list_empty_description">Nové vozidlo můžeš přidat stisknutím tlačítka \'%s\'</string>
+
+    <string name="fuel_list_title">Přehled tankování</string>
+    <string name="fuel_list_record_total_price">Celkem</string>
+    <string name="fuel_list_empty_title">Žádný záznam</string>
+    <string name="fuel_list_empty_description">Nový záznam můžeš přidat stisknutím tlačítka \'%s\'</string>
 
     <string name="title_add_edit_vehicle_add">Přidat nové vozidlo</string>
     <string name="title_add_edit_vehicle_edit">Upravit vozidlo</string>

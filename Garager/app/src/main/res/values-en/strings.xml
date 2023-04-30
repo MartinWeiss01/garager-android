@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Garager</string>
     <string name="btn_add_new_vehicle">Add new vehicle</string>
+    <string name="btn_add_new_fueling">Add new record</string>
 
     <string name="navigation_item_list">Home</string>
     <string name="navigation_item_settings">Settings</string>
@@ -13,6 +14,11 @@
     <string name="vehicle_list_green_card_unavailable">Green card not available</string>
     <string name="vehicle_list_empty_title">No vehicle yet</string>
     <string name="vehicle_list_empty_description">You can add a new vehicle by pressing \'%s\' button</string>
+
+    <string name="fuel_list_title">Fueling Records</string>
+    <string name="fuel_list_record_total_price">Total</string>
+    <string name="fuel_list_empty_title">No fueling record yet</string>
+    <string name="fuel_list_empty_description">You can add a new record by pressing \'%s\' button</string>
 
     <string name="title_add_edit_vehicle_add">Add new vehicle</string>
     <string name="title_add_edit_vehicle_edit">Edit vehicle</string>
