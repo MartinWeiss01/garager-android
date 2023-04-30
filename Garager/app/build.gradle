@@ -90,4 +90,5 @@ dependencies {
 
     //3rd party
     implementation "com.chargemap.compose:numberpicker:1.0.3"
+    implementation 'io.github.grizzi91:bouquet:1.0.1'
 }
