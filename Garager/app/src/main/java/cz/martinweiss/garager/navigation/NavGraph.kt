@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import cz.martinweiss.garager.ui.screens.fuelAddEdit.AddEditFuelingScreen
+import cz.martinweiss.garager.ui.screens.fuelDetail.DetailFuelingScreen
 import cz.martinweiss.garager.ui.screens.fuelList.FuelListScreen
 import cz.martinweiss.garager.ui.screens.settings.SettingsScreen
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleScreen
@@ -87,6 +88,19 @@ fun NavGraph(
         ) {
             val greenCardFilename = it.arguments?.getString("greenCardFilename")
             GreenCardVehicleScreen(navigation = navigation, greenCardFileName = greenCardFilename!!)
+        }
+
+        composable(
+            route = Destination.DetailFuelingScreen.route + "/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ) {
+            val id = it.arguments?.getLong("id")
+            DetailFuelingScreen(navigation, id = id ?: -1L)
         }
     }
 }

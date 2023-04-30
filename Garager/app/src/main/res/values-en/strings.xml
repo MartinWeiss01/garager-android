@@ -59,6 +59,15 @@
     <string name="detail_vehicle_green_card_btn_unavailable">Green card not available</string>
     <string name="detail_vehicle_delete_button">Delete</string>
 
+    <string name="title_detail_fueling">Fueling Detail</string>
+    <string name="detail_fueling_date">Date</string>
+    <string name="detail_fueling_vehicle">Vehicle</string>
+    <string name="detail_fueling_description">Description</string>
+    <string name="detail_fueling_price_unit">Price per unit</string>
+    <string name="detail_fueling_quantity">Quantity</string>
+    <string name="detail_fueling_total">Total</string>
+    <string name="detail_fueling_delete_button">Delete</string>
+
     <string name="title_green_card_vehicle">Green Card</string>
 
     <string name="title_settings_screen">Settings</string>

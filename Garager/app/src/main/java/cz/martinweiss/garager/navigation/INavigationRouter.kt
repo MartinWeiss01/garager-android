@@ -8,6 +8,7 @@ interface INavigationRouter {
     fun navigateToAddEditFuelingScreen(id: Long?)
     fun navigateToDetailVehicleScreen(id: Long)
     fun navigateToGreenCardVehicleScreen(greenCardFilename: String)
+    fun navigateToDetailFuelingScreen(id: Long)
     fun navigateToSettingsScreen()
     fun getNavController(): NavController
 }

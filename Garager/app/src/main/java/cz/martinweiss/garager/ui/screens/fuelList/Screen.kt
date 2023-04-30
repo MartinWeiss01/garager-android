@@ -125,7 +125,9 @@ fun FuelingRecordList(
         fuelings.forEach {
             item(key = it.fueling.id) {
                 FuelingRecord(fueling = it, onClick = {
-                    it.fueling.id?.let { /* TODO */ }
+                    it.fueling.id?.let { fuelingId ->
+                        navigation.navigateToDetailFuelingScreen(fuelingId)
+                    }
                 })
             }
         }

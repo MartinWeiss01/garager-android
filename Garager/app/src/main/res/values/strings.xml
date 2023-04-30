@@ -58,6 +58,15 @@
     <string name="detail_vehicle_green_card_btn_unavailable">Zelená karta není k dispozici</string>
     <string name="detail_vehicle_delete_button">Smazat</string>
 
+    <string name="title_detail_fueling">Detail tankování</string>
+    <string name="detail_fueling_date">Datum</string>
+    <string name="detail_fueling_vehicle">Vozidlo</string>
+    <string name="detail_fueling_description">Poznámka</string>
+    <string name="detail_fueling_price_unit">Cena za jednotku</string>
+    <string name="detail_fueling_quantity">Množství</string>
+    <string name="detail_fueling_total">Celkem</string>
+    <string name="detail_fueling_delete_button">Smazat</string>
+
     <string name="title_green_card_vehicle">Zelená karta</string>
 
     <string name="title_settings_screen">Nastavení</string>

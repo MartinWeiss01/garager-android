@@ -11,5 +11,6 @@ sealed class Destination(val route: String, val title: Int?, val icon: Int?, val
     object AddEditFuelingScreen : Destination(route = "add_edit_fueling", null, null, null)
     object DetailVehicleScreen : Destination(route = "detail_vehicle", null, null, null)
     object GreenCardVehicleScreen : Destination(route = "green_card_vehicle", null, null, null)
+    object DetailFuelingScreen : Destination(route = "detail_fueling", null, null, null)
     object SettingsScreen : Destination(route = "settings", R.string.navigation_item_settings, R.drawable.icon_settings, R.drawable.icon_settings_filled)
 }
