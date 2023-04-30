@@ -40,8 +40,12 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
         return dao.getFuelingRecords()
     }
 
-    override fun getFuelingRecordById(id: Long): Fueling {
+    override suspend fun getFuelingRecordById(id: Long): Fueling {
         return dao.getFuelingRecordById(id)
+    }
+
+    override fun getLiveFuelingRecordById(id: Long): Flow<Fueling> {
+        return dao.getLiveFuelingRecordById(id)
     }
 
     override suspend fun insertFueling(fueling: RawFueling): Long {
