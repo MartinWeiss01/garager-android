@@ -1,9 +1,6 @@
 package cz.martinweiss.garager.database
 
-import cz.martinweiss.garager.model.Fueling
-import cz.martinweiss.garager.model.Manufacturer
-import cz.martinweiss.garager.model.Vehicle
-import cz.martinweiss.garager.model.VehicleWithManufacturer
+import cz.martinweiss.garager.model.*
 import kotlinx.coroutines.flow.Flow
 
 class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository {
@@ -43,15 +40,15 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
         return dao.getFuelingRecordById(id)
     }
 
-    override suspend fun insertFueling(fueling: Fueling): Long {
+    override suspend fun insertFueling(fueling: RawFueling): Long {
         return dao.insertFueling(fueling)
     }
 
-    override suspend fun updateFueling(fueling: Fueling) {
+    override suspend fun updateFueling(fueling: RawFueling) {
         return dao.updateFueling(fueling)
     }
 
-    override suspend fun deleteFueling(fueling: Fueling) {
+    override suspend fun deleteFueling(fueling: RawFueling) {
         return dao.deleteFueling(fueling)
     }
 }

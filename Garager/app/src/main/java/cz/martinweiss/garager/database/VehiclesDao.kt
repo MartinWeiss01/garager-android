@@ -1,11 +1,8 @@
 package cz.martinweiss.garager.database
 
 import androidx.room.*
-import cz.martinweiss.garager.model.Fueling
-import cz.martinweiss.garager.model.Manufacturer
+import cz.martinweiss.garager.model.*
 import kotlinx.coroutines.flow.Flow
-import cz.martinweiss.garager.model.Vehicle
-import cz.martinweiss.garager.model.VehicleWithManufacturer
 
 @Dao
 interface VehiclesDao {
@@ -37,11 +34,11 @@ interface VehiclesDao {
   fun getFuelingRecordById(id: Long): Flow<Fueling>
 
   @Insert
-  suspend fun insertFueling(fueling: Fueling): Long
+  suspend fun insertFueling(fueling: RawFueling): Long
 
   @Update
-  suspend fun updateFueling(fueling: Fueling)
+  suspend fun updateFueling(fueling: RawFueling)
 
   @Delete
-  suspend fun deleteFueling(fueling: Fueling)
+  suspend fun deleteFueling(fueling: RawFueling)
 }
