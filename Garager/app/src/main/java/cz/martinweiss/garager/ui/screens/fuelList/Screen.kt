@@ -56,7 +56,7 @@ fun FuelListScreen(navigation: INavigationRouter, viewModel: FuelListViewModel =
             CenterAlignedTopAppBar(
                 title = {
                     Text(text = stringResource(id = R.string.app_name)
-                        .uppercase(Locale.getDefault()))
+                        .uppercase(Locale.getDefault()), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 6.sp)
                 },
             )
         },
@@ -147,17 +147,34 @@ fun FuelingRecord(
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Column() {
                     val dateString = DateUtils.getDateString(fueling.fueling.date)
-                    Text(text = dateString, fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                    Text(text = fueling.vehicle.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = dateString, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = fueling.vehicle.name, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
 
-                Row() {
-                    Text(text = "${fueling.fueling.priceUnit} x ${fueling.fueling.quantity}", fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                }
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(5.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Text(text = "${fueling.fueling.priceUnit} × ${fueling.fueling.quantity}", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                    }
 
-                Row() {
-                    Text(text = stringResource(id = R.string.fuel_list_record_total_price), fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "${fueling.fueling.priceUnit * fueling.fueling.quantity}", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                    Divider(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .width(1.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(text = stringResource(id = R.string.fuel_list_record_total_price), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "${fueling.fueling.priceUnit * fueling.fueling.quantity}", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                    }
                 }
             }
         }

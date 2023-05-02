@@ -1,15 +1,9 @@
 package cz.martinweiss.garager.ui.screens.fuelDetail
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -65,67 +59,92 @@ fun DetailFuelingContent(
     data: DetailFuelingData,
     actions: DetailFuelingViewModel
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Column() {
-            Text(text = stringResource(id = R.string.detail_fueling_date), fontWeight = FontWeight.Bold)
-            Text(
-                text = DateUtils.getDateString(data.fueling.date, includeTime = true)
-            )
-        }
-
-        Column() {
-            Text(text = stringResource(id = R.string.detail_fueling_vehicle), fontWeight = FontWeight.Bold)
-            Text(text = data.vehicleName)
-        }
-
-        data.fueling.description?.let {
+    Column(
+        modifier = Modifier.padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(40.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
             Column() {
+                Text(text = stringResource(id = R.string.detail_fueling_date), fontWeight = FontWeight.Bold)
                 Text(
-                    text = stringResource(id = R.string.detail_fueling_description),
+                    text = DateUtils.getDateString(data.fueling.date, includeTime = true)
+                )
+            }
+
+            Column() {
+                Text(text = stringResource(id = R.string.detail_fueling_vehicle), fontWeight = FontWeight.Bold)
+                Text(text = data.vehicleName)
+            }
+
+            data.fueling.description?.let {
+                Column() {
+                    Text(
+                        text = stringResource(id = R.string.detail_fueling_description),
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(text = it)
+                }
+            }
+        }
+
+
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = R.string.detail_fueling_price_unit),
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = it)
+                Text(text = data.fueling.priceUnit.toString())
             }
-        }
-    }
 
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Row() {
-            Text(
-                text = stringResource(id = R.string.detail_fueling_price_unit),
-                fontWeight = FontWeight.Bold
-            )
-            Text(text = data.fueling.priceUnit.toString())
-        }
-
-        Row() {
-            Text(
-                text = stringResource(id = R.string.detail_fueling_quantity),
-                fontWeight = FontWeight.Bold
-            )
-            Text(text = data.fueling.quantity.toString())
-        }
-
-        Row() {
-            Text(
-                text = stringResource(id = R.string.detail_fueling_total),
-                fontWeight = FontWeight.Bold
-            )
-            Text(text = "${data.fueling.priceUnit * data.fueling.quantity}")
-        }
-
-    }
-
-    Column() {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(
-                onClick = {
-                    actions.deleteFueling()
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = stringResource(id = R.string.detail_fueling_delete_button))
+                Text(
+                    text = stringResource(id = R.string.detail_fueling_quantity),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = data.fueling.quantity.toString())
+            }
+
+            Divider(
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .width(1.dp)
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = R.string.detail_fueling_total),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = "${data.fueling.priceUnit * data.fueling.quantity}")
+            }
+        }
+
+        Column() {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Button(
+                    onClick = {
+                        actions.deleteFueling()
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text(text = stringResource(id = R.string.detail_fueling_delete_button))
+                }
             }
         }
     }
+
+
+
+
 }

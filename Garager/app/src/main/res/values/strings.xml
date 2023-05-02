@@ -9,7 +9,12 @@
 
     <string name="vehicle_list_title">Přehled vozidel</string>
     <string name="vehicle_list_vin">VIN: %s</string>
-    <string name="vehicle_list_mot">STK: %s (zbývá %d dní)</string>
+    <plurals name="vehicle_list_mot">
+        <item quantity="zero">STK: %s (zbývá %d dní)</item>
+        <item quantity="one">STK: %s (zbývá %d den)</item>
+        <item quantity="few">STK: %s (zbývají %d dny)</item>
+        <item quantity="other">STK: %s (zbývá %d dní)</item>
+    </plurals>
     <string name="vehicle_list_green_card_available">Zelená karta je k dispozici</string>
     <string name="vehicle_list_green_card_unavailable">Zelená karta není k dispozici</string>
     <string name="vehicle_list_empty_title">Žádné vozidlo</string>
@@ -50,7 +55,12 @@
     <string name="title_detail_vehicle">Detail vozidla</string>
     <string name="detail_vehicle_vin">VIN</string>
     <string name="detail_vehicle_mot_date">Platnost STK</string>
-    <string name="detail_vehicle_mot_date_remaining">(zbývá %d dní)</string>
+    <plurals name="detail_vehicle_mot_date_remaining">
+        <item quantity="zero">(zbývá %d dní)</item>
+        <item quantity="one">(zbývá %d den)</item>
+        <item quantity="few">(zbývají %d dny)</item>
+        <item quantity="other">(zbývá %d dní)</item>
+    </plurals>
     <string name="detail_vehicle_manufacturer">Značka</string>
     <string name="detail_vehicle_placeholder_license_plate">žádná SPZ</string>
     <string name="detail_vehicle_placeholder_blank">nevyplněno</string>
@@ -70,10 +80,16 @@
     <string name="title_green_card_vehicle">Zelená karta</string>
 
     <string name="title_settings_screen">Nastavení</string>
+    <string name="settings_author_app">Autor</string>
     <string name="settings_version_app">Verze aplikace</string>
     <string name="settings_mot_days_warning_label">Upozornění na STK</string>
     <string name="settings_mot_days_warning_description">Nastavte počet dní předem pro upozornění na blížící se termín STK</string>
-    <string name="settings_mot_days_warning_days">dní</string>
+    <plurals name="settings_mot_days_warning_days">
+        <item quantity="zero">dní</item>
+        <item quantity="one">den</item>
+        <item quantity="few">dny</item>
+        <item quantity="other">dní</item>
+    </plurals>
 
     <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
 </resources>

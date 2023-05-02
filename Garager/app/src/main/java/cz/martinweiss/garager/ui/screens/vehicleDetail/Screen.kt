@@ -99,7 +99,8 @@ fun DetailVehicleScreenContent(
 
                 val tempMOT = data.vehicle.motDate
                 if(tempMOT != null) {
-                    Text(text = "${DateUtils.getDateString(tempMOT)} ${stringResource(id = R.string.detail_vehicle_mot_date_remaining, DateUtils.getRemainingDays(tempMOT))}")
+                    val remainingDays = DateUtils.getRemainingDays(tempMOT)
+                    Text(text = "${DateUtils.getDateString(tempMOT)} ${LocalContext.current.resources.getQuantityString(R.plurals.detail_vehicle_mot_date_remaining, remainingDays, remainingDays)}")
                 } else {
                     Text(text = stringResource(id = R.string.detail_vehicle_placeholder_blank))
                 }

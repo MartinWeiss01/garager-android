@@ -14,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -153,8 +154,6 @@ fun VehicleItem(
     ) {
         Box(modifier = Modifier.padding(20.dp)) {
             Row {
-                Icon(imageVector = Icons.Filled.Info, contentDescription = "")
-
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Column() {
                         Text(text = vehicle.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -175,11 +174,12 @@ fun VehicleItem(
                         vehicle.motDate?.let {
                             val dateString = DateUtils.getDateString(it)
                             val remainingDays = DateUtils.getRemainingDays(it)
+
                             Text(
-                                text = stringResource(
-                                    id = R.string.vehicle_list_mot,
-                                    dateString,
-                                    remainingDays
+                                text = LocalContext.current.resources.getQuantityString(
+                                    R.plurals.vehicle_list_mot,
+                                    remainingDays,
+                                    dateString, remainingDays
                                 ),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,

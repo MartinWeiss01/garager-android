@@ -10,7 +10,10 @@
 
     <string name="vehicle_list_title">Vehicle List</string>
     <string name="vehicle_list_vin">VIN: %s</string>
-    <string name="vehicle_list_mot">MOT: %s (%d days left)</string>
+    <plurals name="vehicle_list_mot">
+        <item quantity="one">MOT: %s (%d day left)</item>
+        <item quantity="other">MOT: %s (%d days left)</item>
+    </plurals>
     <string name="vehicle_list_green_card_available">Green card is available</string>
     <string name="vehicle_list_green_card_unavailable">Green card not available</string>
     <string name="vehicle_list_empty_title">No vehicle yet</string>
@@ -51,7 +54,10 @@
     <string name="title_detail_vehicle">Vehicle Detail</string>
     <string name="detail_vehicle_vin">VIN</string>
     <string name="detail_vehicle_mot_date">MOT due date</string>
-    <string name="detail_vehicle_mot_date_remaining">(%d days left)</string>
+    <plurals name="detail_vehicle_mot_date_remaining">
+        <item quantity="one">(%d day left)</item>
+        <item quantity="other">(%d days left)</item>
+    </plurals>
     <string name="detail_vehicle_manufacturer">Manufacturer</string>
     <string name="detail_vehicle_placeholder_license_plate">no license plate</string>
     <string name="detail_vehicle_placeholder_blank">not specified</string>
@@ -71,10 +77,14 @@
     <string name="title_green_card_vehicle">Green Card</string>
 
     <string name="title_settings_screen">Settings</string>
+    <string name="settings_author_app">Author</string>
     <string name="settings_version_app">Application version</string>
     <string name="settings_mot_days_warning_label">MOT Reminder</string>
     <string name="settings_mot_days_warning_description">Set the number of days in advance to be reminded of upcoming MOT test</string>
-    <string name="settings_mot_days_warning_days">days</string>
+    <plurals name="settings_mot_days_warning_days">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
 
     <string name="permission_storage_denied">Permission denied</string>
 </resources>

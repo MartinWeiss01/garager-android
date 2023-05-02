@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -61,6 +62,14 @@ fun SettingsScreenContent(
 }
 
 @Composable
+fun ApplicationAuthor() {
+    SettingsElement(
+        title = stringResource(id = R.string.settings_author_app),
+        caption = "Martin Weiss"
+    ) {}
+}
+
+@Composable
 fun ApplicationVersion() {
     SettingsElement(
         title = stringResource(id = R.string.settings_version_app),
@@ -93,7 +102,7 @@ fun MOTExpirationDays() {
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            Text(text = stringResource(id = R.string.settings_mot_days_warning_days))
+            Text(text = LocalContext.current.resources.getQuantityString(R.plurals.settings_mot_days_warning_days, pickerValue, pickerValue))
         }
     }
 }
