@@ -3,6 +3,7 @@ package cz.martinweiss.garager.di
 import cz.martinweiss.garager.ui.screens.fuelAddEdit.AddEditFuelingViewModel
 import cz.martinweiss.garager.ui.screens.fuelDetail.DetailFuelingViewModel
 import cz.martinweiss.garager.ui.screens.fuelList.FuelListViewModel
+import cz.martinweiss.garager.ui.screens.settings.SettingsViewModel
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleViewModel
 import cz.martinweiss.garager.ui.screens.vehicleDetail.DetailVehicleViewModel
 import cz.martinweiss.garager.ui.screens.vehicleList.VehicleListViewModel
@@ -16,4 +17,5 @@ val viewModelModule = module {
     viewModel { FuelListViewModel(get()) }
     viewModel { AddEditFuelingViewModel(get()) }
     viewModel { DetailFuelingViewModel(get()) }
+    viewModel { SettingsViewModel(get()) }
 }

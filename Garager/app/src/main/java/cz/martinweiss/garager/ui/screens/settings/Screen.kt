@@ -20,19 +20,43 @@ import cz.martinweiss.garager.BuildConfig
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SettingsScreen(navigation: INavigationRouter) {
+fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel = getViewModel()) {
+    var data: SettingsData by remember {
+        mutableStateOf(viewModel.data)
+    }
+
+    viewModel.settingsUIState.value.let {
+        when(it) {
+            SettingsUIState.Default -> { }
+            SettingsUIState.Loading -> {
+                viewModel.loadInitSettings()
+            }
+            SettingsUIState.Updated -> {
+                data = viewModel.data
+                viewModel.settingsUIState.value = SettingsUIState.Default
+            }
+        }
+    }
+
     BaseScreenLayout(
         navController = navigation.getNavController(), hideFAB = true
     ) {
-        SettingsScreenContent(paddingValues = it)
+        SettingsScreenContent(
+            paddingValues = it,
+            actions = viewModel,
+            data = data
+        )
     }
 }
 
 @Composable
 fun SettingsScreenContent(
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    actions: SettingsActions,
+    data: SettingsData
 ) {
     Surface(
         modifier = Modifier.padding(paddingValues)
@@ -45,7 +69,10 @@ fun SettingsScreenContent(
             SettingsDivider()
             ApplicationVersion()
             SettingsDivider()
-            MOTExpirationDays()
+            MOTExpirationDays(
+                actions = actions,
+                data = data
+            )
         }
     }
 }
@@ -66,9 +93,10 @@ fun ApplicationVersion() {
 }
 
 @Composable
-fun MOTExpirationDays() {
-    var pickerValue by remember { mutableStateOf(0) }
-
+fun MOTExpirationDays(
+    actions: SettingsActions,
+    data: SettingsData
+) {
     SettingsElement(
         title = stringResource(id = R.string.settings_mot_days_warning_label),
         description = stringResource(id = R.string.settings_mot_days_warning_description),
@@ -78,11 +106,10 @@ fun MOTExpirationDays() {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             NumberPicker(
-                value = pickerValue,
+                value = data.motDaysWarning,
                 range = 10..60,
                 onValueChange = {
-                    pickerValue = it
-                    Log.d("Update", "$it")
+                    actions.updateMOTDaysWarning(it)
                 },
                 textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface),
                 dividersColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -92,7 +119,7 @@ fun MOTExpirationDays() {
 
             Text(
                 text = LocalContext.current.resources.getQuantityString(
-                    R.plurals.settings_mot_days_warning_days, pickerValue, pickerValue
+                    R.plurals.settings_mot_days_warning_days, data.motDaysWarning, data.motDaysWarning
                 )
             )
         }
