@@ -7,15 +7,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import cz.martinweiss.garager.navigation.BOTTOM_NAVBAR_LINKS
 import cz.martinweiss.garager.navigation.Destination
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(
-        Destination.VehicleListScreen,
-        Destination.FuelListScreen,
-        Destination.SettingsScreen
-    )
+    val items = BOTTOM_NAVBAR_LINKS
 
     NavigationBar() {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
