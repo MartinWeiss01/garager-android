@@ -13,19 +13,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BottomNavigationBar
+import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.screens.vehicleList.*
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
@@ -97,7 +96,11 @@ fun FuelListContent(
             .padding(paddingValues)
     ) {
         if(fuelings.size == 0) {
-            EmptyFuelingsList()
+            PlaceholderScreen(
+                icon = painterResource(id = R.drawable.icon_breaking_news_filled),
+                title = stringResource(id = R.string.fuel_list_empty_title),
+                description = stringResource(id = R.string.fuel_list_empty_description, stringResource(id = R.string.btn_add_new_fueling))
+            )
         } else {
             Box(modifier = Modifier.padding(top = 40.dp, start = 35.dp, end = 35.dp)) {
                 FuelingRecordList(fuelings = fuelings, listState = listState, navigation = navigation)
@@ -163,28 +166,5 @@ fun FuelingRecord(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun EmptyFuelingsList() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(40.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(painter = painterResource(id = R.drawable.icon_breaking_news_filled), contentDescription = "", modifier = Modifier.size(70.dp))
-
-        Text(
-            text = stringResource(id = R.string.fuel_list_empty_title),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = stringResource(id = R.string.fuel_list_empty_description, stringResource(id = R.string.btn_add_new_fueling)),
-            textAlign = TextAlign.Center
-        )
     }
 }
