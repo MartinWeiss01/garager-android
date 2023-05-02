@@ -89,7 +89,6 @@ fun FuelListContent(
     listState: LazyListState
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.inverseSurface,
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
         modifier = Modifier
             .fillMaxSize()
@@ -143,10 +142,6 @@ fun FuelingRecord(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .background(Color.Red),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        )
     ) {
         Box(modifier = Modifier.padding(20.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {

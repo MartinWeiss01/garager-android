@@ -2,13 +2,11 @@ package cz.martinweiss.garager.ui.screens.settings
 
 import android.os.Build
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -77,7 +75,6 @@ fun MOTExpirationDays() {
     SettingsElement(
         title = stringResource(id = R.string.settings_mot_days_warning_label),
         description = stringResource(id = R.string.settings_mot_days_warning_description),
-        modifier = Modifier.background(Color.Gray)
     ) {
         Row(
             modifier = Modifier.padding(start = 10.dp),
@@ -90,7 +87,8 @@ fun MOTExpirationDays() {
                     pickerValue = it
                     Log.d("Update", "$it")
                 },
-                textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface)
+                textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface),
+                dividersColor = MaterialTheme.colorScheme.onSecondaryContainer
             )
 
             Spacer(modifier = Modifier.width(10.dp))
@@ -126,7 +124,7 @@ fun SettingsElement(
 @Composable
 fun SettingsDivider() {
     Divider(
-        color = Color.Red,
+        color = MaterialTheme.colorScheme.onSecondaryContainer,
         modifier = Modifier
             .fillMaxWidth()
             .width(1.dp)

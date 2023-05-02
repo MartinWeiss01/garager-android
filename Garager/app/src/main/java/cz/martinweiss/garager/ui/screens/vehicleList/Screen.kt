@@ -14,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -92,7 +93,6 @@ fun VehicleListContent(
     listState: LazyListState
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.inverseSurface,
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
         modifier = Modifier
             .fillMaxSize()
@@ -150,10 +150,6 @@ fun VehicleItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .background(Color.Red),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        )
     ) {
         Box(modifier = Modifier.padding(20.dp)) {
             Row {
@@ -196,14 +192,14 @@ fun VehicleItem(
                                 text = stringResource(id = R.string.vehicle_list_green_card_available),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimary
+                                color = colorResource(id = R.color.success)
                             )
                         } else {
                             Text(
                                 text = stringResource(id = R.string.vehicle_list_green_card_unavailable),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.outline
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
