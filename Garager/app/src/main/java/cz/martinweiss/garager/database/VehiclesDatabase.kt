@@ -1,12 +1,10 @@
 package cz.martinweiss.garager.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.RawFueling
 import cz.martinweiss.garager.model.Vehicle

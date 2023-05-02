@@ -1,6 +1,9 @@
 package cz.martinweiss.garager.ui.elements
 
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
@@ -8,7 +11,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import cz.martinweiss.garager.navigation.BOTTOM_NAVBAR_LINKS
-import cz.martinweiss.garager.navigation.Destination
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {

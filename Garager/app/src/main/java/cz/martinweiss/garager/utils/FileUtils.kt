@@ -3,7 +3,6 @@ package cz.martinweiss.garager.utils
 import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.util.Log
 import androidx.core.net.toUri
 import java.io.File
 import java.net.URLConnection

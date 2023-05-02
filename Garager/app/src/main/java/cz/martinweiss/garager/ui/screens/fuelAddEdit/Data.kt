@@ -1,6 +1,5 @@
 package cz.martinweiss.garager.ui.screens.fuelAddEdit
 
-import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.RawFueling
 import cz.martinweiss.garager.model.Vehicle
 

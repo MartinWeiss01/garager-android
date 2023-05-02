@@ -1,7 +1,9 @@
 package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
-import android.net.Uri
+import android.Manifest
+import android.app.DatePickerDialog
 import android.os.Build
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,19 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import android.Manifest
-import android.app.DatePickerDialog
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Log
-import android.widget.DatePicker
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.rememberTransformableState
-import androidx.compose.foundation.gestures.transformable
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
@@ -33,7 +24,7 @@ import cz.martinweiss.garager.ui.elements.ReactiveField
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FileUtils
 import org.koin.androidx.compose.getViewModel
-import java.util.Calendar
+import java.util.*
 
 @Composable
 fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: AddEditVehicleViewModel = getViewModel()) {

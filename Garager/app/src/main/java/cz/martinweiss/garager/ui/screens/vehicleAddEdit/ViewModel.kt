@@ -5,12 +5,12 @@ import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import cz.martinweiss.garager.R
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.Manufacturer
-import kotlinx.coroutines.launch
-import cz.martinweiss.garager.R
 import cz.martinweiss.garager.utils.FileUtils
+import kotlinx.coroutines.launch
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
     var data: AddEditVehicleData = AddEditVehicleData()

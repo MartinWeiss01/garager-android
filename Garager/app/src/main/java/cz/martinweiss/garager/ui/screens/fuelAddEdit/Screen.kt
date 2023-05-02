@@ -20,7 +20,6 @@ import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.elements.CustomDropdownField
 import cz.martinweiss.garager.ui.elements.CustomTextField
 import cz.martinweiss.garager.ui.elements.ReactiveField
-import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleContent
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.Section
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel

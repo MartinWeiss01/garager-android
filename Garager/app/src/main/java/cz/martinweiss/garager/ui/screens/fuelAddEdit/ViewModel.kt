@@ -7,7 +7,6 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.Vehicle
-import cz.martinweiss.garager.ui.screens.vehicleAddEdit.AddEditVehicleUIState
 import kotlinx.coroutines.launch
 
 class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditFuelingActions {
