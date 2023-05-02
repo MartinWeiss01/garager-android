@@ -17,6 +17,7 @@ fun BackArrowScreen(
     onBackClick: () -> Unit,
     actionIcon: ImageVector? = null,
     onActionClick: (() -> Unit)? = null,
+    ignoreLazyColumn: Boolean = false,
     content: @Composable (paddingValues: PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -43,10 +44,14 @@ fun BackArrowScreen(
             )
         }
     ) {
-        LazyColumn(modifier = Modifier.padding(it)) {
-            item {
-                content(it)
+        if(!ignoreLazyColumn) {
+            LazyColumn(modifier = Modifier.padding(it)) {
+                item {
+                    content(it)
+                }
             }
+        } else {
+            content(it)
         }
     }
 }

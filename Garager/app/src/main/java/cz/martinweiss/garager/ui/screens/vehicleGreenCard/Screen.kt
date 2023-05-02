@@ -25,33 +25,22 @@ import cz.martinweiss.garager.ui.elements.ZoomableImage
 import cz.martinweiss.garager.utils.FileUtils
 import java.io.File
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GreenCardVehicleScreen(navigation: INavigationRouter, greenCardFileName: String) {
     if(greenCardFileName == "") {
         navigation.returnBack()
     }
 
-    if(FileUtils.isInternalFilePDF(greenCardFileName)) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(text = stringResource(id = R.string.title_green_card_vehicle)) },
-                    navigationIcon = {
-                        IconButton(onClick = { navigation.returnBack() } ) {
-                            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
-                        }
-                    }
-                )
-            }
-        ) {
+    val isGreenCardPDF = FileUtils.isInternalFilePDF(greenCardFileName)
+
+    BackArrowScreen(
+        topBarTitle = stringResource(id = R.string.title_green_card_vehicle),
+        onBackClick = { navigation.returnBack() },
+        ignoreLazyColumn = isGreenCardPDF
+    ) {
+        if(isGreenCardPDF) {
             GreenCardVehicleScreenContentPDF(it, greenCard = greenCardFileName)
-        }
-    } else {
-        BackArrowScreen(
-            topBarTitle = stringResource(id = R.string.title_green_card_vehicle),
-            onBackClick = { navigation.returnBack() }
-        ) {
+        } else {
             GreenCardVehicleScreenContentImage(greenCard = greenCardFileName)
         }
     }
