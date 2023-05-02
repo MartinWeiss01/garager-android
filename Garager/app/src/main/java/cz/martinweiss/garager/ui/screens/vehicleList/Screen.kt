@@ -1,19 +1,14 @@
 package cz.martinweiss.garager.ui.screens.vehicleList
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -24,13 +19,13 @@ import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
-import cz.martinweiss.garager.ui.elements.BottomNavigationBar
+import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
+import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
 import java.util.*
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VehicleListScreen(
     navigation: INavigationRouter,
@@ -54,28 +49,10 @@ fun VehicleListScreen(
         }
     }
 
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.app_name)
-                            .uppercase(Locale.getDefault())
-                    )
-                },
-            )
-        },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text(text = stringResource(id = R.string.btn_add_new_vehicle)) },
-                icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "") },
-                onClick = { navigation.navigateToAddEditVehicleScreen(-1L) },
-                expanded = listState.isScrollingUp()
-            )
-        },
-        bottomBar = {
-            BottomNavigationBar(navController = navigation.getNavController())
-        }
+    BaseScreenLayout(
+        navController = navigation.getNavController(),
+        textFAB = stringResource(id = R.string.btn_add_new_vehicle),
+        expandedFAB = listState.isScrollingUp()
     ) {
         VehicleListContent(
             paddingValues = it,
@@ -207,25 +184,4 @@ fun VehicleItem(
             }
         }
     }
-}
-
-/** Google Code Labs source code
- * Returns whether the lazy list is currently scrolling up.
- */
-@Composable
-fun LazyListState.isScrollingUp(): Boolean {
-    var previousIndex by remember(this) { mutableStateOf(firstVisibleItemIndex) }
-    var previousScrollOffset by remember(this) { mutableStateOf(firstVisibleItemScrollOffset) }
-    return remember(this) {
-        derivedStateOf {
-            if (previousIndex != firstVisibleItemIndex) {
-                previousIndex > firstVisibleItemIndex
-            } else {
-                previousScrollOffset >= firstVisibleItemScrollOffset
-            }.also {
-                previousIndex = firstVisibleItemIndex
-                previousScrollOffset = firstVisibleItemScrollOffset
-            }
-        }
-    }.value
 }

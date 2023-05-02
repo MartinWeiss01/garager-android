@@ -23,8 +23,10 @@ import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.navigation.INavigationRouter
+import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.BottomNavigationBar
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
+import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.ui.screens.vehicleList.*
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
@@ -51,26 +53,10 @@ fun FuelListScreen(navigation: INavigationRouter, viewModel: FuelListViewModel =
         }
     }
 
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = stringResource(id = R.string.app_name)
-                        .uppercase(Locale.getDefault()), fontSize = 20.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 6.sp)
-                },
-            )
-        },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text(text = stringResource(id = R.string.btn_add_new_fueling)) },
-                icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "") },
-                onClick = { navigation.navigateToAddEditFuelingScreen(-1L) },
-                expanded = listState.isScrollingUp()
-            )
-        },
-        bottomBar = {
-            BottomNavigationBar(navController = navigation.getNavController())
-        }
+    BaseScreenLayout(
+        navController = navigation.getNavController(),
+        textFAB = stringResource(id = R.string.btn_add_new_fueling),
+        expandedFAB = listState.isScrollingUp()
     ) {
         FuelListContent(
             paddingValues = it,

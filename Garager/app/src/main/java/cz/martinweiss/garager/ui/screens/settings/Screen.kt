@@ -3,7 +3,10 @@ package cz.martinweiss.garager.ui.screens.settings
 import android.os.Build
 import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,25 +19,12 @@ import com.chargemap.compose.numberpicker.NumberPicker
 import cz.martinweiss.garager.BuildConfig
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
-import cz.martinweiss.garager.ui.elements.BottomNavigationBar
-import java.util.*
+import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navigation: INavigationRouter) {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = stringResource(id = R.string.app_name)
-                        .uppercase(Locale.getDefault())
-                    )
-                },
-            )
-        },
-        bottomBar = {
-            BottomNavigationBar(navController = navigation.getNavController())
-        }
+    BaseScreenLayout(
+        navController = navigation.getNavController(), hideFAB = true
     ) {
         SettingsScreenContent(paddingValues = it)
     }
@@ -48,8 +38,7 @@ fun SettingsScreenContent(
         modifier = Modifier.padding(paddingValues)
     ) {
         Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(text = stringResource(id = R.string.title_settings_screen))
             Text(text = "Build: ${Build.VERSION.SDK_INT} | Q: ${Build.VERSION_CODES.Q}")
@@ -64,8 +53,7 @@ fun SettingsScreenContent(
 @Composable
 fun ApplicationAuthor() {
     SettingsElement(
-        title = stringResource(id = R.string.settings_author_app),
-        caption = "Martin Weiss"
+        title = stringResource(id = R.string.settings_author_app), caption = "Martin Weiss"
     ) {}
 }
 
@@ -102,7 +90,11 @@ fun MOTExpirationDays() {
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            Text(text = LocalContext.current.resources.getQuantityString(R.plurals.settings_mot_days_warning_days, pickerValue, pickerValue))
+            Text(
+                text = LocalContext.current.resources.getQuantityString(
+                    R.plurals.settings_mot_days_warning_days, pickerValue, pickerValue
+                )
+            )
         }
     }
 }
@@ -122,8 +114,8 @@ fun SettingsElement(
     ) {
         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Text(text = title, fontSize = 16.sp)
-            if(caption != null) Text(text = caption, fontSize = 14.sp, lineHeight = 15.sp)
-            if(description != null) Text(text = description, fontSize = 10.sp, lineHeight = 15.sp)
+            if (caption != null) Text(text = caption, fontSize = 14.sp, lineHeight = 15.sp)
+            if (description != null) Text(text = description, fontSize = 10.sp, lineHeight = 15.sp)
         }
 
         content()
