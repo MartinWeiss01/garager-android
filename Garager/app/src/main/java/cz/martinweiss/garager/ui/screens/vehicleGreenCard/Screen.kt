@@ -28,6 +28,10 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GreenCardVehicleScreen(navigation: INavigationRouter, greenCardFileName: String) {
+    if(greenCardFileName == "") {
+        navigation.returnBack()
+    }
+
     if(FileUtils.isInternalFilePDF(greenCardFileName)) {
         Scaffold(
             topBar = {

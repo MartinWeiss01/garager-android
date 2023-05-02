@@ -10,20 +10,24 @@ import kotlinx.coroutines.launch
 
 class DetailVehicleViewModel(private val repository: IVehiclesRepository): BaseViewModel(), DetailVehicleActions {
     var data: DetailVehicleData = DetailVehicleData()
-    var vehicleId: Long = 1
+    var vehicleId: Long = -1L
     var detailVehicleUIState: MutableState<DetailVehicleUIState> = mutableStateOf(DetailVehicleUIState.Loading)
 
     fun initData() {
-        launch {
-            try {
-                repository.getVehicleById(vehicleId).collect { vehicle ->
-                    data.vehicle = vehicle.vehicle
-                    data.manufacturer = vehicle.manufacturer
-                    detailVehicleUIState.value = DetailVehicleUIState.Default
+        if(vehicleId != -1L) {
+            launch {
+                try {
+                    repository.getVehicleById(vehicleId).collect { vehicle ->
+                        data.vehicle = vehicle.vehicle
+                        data.manufacturer = vehicle.manufacturer
+                        detailVehicleUIState.value = DetailVehicleUIState.Default
+                    }
+                } catch (e: Exception) {
+                    detailVehicleUIState.value = DetailVehicleUIState.VehicleDeleted
                 }
-            } catch (e: Exception) {
-                detailVehicleUIState.value = DetailVehicleUIState.VehicleDeleted
             }
+        } else {
+            detailVehicleUIState.value = DetailVehicleUIState.UnknownObject
         }
     }
 
@@ -35,8 +39,8 @@ class DetailVehicleViewModel(private val repository: IVehiclesRepository): BaseV
             data.vehicle.greenCardFilename?.let {
                 FileUtils.deleteInternalFile(context, it)
             }
-            detailVehicleUIState.value = DetailVehicleUIState.VehicleDeleted
             repository.deleteVehicle(data.vehicle)
+            detailVehicleUIState.value = DetailVehicleUIState.VehicleDeleted
         }
     }
 }

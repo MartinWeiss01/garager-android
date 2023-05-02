@@ -31,13 +31,16 @@ fun DetailFuelingScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
     viewModel.detailFuelingUIState.value.let {
         when(it) {
             DetailFuelingUIState.Default -> { }
+            DetailFuelingUIState.Loading -> {
+                viewModel.initData()
+            }
+            DetailFuelingUIState.UnknownObject -> {
+                navigation.returnBack()
+            }
             DetailFuelingUIState.FuelingDeleted -> {
                 LaunchedEffect(it) {
                     navigation.returnBack()
                 }
-            }
-            DetailFuelingUIState.Loading -> {
-                viewModel.initData()
             }
         }
     }

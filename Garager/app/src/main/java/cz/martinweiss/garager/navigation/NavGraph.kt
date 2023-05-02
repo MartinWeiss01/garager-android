@@ -27,11 +27,15 @@ fun NavGraph(
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Destination.VehicleListScreen.route) {
-            VehicleListScreen(navigation)
+            VehicleListScreen(navigation = navigation)
         }
 
         composable(Destination.FuelListScreen.route) {
-            FuelListScreen(navigation)
+            FuelListScreen(navigation = navigation)
+        }
+
+        composable(Destination.SettingsScreen.route) {
+            SettingsScreen(navigation = navigation)
         }
 
         composable(
@@ -44,7 +48,7 @@ fun NavGraph(
             )
         ) {
             val id = it.arguments?.getLong("id")
-            AddEditVehicleScreen(navigation, id = if (id != -1L) id else null)
+            AddEditVehicleScreen(navigation = navigation, id = if (id != -1L) id else null)
         }
 
         composable(
@@ -57,7 +61,7 @@ fun NavGraph(
             )
         ) {
             val id = it.arguments?.getLong("id")
-            AddEditFuelingScreen(navigation, id = if (id != -1L) id else null)
+            AddEditFuelingScreen(navigation = navigation, id = if (id != -1L) id else null)
         }
 
         composable(
@@ -70,24 +74,7 @@ fun NavGraph(
             )
         ) {
             val id = it.arguments?.getLong("id")
-            DetailVehicleScreen(navigation, id = id ?: -1L)
-        }
-
-        composable(Destination.SettingsScreen.route) {
-            SettingsScreen(navigation = navigation)
-        }
-
-        composable(
-            route = Destination.GreenCardVehicleScreen.route + "/{greenCardFilename}",
-            arguments = listOf(
-                navArgument("greenCardFilename") {
-                    type = NavType.StringType
-                    defaultValue = ""
-                }
-            )
-        ) {
-            val greenCardFilename = it.arguments?.getString("greenCardFilename")
-            GreenCardVehicleScreen(navigation = navigation, greenCardFileName = greenCardFilename!!)
+            DetailVehicleScreen(navigation = navigation, id = id ?: -1L)
         }
 
         composable(
@@ -100,7 +87,20 @@ fun NavGraph(
             )
         ) {
             val id = it.arguments?.getLong("id")
-            DetailFuelingScreen(navigation, id = id ?: -1L)
+            DetailFuelingScreen(navigation = navigation, id = id ?: -1L)
+        }
+
+        composable(
+            route = Destination.GreenCardVehicleScreen.route + "/{greenCardFilename}",
+            arguments = listOf(
+                navArgument("greenCardFilename") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) {
+            val greenCardFilename = it.arguments?.getString("greenCardFilename")
+            GreenCardVehicleScreen(navigation = navigation, greenCardFileName = greenCardFilename ?: "")
         }
     }
 }

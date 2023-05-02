@@ -1,5 +1,6 @@
 package cz.martinweiss.garager.ui.screens.fuelDetail
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
@@ -8,25 +9,25 @@ import kotlinx.coroutines.launch
 
 class DetailFuelingViewModel(private val repository: IVehiclesRepository): BaseViewModel(), DetailFuelingActions {
     var data: DetailFuelingData = DetailFuelingData()
-    var fuelingId: Long = 1
+    var fuelingId: Long = -1L
     var detailFuelingUIState: MutableState<DetailFuelingUIState> = mutableStateOf(DetailFuelingUIState.Loading)
 
     fun initData() {
-        try {
-
-        launch {
-            try {
-                repository.getLiveFuelingRecordById(fuelingId).collect() { fueling ->
-                    data.fueling = fueling.fueling
-                    data.vehicleName = fueling.vehicle.name
-                    detailFuelingUIState.value = DetailFuelingUIState.Default
+        if(fuelingId != -1L) {
+            launch {
+                try {
+                    repository.getLiveFuelingRecordById(fuelingId).collect() { fueling ->
+                        data.fueling = fueling.fueling
+                        data.vehicleName = fueling.vehicle.name
+                        detailFuelingUIState.value = DetailFuelingUIState.Default
+                    }
+                } catch (e: Exception) {
+                    Log.d("##################", "TEST")
+                    detailFuelingUIState.value = DetailFuelingUIState.FuelingDeleted
                 }
-            } catch (e: Exception) {
-                detailFuelingUIState.value = DetailFuelingUIState.FuelingDeleted
             }
-        }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } else {
+            detailFuelingUIState.value = DetailFuelingUIState.UnknownObject
         }
     }
 
@@ -35,8 +36,8 @@ class DetailFuelingViewModel(private val repository: IVehiclesRepository): BaseV
         TODO: crashing app without try-catch, try to replace it with local temp variable
          */
         launch {
-            detailFuelingUIState.value = DetailFuelingUIState.FuelingDeleted
             repository.deleteFueling(data.fueling)
+            detailFuelingUIState.value = DetailFuelingUIState.FuelingDeleted
         }
     }
 }
