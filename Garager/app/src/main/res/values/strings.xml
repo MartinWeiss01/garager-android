@@ -70,6 +70,7 @@
     <string name="title_green_card_vehicle">Zelená karta</string>
 
     <string name="title_settings_screen">Nastavení</string>
+    <string name="settings_version_app">Verze aplikace</string>
     <string name="settings_mot_days_warning_label">Upozornění na STK</string>
     <string name="settings_mot_days_warning_description">Nastavte počet dní předem pro upozornění na blížící se termín STK</string>
     <string name="settings_mot_days_warning_days">dní</string>

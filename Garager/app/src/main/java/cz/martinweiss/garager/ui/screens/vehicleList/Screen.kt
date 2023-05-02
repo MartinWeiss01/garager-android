@@ -30,7 +30,10 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewModel = getViewModel()) {
+fun VehicleListScreen(
+    navigation: INavigationRouter,
+    viewModel: VehicleListViewModel = getViewModel()
+) {
     val listState = rememberLazyListState()
 
     val vehicles = remember {
@@ -38,7 +41,7 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
     }
 
     viewModel.vehicleListUIState.value.let {
-        when(it) {
+        when (it) {
             VehicleListUIState.Default -> {
                 viewModel.loadVehicles()
             }
@@ -53,8 +56,10 @@ fun VehicleListScreen(navigation: INavigationRouter, viewModel: VehicleListViewM
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.app_name)
-                        .uppercase(Locale.getDefault()))
+                    Text(
+                        text = stringResource(id = R.string.app_name)
+                            .uppercase(Locale.getDefault())
+                    )
                 },
             )
         },
@@ -119,7 +124,11 @@ fun VehicleItemList(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item {
-            Text(text = stringResource(id = R.string.vehicle_list_title), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = stringResource(id = R.string.vehicle_list_title),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
         vehicles.forEach {
             item(key = it.id) {
@@ -160,21 +169,29 @@ fun VehicleItem(
 
                     Column() {
                         vehicle.vin?.let {
-                            Text(text = stringResource(id = R.string.vehicle_list_vin, it), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Text(
+                                text = stringResource(id = R.string.vehicle_list_vin, it),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
 
                         vehicle.motDate?.let {
                             val dateString = DateUtils.getDateString(it)
                             val remainingDays = DateUtils.getRemainingDays(it)
                             Text(
-                                text = stringResource(id = R.string.vehicle_list_mot, dateString, remainingDays),
+                                text = stringResource(
+                                    id = R.string.vehicle_list_mot,
+                                    dateString,
+                                    remainingDays
+                                ),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if(remainingDays <= motDaysWarning) MaterialTheme.colorScheme.error else LocalContentColor.current
+                                color = if (remainingDays <= motDaysWarning) MaterialTheme.colorScheme.error else LocalContentColor.current
                             )
                         }
 
-                        if(vehicle.greenCardFilename != null) {
+                        if (vehicle.greenCardFilename != null) {
                             Text(
                                 text = stringResource(id = R.string.vehicle_list_green_card_available),
                                 fontSize = 10.sp,

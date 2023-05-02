@@ -71,6 +71,7 @@
     <string name="title_green_card_vehicle">Green Card</string>
 
     <string name="title_settings_screen">Settings</string>
+    <string name="settings_version_app">Application version</string>
     <string name="settings_mot_days_warning_label">MOT Reminder</string>
     <string name="settings_mot_days_warning_description">Set the number of days in advance to be reminded of upcoming MOT test</string>
     <string name="settings_mot_days_warning_days">days</string>
