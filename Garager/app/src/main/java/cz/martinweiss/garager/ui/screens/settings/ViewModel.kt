@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.datastore.DATASTORE_MOT_DAYS
 import cz.martinweiss.garager.datastore.IDataStoreController
+import cz.martinweiss.garager.datastore.VALUE_TYPE
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val dataStore: IDataStoreController): BaseViewModel(), SettingsActions {
@@ -13,9 +14,9 @@ class SettingsViewModel(private val dataStore: IDataStoreController): BaseViewMo
 
     fun loadInitSettings() {
         launch {
-            val motWarning = dataStore.getValueByKey(DATASTORE_MOT_DAYS)
+            val motWarning = dataStore.getValueByKey(DATASTORE_MOT_DAYS, VALUE_TYPE.INT)
             if(motWarning != null) {
-                data.motDaysWarning = motWarning.toInt()
+                data.motDaysWarning = motWarning as Int
             } else {
                 dataStore.updateKey(DATASTORE_MOT_DAYS, data.motDaysWarning)
             }
@@ -26,6 +27,7 @@ class SettingsViewModel(private val dataStore: IDataStoreController): BaseViewMo
     override fun updateMOTDaysWarning(days: Int) {
         launch {
             dataStore.updateKey(DATASTORE_MOT_DAYS, days)
+            data.motDaysWarning = days
             settingsUIState.value = SettingsUIState.Updated
         }
     }

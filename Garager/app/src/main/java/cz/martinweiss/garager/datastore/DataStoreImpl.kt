@@ -5,9 +5,13 @@ import androidx.datastore.preferences.core.*
 import kotlinx.coroutines.flow.first
 
 class DataStoreImpl(private val dataStore: DataStore<Preferences>) : IDataStoreController {
-    override suspend fun getValueByKey(key: String): String? {
+    override suspend fun getValueByKey(key: String, type: VALUE_TYPE): Any? {
         val data = dataStore.data.first()
-        return data[stringPreferencesKey(key)]
+        return when (type) {
+            VALUE_TYPE.STRING -> data[stringPreferencesKey(key)]
+            VALUE_TYPE.INT -> data[intPreferencesKey(key)]
+            VALUE_TYPE.BOOLEAN -> data[booleanPreferencesKey(key)]
+        }
     }
 
     override suspend fun updateKey(key: String, value: Any) {
