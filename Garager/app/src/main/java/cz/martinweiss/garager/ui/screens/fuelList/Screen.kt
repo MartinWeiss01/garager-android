@@ -56,7 +56,8 @@ fun FuelListScreen(navigation: INavigationRouter, viewModel: FuelListViewModel =
     BaseScreenLayout(
         navController = navigation.getNavController(),
         textFAB = stringResource(id = R.string.btn_add_new_fueling),
-        expandedFAB = listState.isScrollingUp()
+        expandedFAB = listState.isScrollingUp(),
+        onFABClick = { navigation.navigateToAddEditFuelingScreen(-1L) }
     ) {
         FuelListContent(
             paddingValues = it,

@@ -52,7 +52,8 @@ fun VehicleListScreen(
     BaseScreenLayout(
         navController = navigation.getNavController(),
         textFAB = stringResource(id = R.string.btn_add_new_vehicle),
-        expandedFAB = listState.isScrollingUp()
+        expandedFAB = listState.isScrollingUp(),
+        onFABClick = { navigation.navigateToAddEditVehicleScreen(-1L) }
     ) {
         VehicleListContent(
             paddingValues = it,
