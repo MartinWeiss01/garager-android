@@ -24,7 +24,6 @@ import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
-import java.util.*
 
 @Composable
 fun VehicleListScreen(
@@ -32,6 +31,10 @@ fun VehicleListScreen(
     viewModel: VehicleListViewModel = getViewModel()
 ) {
     val listState = rememberLazyListState()
+
+    var data: VehicleListData by remember {
+        mutableStateOf(viewModel.data)
+    }
 
     val vehicles = remember {
         mutableStateListOf<Vehicle>()
@@ -59,7 +62,8 @@ fun VehicleListScreen(
             paddingValues = it,
             navigation = navigation,
             vehicles = vehicles,
-            listState = listState
+            listState = listState,
+            data = data
         )
     }
 }
@@ -69,7 +73,8 @@ fun VehicleListContent(
     paddingValues: PaddingValues,
     navigation: INavigationRouter,
     vehicles: MutableList<Vehicle>,
-    listState: LazyListState
+    listState: LazyListState,
+    data: VehicleListData
 ) {
     Surface(
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
@@ -85,7 +90,7 @@ fun VehicleListContent(
             )
         } else {
             Box(modifier = Modifier.padding(top = 40.dp, start = 35.dp, end = 35.dp)) {
-                VehicleItemList(vehicles = vehicles, listState = listState, navigation = navigation)
+                VehicleItemList(vehicles = vehicles, listState = listState, navigation = navigation, data = data)
             }
         }
     }
@@ -95,9 +100,9 @@ fun VehicleListContent(
 fun VehicleItemList(
     vehicles: MutableList<Vehicle>,
     listState: LazyListState,
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    data: VehicleListData
 ) {
-    val motDaysWarning = 30
     LazyColumn(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -111,7 +116,7 @@ fun VehicleItemList(
         }
         vehicles.forEach {
             item(key = it.id) {
-                VehicleItem(vehicle = it, motDaysWarning = motDaysWarning, onClick = {
+                VehicleItem(vehicle = it, motDaysWarning = data.motDaysWarning, onClick = {
                     it.id?.let { vehicleId -> navigation.navigateToDetailVehicleScreen(vehicleId) }
                 })
             }

@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { VehicleListViewModel(get()) }
+    viewModel { VehicleListViewModel(get(), get()) }
     viewModel { AddEditVehicleViewModel(get()) }
     viewModel { DetailVehicleViewModel(get()) }
     viewModel { FuelListViewModel(get()) }
