@@ -16,31 +16,28 @@ class DetailVehicleViewModel(private val repository: IVehiclesRepository): BaseV
     fun initData() {
         if(vehicleId != -1L) {
             launch {
-                try {
-                    repository.getVehicleById(vehicleId).collect { vehicle ->
+                repository.getVehicleById(vehicleId).collect { vehicle ->
+                    if(vehicle != null) {
                         data.vehicle = vehicle.vehicle
                         data.manufacturer = vehicle.manufacturer
                         detailVehicleUIState.value = DetailVehicleUIState.Default
+                    } else {
+                        detailVehicleUIState.value = DetailVehicleUIState.ReturnToPreviousScreen
                     }
-                } catch (e: Exception) {
-                    detailVehicleUIState.value = DetailVehicleUIState.VehicleDeleted
                 }
             }
         } else {
-            detailVehicleUIState.value = DetailVehicleUIState.UnknownObject
+            detailVehicleUIState.value = DetailVehicleUIState.ReturnToPreviousScreen
         }
     }
 
     override fun deleteVehicle(context: Context) {
-        /*
-        TODO: crashing app without try-catch, try to replace it with local temp variable
-         */
         launch {
             data.vehicle.greenCardFilename?.let {
                 FileUtils.deleteInternalFile(context, it)
             }
+            detailVehicleUIState.value = DetailVehicleUIState.ReturnToPreviousScreen
             repository.deleteVehicle(data.vehicle)
-            detailVehicleUIState.value = DetailVehicleUIState.VehicleDeleted
         }
     }
 }

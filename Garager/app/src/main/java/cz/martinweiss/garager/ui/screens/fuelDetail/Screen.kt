@@ -28,10 +28,7 @@ fun DetailFuelingScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
             DetailFuelingUIState.Loading -> {
                 viewModel.initData()
             }
-            DetailFuelingUIState.UnknownObject -> {
-                navigation.returnBack()
-            }
-            DetailFuelingUIState.FuelingDeleted -> {
+            DetailFuelingUIState.ReturnToPreviousScreen -> {
                 LaunchedEffect(it) {
                     navigation.returnBack()
                 }

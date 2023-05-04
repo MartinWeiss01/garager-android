@@ -33,10 +33,7 @@ fun DetailVehicleScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
             DetailVehicleUIState.Loading -> {
                 viewModel.initData()
             }
-            DetailVehicleUIState.UnknownObject -> {
-                navigation.returnBack()
-            }
-            DetailVehicleUIState.VehicleDeleted -> {
+            DetailVehicleUIState.ReturnToPreviousScreen -> {
                 LaunchedEffect(it) {
                     navigation.returnBack()
                 }

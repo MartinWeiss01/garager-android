@@ -15,29 +15,25 @@ class DetailFuelingViewModel(private val repository: IVehiclesRepository): BaseV
     fun initData() {
         if(fuelingId != -1L) {
             launch {
-                try {
-                    repository.getLiveFuelingRecordById(fuelingId).collect() { fueling ->
+                repository.getLiveFuelingRecordById(fuelingId).collect() { fueling ->
+                    if(fueling != null) {
                         data.fueling = fueling.fueling
                         data.vehicleName = fueling.vehicle.name
                         detailFuelingUIState.value = DetailFuelingUIState.Default
+                    } else {
+                        detailFuelingUIState.value = DetailFuelingUIState.ReturnToPreviousScreen
                     }
-                } catch (e: Exception) {
-                    Log.d("##################", "TEST")
-                    detailFuelingUIState.value = DetailFuelingUIState.FuelingDeleted
                 }
             }
         } else {
-            detailFuelingUIState.value = DetailFuelingUIState.UnknownObject
+            detailFuelingUIState.value = DetailFuelingUIState.ReturnToPreviousScreen
         }
     }
 
     override fun deleteFueling() {
-        /*
-        TODO: crashing app without try-catch, try to replace it with local temp variable
-         */
         launch {
+            detailFuelingUIState.value = DetailFuelingUIState.ReturnToPreviousScreen
             repository.deleteFueling(data.fueling)
-            detailFuelingUIState.value = DetailFuelingUIState.FuelingDeleted
         }
     }
 }
