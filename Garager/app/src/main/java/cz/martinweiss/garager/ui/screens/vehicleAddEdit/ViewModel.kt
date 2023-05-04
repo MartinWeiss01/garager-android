@@ -12,6 +12,7 @@ import cz.martinweiss.garager.model.FuelType
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.fuelTypes
 import cz.martinweiss.garager.utils.FileUtils
+import cz.martinweiss.garager.utils.FuelUtils
 import kotlinx.coroutines.launch
 
 class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditVehicleActions {
@@ -27,12 +28,7 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
                 val vehicleWithManufacturer = repository.getVehicleWithManufacturerById(vehicleId!!)
                 data.vehicle = vehicleWithManufacturer.vehicle
                 data.selectedManufacturerName = vehicleWithManufacturer.manufacturer?.name ?: ""
-                val fuelType = fuelTypes.firstOrNull {
-                    it.id == data.vehicle.fuelTypeID
-                }
-                fuelType?.let {
-                    data.selectedFuelTypeResID = it.nameResourceID
-                }
+                data.selectedFuelTypeResID = FuelUtils.getNameResourceID(data.vehicle.fuelTypeID)
             }
 
             data.loading = false
