@@ -21,7 +21,7 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
             fuelingId?.let {
                 val fuelingRecord = repository.getFuelingRecordById(it)
                 data.fueling = fuelingRecord.fueling
-                data.selectedVehicleName = fuelingRecord.vehicle.name
+                data.vehicle = fuelingRecord.vehicle
             }
 
             data.loading = false
@@ -53,7 +53,7 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
     override fun onVehicleChange(vehicle: Vehicle) {
         vehicle.id?.let {
             data.fueling.vehicleId = it
-            data.selectedVehicleName = vehicle.name
+            data.vehicle = vehicle
         }
         addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
     }
@@ -75,6 +75,11 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
             data.fueling.quantity = quantity
             addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
         }
+    }
+
+    override fun onFuelSpecificationChange(specification: String?) {
+        data.fueling.specification = specification
+        addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
     }
 
     override fun onDescriptionChange(description: String) {

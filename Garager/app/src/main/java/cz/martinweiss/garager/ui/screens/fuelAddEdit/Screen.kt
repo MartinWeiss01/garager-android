@@ -27,6 +27,7 @@ import cz.martinweiss.garager.ui.elements.CustomTextField
 import cz.martinweiss.garager.ui.elements.ReactiveField
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.Section
 import cz.martinweiss.garager.utils.DateUtils
+import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
 import java.util.*
 
@@ -83,8 +84,9 @@ fun AddEditFuelingContent(
     actions: AddEditFuelingViewModel,
     data: AddEditFuelingData
 ) {
-    var expanded by remember { mutableStateOf(false) }
-
+    var expandedVehicle by remember { mutableStateOf(false) }
+    var expandedFuelType by remember { mutableStateOf(false) }
+    var fuelOptions = FuelUtils.getFuelIDOptions(data.vehicle.fuelTypeID)
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -92,11 +94,11 @@ fun AddEditFuelingContent(
     ) {
         Section(title = stringResource(id = R.string.add_edit_fueling_section_main)) {
             CustomDropdownField(
-                value = data.selectedVehicleName,
+                value = data.vehicle.name,
                 label = stringResource(id = R.string.add_edit_fueling_vehicle_field),
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded },
-                onDismissRequest = { expanded = false },
+                expanded = expandedVehicle,
+                onExpandedChange = { expandedVehicle = !expandedVehicle },
+                onDismissRequest = { expandedVehicle = false },
                 error = if(data.selectVehicleError != null) stringResource(id = data.selectVehicleError!!) else ""
             ) {
                 data.availableVehicles.forEach {
@@ -104,7 +106,7 @@ fun AddEditFuelingContent(
                         text = { Text(text = it.name) },
                         onClick = {
                             actions.onVehicleChange(it)
-                            expanded = false
+                            expandedVehicle = false
                         }
                     )
                 }
@@ -165,6 +167,28 @@ fun AddEditFuelingContent(
                 error = if(data.selectQuantityError != null) stringResource(id = data.selectQuantityError!!) else "",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
+
+            fuelOptions?.let {
+                if(it.isNotEmpty()) {
+                    CustomDropdownField(
+                        value = data.fueling.specification ?: "",
+                        label = stringResource(id = R.string.add_edit_fueling_specification_field),
+                        expanded = expandedFuelType,
+                        onExpandedChange = { expandedFuelType = !expandedFuelType },
+                        onDismissRequest = { expandedFuelType = false },
+                    ) {
+                        it.forEach {
+                            DropdownMenuItem(
+                                text = { Text(text = it) },
+                                onClick = {
+                                    actions.onFuelSpecificationChange(it)
+                                    expandedFuelType = false
+                                }
+                            )
+                        }
+                    }
+                }
+            }
         }
 
         Section(title = stringResource(id = R.string.add_edit_fueling_section_details)) {

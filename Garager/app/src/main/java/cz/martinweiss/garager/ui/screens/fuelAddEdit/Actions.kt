@@ -9,6 +9,7 @@ interface AddEditFuelingActions {
     fun onDateChange(date: Long)
     fun onPricePerUnitChange(unitPrice: Float?)
     fun onQuantityChange(quantity: Float?)
+    fun onFuelSpecificationChange(specification: String?)
     fun onDescriptionChange(description: String)
 
     fun isVehicleValid(): Boolean

@@ -50,6 +50,7 @@
     <string name="add_edit_fueling_section_details">Podrobnosti</string>
     <string name="add_edit_fueling_price_unit_field">Cena za jednotku</string>
     <string name="add_edit_fueling_quantity_field">Množství</string>
+    <string name="add_edit_fueling_specification_field">Typ paliva</string>
     <string name="add_edit_fueling_description_field">Poznámka</string>
     <string name="add_edit_fueling_save_btn">Uložit záznam</string>
     <string name="add_edit_fueling_field_required">Povinné</string>

@@ -7,7 +7,7 @@ class AddEditFuelingData {
     var availableVehicles: List<Vehicle> = arrayListOf()
     var loading: Boolean = true
     var fueling: RawFueling = RawFueling(-1L, -1L, -1F, -1F)
-    var selectedVehicleName: String = ""
+    var vehicle: Vehicle = Vehicle("")
 
     var selectVehicleError: Int? = null
     var selectDateError: Int? = null

@@ -27,6 +27,9 @@ data class RawFueling(
 
     @ColumnInfo(name = "price_sale")
     var priceSale: Float = 0F
+
+    @ColumnInfo(name = "specification")
+    var specification: String? = null
 }
 
 data class Fueling(

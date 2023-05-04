@@ -10,5 +10,12 @@ class FuelUtils {
             }
             return fuelType?.nameResourceID
         }
+
+        fun getFuelIDOptions(id: String?): List<String>? {
+            val fuelType = fuelTypes.firstOrNull {
+                it.id == id
+            }
+            return fuelType?.options
+        }
     }
 }
