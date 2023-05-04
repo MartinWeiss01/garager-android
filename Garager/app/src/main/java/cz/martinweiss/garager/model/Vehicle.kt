@@ -32,6 +32,9 @@ data class Vehicle(
 
     @ColumnInfo(name = "internal_filename")
     var greenCardFilename: String? = null
+
+    @ColumnInfo(name = "fuel_type_id")
+    var fuelTypeID: String? = null
 }
 
 data class VehicleWithManufacturer(

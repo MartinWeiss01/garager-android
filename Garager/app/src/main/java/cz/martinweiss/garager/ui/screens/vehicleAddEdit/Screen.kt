@@ -17,8 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
+import cz.martinweiss.garager.model.fuelTypes
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.elements.CustomDropdownField
 import cz.martinweiss.garager.ui.elements.CustomTextField
 import cz.martinweiss.garager.ui.elements.ReactiveField
 import cz.martinweiss.garager.utils.DateUtils
@@ -64,13 +66,13 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditVehicleContent(
     actions: AddEditVehicleViewModel,
     data: AddEditVehicleData
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expandedManufacturer by remember { mutableStateOf(false) }
+    var expandedFuelType by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     Column(
@@ -99,36 +101,46 @@ fun AddEditVehicleContent(
                 error = if(data.vehicleVINError != null) stringResource(id = data.vehicleVINError!!) else ""
             )
 
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded }
+            CustomDropdownField(
+                value = data.selectedManufacturerName,
+                label = stringResource(id = R.string.add_edit_vehicle_manufacturer_field),
+                expanded = expandedManufacturer,
+                onExpandedChange = { expandedManufacturer = !expandedManufacturer },
+                onDismissRequest = { expandedManufacturer = false },
             ) {
-                OutlinedTextField(
-                    readOnly = true,
-                    value = data.selectedManufacturerName,
-                    onValueChange = {},
-                    label = { Text(text = stringResource(id = R.string.add_edit_vehicle_manufacturer_field)) },
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                    },
-                    modifier = Modifier
-                        .menuAnchor()
-                        .fillMaxWidth()
-                )
+                data.manufacturers.forEach {
+                    DropdownMenuItem(
+                        text = { Text(text = it.name) },
+                        onClick = {
+                            actions.onManufacturerChange(it)
+                            expandedManufacturer = false
+                        }
+                    )
+                }
+            }
 
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    data.manufacturers.forEach {
-                        DropdownMenuItem(
-                            text = { Text(text = it.name) },
-                            onClick = {
-                                actions.onManufacturerChange(it)
-                                expanded = false
-                            }
-                        )
+            CustomDropdownField(
+                value = if(data.selectedFuelTypeResID != null) stringResource(id = data.selectedFuelTypeResID!!) else "",
+                label = stringResource(id = R.string.add_edit_vehicle_fuel_type_field),
+                expanded = expandedFuelType,
+                onExpandedChange = { expandedFuelType = !expandedFuelType },
+                onDismissRequest = { expandedFuelType = false },
+            ) {
+                DropdownMenuItem(
+                    text = { Text(text = stringResource(id = R.string.add_edit_vehicle_fuel_type_unspecified)) },
+                    onClick = {
+                        expandedFuelType = false
+                        actions.onFuelTypeChange(null)
                     }
+                )
+                fuelTypes.forEach {
+                    DropdownMenuItem(
+                        text = { Text(text = stringResource(id = it.nameResourceID)) },
+                        onClick = {
+                            expandedFuelType = false
+                            actions.onFuelTypeChange(it)
+                        }
+                    )
                 }
             }
         }

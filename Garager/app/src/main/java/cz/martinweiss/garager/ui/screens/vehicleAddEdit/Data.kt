@@ -7,6 +7,7 @@ import cz.martinweiss.garager.model.Vehicle
 class AddEditVehicleData {
     var manufacturers: List<Manufacturer> = arrayListOf()
     var selectedManufacturerName: String = ""
+    var selectedFuelTypeResID: Int? = null
     var vehicle: Vehicle = Vehicle("")
     var loading: Boolean = true
     var selectedGreenCardURI: Uri? = null

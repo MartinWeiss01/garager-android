@@ -2,6 +2,7 @@ package cz.martinweiss.garager.ui.screens.vehicleAddEdit
 
 import android.content.Context
 import android.net.Uri
+import cz.martinweiss.garager.model.FuelType
 import cz.martinweiss.garager.model.Manufacturer
 
 interface AddEditVehicleActions {
@@ -10,6 +11,7 @@ interface AddEditVehicleActions {
     fun onLicensePlateChange(licensePlate: String)
     fun onVINChange(vin: String)
     fun onManufacturerChange(manufacturer: Manufacturer?)
+    fun onFuelTypeChange(fuelType: FuelType?)
     fun onDateChange(date: Long?)
     fun onGreenCardChange(uri: Uri?)
     fun isVehicleValid(): Boolean

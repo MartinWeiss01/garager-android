@@ -8,7 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
+import cz.martinweiss.garager.model.FuelType
 import cz.martinweiss.garager.model.Manufacturer
+import cz.martinweiss.garager.model.fuelTypes
 import cz.martinweiss.garager.utils.FileUtils
 import kotlinx.coroutines.launch
 
@@ -25,6 +27,12 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
                 val vehicleWithManufacturer = repository.getVehicleWithManufacturerById(vehicleId!!)
                 data.vehicle = vehicleWithManufacturer.vehicle
                 data.selectedManufacturerName = vehicleWithManufacturer.manufacturer?.name ?: ""
+                val fuelType = fuelTypes.firstOrNull {
+                    it.id == data.vehicle.fuelTypeID
+                }
+                fuelType?.let {
+                    data.selectedFuelTypeResID = it.nameResourceID
+                }
             }
 
             data.loading = false
@@ -83,6 +91,12 @@ class AddEditVehicleViewModel(private val repository: IVehiclesRepository) : Bas
     override fun onManufacturerChange(manufacturer: Manufacturer?) {
         data.vehicle.manufacturer = manufacturer?.id
         data.selectedManufacturerName = manufacturer?.name ?: ""
+        addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
+    }
+
+    override fun onFuelTypeChange(fuelType: FuelType?) {
+        data.selectedFuelTypeResID = fuelType?.nameResourceID
+        data.vehicle.fuelTypeID = fuelType?.id
         addEditVehicleUIState.value = AddEditVehicleUIState.VehicleChanged
     }
 

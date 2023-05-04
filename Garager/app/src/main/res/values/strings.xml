@@ -33,6 +33,8 @@
     <string name="add_edit_vehicle_vin_field">VIN</string>
     <string name="add_edit_vehicle_vin_format_error">Neplatný formát</string>
     <string name="add_edit_vehicle_manufacturer_field">Značka</string>
+    <string name="add_edit_vehicle_fuel_type_field">Typ paliva</string>
+    <string name="add_edit_vehicle_fuel_type_unspecified">Nenastaveno</string>
     <string name="add_edit_vehicle_save_btn">Uložit vozidlo</string>
     <string name="add_edit_vehicle_upload_file">Vybrat soubor</string>
     <string name="add_edit_vehicle_file_field">Zelená karta (PDF či foto)</string>
