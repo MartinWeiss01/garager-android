@@ -8,7 +8,8 @@ import androidx.room.*
         ForeignKey(
             entity = Vehicle::class,
             parentColumns = ["id"],
-            childColumns = ["vehicle_id"]
+            childColumns = ["vehicle_id"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
