@@ -1,8 +1,11 @@
 package cz.martinweiss.garager.ui.elements
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -15,32 +18,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun BackArrowScreen(
     topBarTitle: String,
     onBackClick: () -> Unit,
-    actionIcon: ImageVector? = null,
-    onActionClick: (() -> Unit)? = null,
+    actions: @Composable() (RowScope.() -> Unit) = {},
     ignoreLazyColumn: Boolean = false,
     content: @Composable (paddingValues: PaddingValues) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            MediumTopAppBar(
                 title = { Text(text = topBarTitle) },
                 navigationIcon = {
                     IconButton(onClick = { onBackClick() } ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
                     }
                 },
-                actions = {
-                    if(actionIcon != null && onActionClick != null) {
-                        IconButton(onClick = {
-                            onActionClick()
-                        }) {
-                            Icon(
-                                imageVector = actionIcon,
-                                contentDescription = null
-                            )
-                        }
-                    }
-                }
+                actions = actions
             )
         }
     ) {

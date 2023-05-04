@@ -2,13 +2,12 @@ package cz.martinweiss.garager.ui.screens.vehicleDetail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,11 +40,29 @@ fun DetailVehicleScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
         }
     }
 
+    val context = LocalContext.current
     BackArrowScreen(
         topBarTitle = stringResource(id = R.string.title_detail_vehicle),
         onBackClick = { navigation.returnBack() },
-        actionIcon = Icons.Default.Edit,
-        onActionClick = { navigation.navigateToAddEditVehicleScreen(id) }
+        actions = {
+            IconButton(onClick = {
+                navigation.navigateToAddEditVehicleScreen(id)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = null
+                )
+            }
+
+            IconButton(onClick = {
+                viewModel.deleteVehicle(context = context)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(id = R.string.detail_vehicle_delete_button)
+                )
+            }
+        }
     ) {
         DetailVehicleScreenContent(
             navigation = navigation,
@@ -104,32 +121,18 @@ fun DetailVehicleScreenContent(
             }
         }
 
-
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(
-                    onClick = {
-                        data.vehicle.greenCardFilename?.let {
-                            navigation.navigateToGreenCardVehicleScreen(it)
-                        }
-                    },
-                    enabled = data.vehicle.greenCardFilename != null
-                ) {
-                    Text(text = if(data.vehicle.greenCardFilename != null) stringResource(id = R.string.detail_vehicle_green_card_btn)
-                        else stringResource(id = R.string.detail_vehicle_green_card_btn_unavailable)
-                    )
-                }
-            }
-
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(
-                    onClick = {
-                        actions.deleteVehicle(context = context)
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                ) {
-                    Text(text = stringResource(id = R.string.detail_vehicle_delete_button))
-                }
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Button(
+                onClick = {
+                    data.vehicle.greenCardFilename?.let {
+                        navigation.navigateToGreenCardVehicleScreen(it)
+                    }
+                },
+                enabled = data.vehicle.greenCardFilename != null
+            ) {
+                Text(text = if(data.vehicle.greenCardFilename != null) stringResource(id = R.string.detail_vehicle_green_card_btn)
+                    else stringResource(id = R.string.detail_vehicle_green_card_btn_unavailable)
+                )
             }
         }
     }

@@ -2,10 +2,12 @@ package cz.martinweiss.garager.ui.screens.fuelDetail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,11 +41,27 @@ fun DetailFuelingScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
     BackArrowScreen(
         topBarTitle = stringResource(id = R.string.title_detail_fueling),
         onBackClick = { navigation.returnBack() },
-        actionIcon = Icons.Default.Edit,
-        onActionClick = { navigation.navigateToAddEditFuelingScreen(id) }
+        actions = {
+            IconButton(onClick = {
+                navigation.navigateToAddEditFuelingScreen(id)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = null
+                )
+            }
+
+            IconButton(onClick = {
+                viewModel.deleteFueling()
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(id = R.string.detail_fueling_delete_button)
+                )
+            }
+        }
     ) {
         DetailFuelingContent(
-            navigation = navigation,
             data = data,
             actions = viewModel
         )
@@ -52,7 +70,6 @@ fun DetailFuelingScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
 
 @Composable
 fun DetailFuelingContent(
-    navigation: INavigationRouter,
     data: DetailFuelingData,
     actions: DetailFuelingViewModel
 ) {
@@ -126,22 +143,5 @@ fun DetailFuelingContent(
                 Text(text = "${data.fueling.priceUnit * data.fueling.quantity}")
             }
         }
-
-        Column() {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(
-                    onClick = {
-                        actions.deleteFueling()
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                ) {
-                    Text(text = stringResource(id = R.string.detail_fueling_delete_button))
-                }
-            }
-        }
     }
-
-
-
-
 }
