@@ -92,4 +92,16 @@
     </plurals>
 
     <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
+
+    <!-- Dataset -->
+    <string name="fuel_type_name_electric">Elektřina</string>
+    <string name="fuel_type_name_gas">Benzin</string>
+    <string name="fuel_type_name_diesel">Nafta</string>
+    <string name="fuel_type_name_naturalgas">Zemní plyn</string>
+    <string name="fuel_type_name_hydro">Vodík</string>
+    <string name="fuel_type_name_ethanol">Etanol</string>
+    <string name="fuel_type_name_propane">Propan</string>
+    <string name="fuel_type_name_lpg">LPG</string>
+    <string name="fuel_type_name_cng">CNG</string>
+    <string name="fuel_type_name_flex">Flex</string>
 </resources>

@@ -87,4 +87,16 @@
     </plurals>
 
     <string name="permission_storage_denied">Permission denied</string>
+
+    <!-- Dataset -->
+    <string name="fuel_type_name_electric">Electricity</string>
+    <string name="fuel_type_name_gas">Gasoline</string>
+    <string name="fuel_type_name_diesel">Diesel</string>
+    <string name="fuel_type_name_naturalgas">Natural Gas</string>
+    <string name="fuel_type_name_hydro">Hydrogen</string>
+    <string name="fuel_type_name_ethanol">Ethanol</string>
+    <string name="fuel_type_name_propane">Propane</string>
+    <string name="fuel_type_name_lpg">Liquefied Petroleum Gas</string>
+    <string name="fuel_type_name_cng">Compressed Natural Gas</string>
+    <string name="fuel_type_name_flex">Flex Fuel</string>
 </resources>
