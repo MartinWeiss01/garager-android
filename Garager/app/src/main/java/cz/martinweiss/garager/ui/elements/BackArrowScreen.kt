@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +23,9 @@ fun BackArrowScreen(
     ignoreLazyColumn: Boolean = false,
     content: @Composable (paddingValues: PaddingValues) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             MediumTopAppBar(
                 title = { Text(text = topBarTitle) },
@@ -31,7 +34,8 @@ fun BackArrowScreen(
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
                     }
                 },
-                actions = actions
+                actions = actions,
+                scrollBehavior = scrollBehavior
             )
         }
     ) {
