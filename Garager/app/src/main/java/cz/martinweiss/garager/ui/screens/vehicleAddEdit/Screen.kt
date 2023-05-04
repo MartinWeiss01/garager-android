@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -53,11 +55,22 @@ fun AddEditVehicleScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
         }
     }
 
+    val context = LocalContext.current
     BackArrowScreen(
         topBarTitle = if(viewModel.vehicleId != null)
             stringResource(id = R.string.title_add_edit_vehicle_edit) else
             stringResource(id = R.string.title_add_edit_vehicle_add),
-        onBackClick = { navigation.returnBack() }
+        onBackClick = { navigation.returnBack() },
+        actions = {
+            IconButton(onClick = {
+                viewModel.saveVehicle(context)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = stringResource(id = R.string.add_edit_vehicle_save_btn)
+                )
+            }
+        }
     ) {
         AddEditVehicleContent(
             actions = viewModel,
@@ -73,7 +86,6 @@ fun AddEditVehicleContent(
 ) {
     var expandedManufacturer by remember { mutableStateOf(false) }
     var expandedFuelType by remember { mutableStateOf(false) }
-    val context = LocalContext.current
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -178,19 +190,6 @@ fun AddEditVehicleContent(
                 data = data
             )
         }
-
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(
-                onClick = {
-                    actions.saveVehicle(context)
-                },
-            ) {
-                Text(text = stringResource(id = R.string.add_edit_vehicle_save_btn))
-            }
-        }
     }
 }
 
@@ -239,7 +238,7 @@ fun Section(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
         Text(
             text = title,
             fontSize = 14.sp,

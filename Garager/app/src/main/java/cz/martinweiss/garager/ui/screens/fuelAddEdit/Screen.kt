@@ -3,10 +3,15 @@ package cz.martinweiss.garager.ui.screens.fuelAddEdit
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.widget.DatePicker
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -54,7 +59,17 @@ fun AddEditFuelingScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
         topBarTitle = if(viewModel.fuelingId != null)
             stringResource(id = R.string.title_add_edit_fueling_edit) else
             stringResource(id = R.string.title_add_edit_fueling_add),
-        onBackClick = { navigation.returnBack() }
+        onBackClick = { navigation.returnBack() },
+        actions = {
+            IconButton(onClick = {
+                viewModel.saveFueling()
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = stringResource(id = R.string.add_edit_fueling_save_btn)
+                )
+            }
+        }
     ) {
         AddEditFuelingContent(
             actions = viewModel,
@@ -160,19 +175,6 @@ fun AddEditFuelingContent(
                 error = "",
                 maxLines = 5
             )
-        }
-
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(
-                onClick = {
-                    actions.saveFueling()
-                },
-            ) {
-                Text(text = stringResource(id = R.string.add_edit_fueling_save_btn))
-            }
         }
     }
 }
