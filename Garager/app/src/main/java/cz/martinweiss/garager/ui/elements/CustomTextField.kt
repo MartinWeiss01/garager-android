@@ -16,6 +16,8 @@ fun CustomTextField(
     label: String,
     onValueChange: (String) -> Unit,
     error: String,
+    leadingIcon: @Composable() (() -> Unit)? = null,
+    trailingIcon: @Composable() (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
     maxLines: Int = 1
 ) {
@@ -27,6 +29,8 @@ fun CustomTextField(
         isError = !error.isEmpty(),
         modifier = Modifier.fillMaxWidth(),
         supportingText = { if (error.isNotEmpty()) Text(text = error) },
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
         keyboardOptions = keyboardOptions
     )
 }

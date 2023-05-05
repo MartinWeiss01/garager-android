@@ -87,6 +87,7 @@ fun AddEditFuelingContent(
     var expandedVehicle by remember { mutableStateOf(false) }
     var expandedFuelType by remember { mutableStateOf(false) }
     var fuelOptions = FuelUtils.getFuelIDOptions(data.vehicle.fuelTypeID)
+    var fuelUnit = FuelUtils.getFuelUnit(data.vehicle.fuelTypeID)
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -165,6 +166,9 @@ fun AddEditFuelingContent(
                 label = stringResource(id = R.string.add_edit_fueling_quantity_field),
                 onValueChange = { actions.onQuantityChange(it) },
                 error = if(data.selectQuantityError != null) stringResource(id = data.selectQuantityError!!) else "",
+                trailingIcon = {
+                    Text(text = fuelUnit)
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
 

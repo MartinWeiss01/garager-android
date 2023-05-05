@@ -17,5 +17,12 @@ class FuelUtils {
             }
             return fuelType?.options
         }
+
+        fun getFuelUnit(id: String?): String {
+            val fuelType = fuelTypes.firstOrNull {
+                it.id == id
+            }
+            return fuelType?.unit ?: "l"
+        }
     }
 }
