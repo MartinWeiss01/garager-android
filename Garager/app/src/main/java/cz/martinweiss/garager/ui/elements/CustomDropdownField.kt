@@ -15,7 +15,7 @@ fun CustomDropdownField(
     expanded: Boolean,
     onExpandedChange: () -> Unit,
     onDismissRequest: () -> Unit,
-    content: @Composable() (ColumnScope.() -> Unit)
+    content: @Composable (ColumnScope.() -> Unit)
 ) {
     ExposedDropdownMenuBox(
         expanded = expanded,

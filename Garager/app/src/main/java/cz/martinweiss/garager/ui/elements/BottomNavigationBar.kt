@@ -16,7 +16,7 @@ import cz.martinweiss.garager.navigation.BOTTOM_NAVBAR_LINKS
 fun BottomNavigationBar(navController: NavController) {
     val items = BOTTOM_NAVBAR_LINKS
 
-    NavigationBar() {
+    NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 

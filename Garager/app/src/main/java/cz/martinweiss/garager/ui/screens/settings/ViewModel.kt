@@ -16,6 +16,8 @@ class SettingsViewModel(private val dataStore: IDataStoreController): BaseViewMo
 
     fun loadInitSettings() {
         launch {
+            /* TODO Splash Screen Default dataStore value */
+            /* TODO Simplify fetching */
             val motWarning = dataStore.getValueByKey(DATASTORE_MOT_DAYS, VALUE_TYPE.INT)
             val currency = dataStore.getValueByKey(DATASTORE_CURRENCY, VALUE_TYPE.STRING)
             if(motWarning != null) {
