@@ -94,6 +94,9 @@
         <item quantity="few">dny</item>
         <item quantity="other">dní</item>
     </plurals>
+    <string name="settings_currency_label">Měna aplikace</string>
+    <string name="settings_currency_description">Ceny za tankování se zobrazí ve zvolené měně</string>
+
 
     <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
 

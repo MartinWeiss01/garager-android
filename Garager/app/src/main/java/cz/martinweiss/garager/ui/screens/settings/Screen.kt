@@ -13,9 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.chargemap.compose.numberpicker.ListItemPicker
 import com.chargemap.compose.numberpicker.NumberPicker
 import cz.martinweiss.garager.BuildConfig
 import cz.martinweiss.garager.R
+import cz.martinweiss.garager.model.Currency
+import cz.martinweiss.garager.model.currencies
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
 import org.koin.androidx.compose.getViewModel
@@ -82,6 +85,7 @@ fun SettingsScreenContent(
     showSheet: () -> Unit,
 ) {
     val motDaysWarningState = remember { mutableStateOf(data.motDaysWarning) }
+    val currencyState = remember { mutableStateOf(data.currency) }
 
     Surface(
         modifier = Modifier.padding(paddingValues)
@@ -99,19 +103,18 @@ fun SettingsScreenContent(
                 sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
                 showSheet()
             }) {
-                Text(text = "HARDCODED: DISPLAY")
+                Text(text = "HARDCODED: MOT DAYS DISPLAY")
+            }
+
+            Text(text = "${data.currency}")
+            Button(onClick = {
+                sheetContentState.value = { CurrencySelect(actions = actions, currencyState = currencyState)}
+                showSheet()
+            }) {
+                Text(text = "HARDCODED: CURRENCY DISPLAY")
             }
         }
     }
-}
-
-@Composable
-fun SheetItem(
-    sheetContentState: MutableState<@Composable ColumnScope.() -> Unit>,
-    showSheet: () -> Unit,
-    sheetContent: @Composable RowScope.() -> Unit
-) {
-
 }
 
 @Composable
@@ -134,9 +137,6 @@ fun MOTExpirationDays(
     actions: SettingsActions,
     motDaysWarningState: MutableState<Int>
 ) {
-    LaunchedEffect(motDaysWarningState.value) {
-        Log.d("[###############]", "PROVADIM REKOMPOZICI MOT EXPIRATION DAYS")
-    }
     SettingsElement(
         title = stringResource(id = R.string.settings_mot_days_warning_label),
         description = stringResource(id = R.string.settings_mot_days_warning_description),
@@ -152,7 +152,6 @@ fun MOTExpirationDays(
                 onValueChange = {
                     actions.updateMOTDaysWarning(it)
                     motDaysWarningState.value = it
-                    Log.d("###########", "Weird Recomposition: $it")
                 },
                 textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface),
                 dividersColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -165,6 +164,36 @@ fun MOTExpirationDays(
                     R.plurals.settings_mot_days_warning_days, motDaysWarningState.value, motDaysWarningState.value
                 )
             )
+        }
+    }
+}
+
+@Composable
+fun CurrencySelect(
+    actions: SettingsActions,
+    currencyState: MutableState<String>
+) {
+    SettingsElement(
+        title = stringResource(id = R.string.settings_currency_label),
+        description = stringResource(id = R.string.settings_currency_description),
+        modifier = Modifier.padding(horizontal = 30.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            ListItemPicker(
+                value = currencyState.value,
+                list = currencies.map { it.name },
+                onValueChange = { it
+                    actions.updateCurrency(it)
+                    currencyState.value = it
+                },
+                textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface),
+                dividersColor = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+
+            Spacer(modifier = Modifier.width(10.dp))
         }
     }
 }

@@ -89,6 +89,8 @@
         <item quantity="one">day</item>
         <item quantity="other">days</item>
     </plurals>
+    <string name="settings_currency_label">Currency</string>
+    <string name="settings_currency_description">Prices for fuelings will be displayed in the selected currency</string>
 
     <string name="permission_storage_denied">Permission denied</string>
 
