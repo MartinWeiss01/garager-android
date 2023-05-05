@@ -15,6 +15,7 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.utils.DateUtils
+import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -73,6 +74,8 @@ fun DetailFuelingContent(
     data: DetailFuelingData,
     actions: DetailFuelingViewModel
 ) {
+    var fuelUnit = FuelUtils.getFuelUnit(data.vehicle.fuelTypeID)
+
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(40.dp)
@@ -87,7 +90,7 @@ fun DetailFuelingContent(
 
             Column() {
                 Text(text = stringResource(id = R.string.detail_fueling_vehicle), fontWeight = FontWeight.Bold)
-                Text(text = data.vehicleName)
+                Text(text = data.vehicle.name)
             }
 
             data.fueling.description?.let {
@@ -122,7 +125,7 @@ fun DetailFuelingContent(
                     text = stringResource(id = R.string.detail_fueling_quantity),
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = data.fueling.quantity.toString())
+                Text(text = "${data.fueling.quantity} $fuelUnit")
             }
 
             Divider(

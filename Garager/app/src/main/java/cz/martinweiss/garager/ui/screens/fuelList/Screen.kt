@@ -29,6 +29,7 @@ import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.ui.screens.vehicleList.*
 import cz.martinweiss.garager.utils.DateUtils
+import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
 import java.util.*
 
@@ -125,6 +126,7 @@ fun FuelingRecord(
     fueling: Fueling,
     onClick: () -> Unit
 ) {
+    var fuelUnit = FuelUtils.getFuelUnit(fueling.vehicle.fuelTypeID)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -145,7 +147,7 @@ fun FuelingRecord(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        Text(text = "${fueling.fueling.priceUnit} × ${fueling.fueling.quantity}", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "${fueling.fueling.priceUnit} × ${fueling.fueling.quantity} $fuelUnit", fontSize = 10.sp, fontWeight = FontWeight.Bold)
                     }
 
                     Divider(

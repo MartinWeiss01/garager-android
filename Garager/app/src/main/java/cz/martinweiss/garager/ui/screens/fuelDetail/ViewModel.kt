@@ -1,6 +1,5 @@
 package cz.martinweiss.garager.ui.screens.fuelDetail
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
@@ -18,7 +17,7 @@ class DetailFuelingViewModel(private val repository: IVehiclesRepository): BaseV
                 repository.getLiveFuelingRecordById(fuelingId).collect() { fueling ->
                     if(fueling != null) {
                         data.fueling = fueling.fueling
-                        data.vehicleName = fueling.vehicle.name
+                        data.vehicle = fueling.vehicle
                         detailFuelingUIState.value = DetailFuelingUIState.Default
                     } else {
                         detailFuelingUIState.value = DetailFuelingUIState.ReturnToPreviousScreen
