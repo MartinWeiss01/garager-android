@@ -22,6 +22,9 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
                 val fuelingRecord = repository.getFuelingRecordById(it)
                 data.fueling = fuelingRecord.fueling
                 data.vehicle = fuelingRecord.vehicle
+                // to make Double input fields more user friendly, it is handled in its own temp variable which allows string (so anything user writes down)
+                data.fuelingUnitPrice = fuelingRecord.fueling.priceUnit.toString()
+                data.fuelingQuantity = fuelingRecord.fueling.quantity.toString()
             }
 
             data.loading = false
@@ -63,18 +66,14 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
         addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
     }
 
-    override fun onPricePerUnitChange(unitPrice: Float?) {
-        unitPrice?.let {
-            data.fueling.priceUnit = unitPrice
-            addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
-        }
+    override fun onPricePerUnitChange(unitPrice: String?) {
+        data.fuelingUnitPrice = unitPrice
+        addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
     }
 
-    override fun onQuantityChange(quantity: Float?) {
-        quantity?.let {
-            data.fueling.quantity = quantity
-            addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
-        }
+    override fun onQuantityChange(quantity: String?) {
+        data.fuelingQuantity = quantity
+        addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
     }
 
     override fun onFuelSpecificationChange(specification: String?) {
@@ -111,16 +110,36 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
     }
 
     override fun isUnitPriceValid(): Boolean {
-        val res = data.fueling.priceUnit != -1F
-        if (res) data.selectUnitPriceError = null
-        else data.selectUnitPriceError = R.string.add_edit_fueling_field_required
-        return res
+        val res1 = data.fuelingUnitPrice != null
+        if(res1) {
+            val unitDouble = data.fuelingUnitPrice!!.toDoubleOrNull()
+            val res2 = unitDouble != null
+
+            if (res2) {
+                data.fueling.priceUnit = unitDouble!!
+                data.selectUnitPriceError = null
+            } else {
+                data.selectUnitPriceError = R.string.add_edit_fueling_field_invalid_format
+            }
+            return res2
+        } else data.selectUnitPriceError = R.string.add_edit_fueling_field_required
+        return res1
     }
 
     override fun isQuantityValid(): Boolean {
-        val res = data.fueling.quantity != -1F
-        if (res) data.selectQuantityError = null
-        else data.selectQuantityError = R.string.add_edit_fueling_field_required
-        return res
+        val res1 = data.fuelingQuantity != null
+        if(res1) {
+            val quantityDouble = data.fuelingQuantity!!.toDoubleOrNull()
+            val res2 = quantityDouble != null
+
+            if(res2) {
+                data.fueling.quantity = quantityDouble!!
+                data.selectQuantityError = null
+            } else {
+                data.selectQuantityError = R.string.add_edit_fueling_field_invalid_format
+            }
+            return res2
+        } else data.selectQuantityError = R.string.add_edit_fueling_field_required
+        return res1
     }
 }

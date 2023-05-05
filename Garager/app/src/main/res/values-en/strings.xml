@@ -53,6 +53,7 @@
     <string name="add_edit_fueling_description_field">Description</string>
     <string name="add_edit_fueling_save_btn">Save fueling</string>
     <string name="add_edit_fueling_field_required">Required</string>
+    <string name="add_edit_fueling_field_invalid_format">Invalid format</string>
 
     <string name="title_detail_vehicle">Vehicle Detail</string>
     <string name="detail_vehicle_vin">VIN</string>

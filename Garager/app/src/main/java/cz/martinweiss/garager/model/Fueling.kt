@@ -16,8 +16,6 @@ import androidx.room.*
 data class RawFueling(
     @ColumnInfo(name = "vehicle_id") var vehicleId: Long,
     @ColumnInfo(name = "date") var date: Long,
-    @ColumnInfo(name = "price_unit") var priceUnit: Float,
-    @ColumnInfo(name = "quantity") var quantity: Float
 ) {
     @PrimaryKey
     @ColumnInfo(name = "id") var id: Long? = null
@@ -25,8 +23,14 @@ data class RawFueling(
     @ColumnInfo(name = "description")
     var description: String? = null
 
+    @ColumnInfo(name = "price_unit")
+    var priceUnit: Double = 0.0
+
+    @ColumnInfo(name = "quantity")
+    var quantity: Double = 0.0
+
     @ColumnInfo(name = "price_sale")
-    var priceSale: Float = 0F
+    var priceSale: Double? = null
 
     @ColumnInfo(name = "specification")
     var specification: String? = null

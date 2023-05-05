@@ -7,8 +7,8 @@ interface AddEditFuelingActions {
     fun onVehicleChange(vehicle: Vehicle)
 
     fun onDateChange(date: Long)
-    fun onPricePerUnitChange(unitPrice: Float?)
-    fun onQuantityChange(quantity: Float?)
+    fun onPricePerUnitChange(unitPrice: String?)
+    fun onQuantityChange(quantity: String?)
     fun onFuelSpecificationChange(specification: String?)
     fun onDescriptionChange(description: String)
 

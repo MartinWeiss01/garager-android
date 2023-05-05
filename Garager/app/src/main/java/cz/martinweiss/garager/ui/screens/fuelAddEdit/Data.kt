@@ -6,8 +6,10 @@ import cz.martinweiss.garager.model.Vehicle
 class AddEditFuelingData {
     var availableVehicles: List<Vehicle> = arrayListOf()
     var loading: Boolean = true
-    var fueling: RawFueling = RawFueling(-1L, -1L, -1F, -1F)
+    var fueling: RawFueling = RawFueling(-1L, -1L)
     var vehicle: Vehicle = Vehicle("")
+    var fuelingUnitPrice: String? = null
+    var fuelingQuantity: String? = null
 
     var selectVehicleError: Int? = null
     var selectDateError: Int? = null

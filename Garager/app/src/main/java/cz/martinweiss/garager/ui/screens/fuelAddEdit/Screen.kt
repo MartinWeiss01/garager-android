@@ -153,17 +153,17 @@ fun AddEditFuelingContent(
             )
 
             CustomTextField(
-                value = if(data.fueling.priceUnit != -1F) data.fueling.priceUnit.toString() else "",
+                value = data.fuelingUnitPrice ?: "",
                 label = stringResource(id = R.string.add_edit_fueling_price_unit_field),
-                onValueChange = { actions.onPricePerUnitChange(it.toFloatOrNull()) },
+                onValueChange = { actions.onPricePerUnitChange(it) },
                 error = if(data.selectUnitPriceError != null) stringResource(id = data.selectUnitPriceError!!) else "",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
 
             CustomTextField(
-                value = if(data.fueling.quantity != -1F) data.fueling.quantity.toString() else "",
+                value = data.fuelingQuantity ?: "",
                 label = stringResource(id = R.string.add_edit_fueling_quantity_field),
-                onValueChange = { actions.onQuantityChange(it.toFloatOrNull()) },
+                onValueChange = { actions.onQuantityChange(it) },
                 error = if(data.selectQuantityError != null) stringResource(id = data.selectQuantityError!!) else "",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
