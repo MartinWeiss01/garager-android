@@ -2,11 +2,9 @@ package cz.martinweiss.garager.ui.screens.settings
 
 import android.os.Build
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,13 +17,21 @@ import com.chargemap.compose.numberpicker.NumberPicker
 import cz.martinweiss.garager.BuildConfig
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
-import cz.martinweiss.garager.ui.elements.BaseScreenLayout
+import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel = getViewModel()) {
     var data: SettingsData by remember {
         mutableStateOf(viewModel.data)
+    }
+
+    val sheetContentState = remember {
+        mutableStateOf<@Composable ColumnScope.() -> Unit>({})
+    }
+
+    val isSheetVisibleState = remember {
+        mutableStateOf(false)
     }
 
     viewModel.settingsUIState.value.let {
@@ -41,13 +47,27 @@ fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel =
         }
     }
 
-    BaseScreenLayout(
-        navController = navigation.getNavController(), hideFAB = true
+    BackHandler(enabled = true, onBack = {
+        //handle navigation returnBack on hidden sheet
+        sheetContentState.value = {}
+    })
+
+    BaseScreenSheetLayout(
+        navController = navigation.getNavController(),
+        hideFAB = true,
+        sheetContent = sheetContentState.value,
+        isSheetVisible = isSheetVisibleState.value,
+        onSheetCollapsed = { sheetContentState.value = {} }
     ) {
         SettingsScreenContent(
             paddingValues = it,
             actions = viewModel,
-            data = data
+            data = data,
+            sheetContentState = sheetContentState,
+            isSheetVisibleState = isSheetVisibleState,
+            showSheet = {
+                isSheetVisibleState.value = true
+            }
         )
     }
 }
@@ -56,8 +76,13 @@ fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel =
 fun SettingsScreenContent(
     paddingValues: PaddingValues,
     actions: SettingsActions,
-    data: SettingsData
+    data: SettingsData,
+    sheetContentState: MutableState<@Composable ColumnScope.() -> Unit>,
+    isSheetVisibleState: MutableState<Boolean>,
+    showSheet: () -> Unit,
 ) {
+    val motDaysWarningState = remember { mutableStateOf(data.motDaysWarning) }
+
     Surface(
         modifier = Modifier.padding(paddingValues)
     ) {
@@ -69,12 +94,24 @@ fun SettingsScreenContent(
             SettingsDivider()
             ApplicationVersion()
             SettingsDivider()
-            MOTExpirationDays(
-                actions = actions,
-                data = data
-            )
+            Text(text = "${data.motDaysWarning}")
+            Button(onClick = {
+                sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
+                showSheet()
+            }) {
+                Text(text = "HARDCODED: DISPLAY")
+            }
         }
     }
+}
+
+@Composable
+fun SheetItem(
+    sheetContentState: MutableState<@Composable ColumnScope.() -> Unit>,
+    showSheet: () -> Unit,
+    sheetContent: @Composable RowScope.() -> Unit
+) {
+
 }
 
 @Composable
@@ -95,21 +132,27 @@ fun ApplicationVersion() {
 @Composable
 fun MOTExpirationDays(
     actions: SettingsActions,
-    data: SettingsData
+    motDaysWarningState: MutableState<Int>
 ) {
+    LaunchedEffect(motDaysWarningState.value) {
+        Log.d("[###############]", "PROVADIM REKOMPOZICI MOT EXPIRATION DAYS")
+    }
     SettingsElement(
         title = stringResource(id = R.string.settings_mot_days_warning_label),
         description = stringResource(id = R.string.settings_mot_days_warning_description),
+        modifier = Modifier.padding(horizontal = 30.dp)
     ) {
         Row(
             modifier = Modifier.padding(start = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             NumberPicker(
-                value = data.motDaysWarning,
+                value = motDaysWarningState.value,
                 range = 10..60,
                 onValueChange = {
                     actions.updateMOTDaysWarning(it)
+                    motDaysWarningState.value = it
+                    Log.d("###########", "Weird Recomposition: $it")
                 },
                 textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface),
                 dividersColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -119,7 +162,7 @@ fun MOTExpirationDays(
 
             Text(
                 text = LocalContext.current.resources.getQuantityString(
-                    R.plurals.settings_mot_days_warning_days, data.motDaysWarning, data.motDaysWarning
+                    R.plurals.settings_mot_days_warning_days, motDaysWarningState.value, motDaysWarningState.value
                 )
             )
         }
