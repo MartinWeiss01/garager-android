@@ -6,10 +6,16 @@ import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
+import cz.martinweiss.garager.datastore.DATASTORE_CURRENCY
+import cz.martinweiss.garager.datastore.IDataStoreController
+import cz.martinweiss.garager.datastore.VALUE_TYPE
 import cz.martinweiss.garager.model.Vehicle
 import kotlinx.coroutines.launch
 
-class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : BaseViewModel(), AddEditFuelingActions {
+class AddEditFuelingViewModel(
+    private val repository: IVehiclesRepository,
+    private val dataStore: IDataStoreController
+) : BaseViewModel(), AddEditFuelingActions {
     var data: AddEditFuelingData = AddEditFuelingData()
     var fuelingId: Long? = null
     val addEditFuelingUIState: MutableState<AddEditFuelingUIState> = mutableStateOf(AddEditFuelingUIState.Loading)
@@ -29,6 +35,14 @@ class AddEditFuelingViewModel(private val repository: IVehiclesRepository) : Bas
 
             data.loading = false
             addEditFuelingUIState.value = AddEditFuelingUIState.FuelingChanged
+        }
+
+        launch {
+            val tempCurrency = dataStore.getValueByKey(DATASTORE_CURRENCY, VALUE_TYPE.STRING)
+            if(tempCurrency != null) {
+                data.currency = tempCurrency as String
+            }
+            /* TODO Splash Screen Default dataStore value */
         }
     }
 

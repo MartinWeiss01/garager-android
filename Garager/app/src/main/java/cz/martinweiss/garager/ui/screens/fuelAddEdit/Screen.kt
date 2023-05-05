@@ -158,6 +158,9 @@ fun AddEditFuelingContent(
                 label = stringResource(id = R.string.add_edit_fueling_price_unit_field),
                 onValueChange = { actions.onPricePerUnitChange(it) },
                 error = if(data.selectUnitPriceError != null) stringResource(id = data.selectUnitPriceError!!) else "",
+                trailingIcon = {
+                    Text(text = data.currency)
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
 

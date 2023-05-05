@@ -10,6 +10,7 @@ class AddEditFuelingData {
     var vehicle: Vehicle = Vehicle("")
     var fuelingUnitPrice: String? = null
     var fuelingQuantity: String? = null
+    var currency: String = ""
 
     var selectVehicleError: Int? = null
     var selectDateError: Int? = null

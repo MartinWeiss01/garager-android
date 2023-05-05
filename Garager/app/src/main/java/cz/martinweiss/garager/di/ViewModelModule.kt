@@ -14,8 +14,8 @@ val viewModelModule = module {
     viewModel { VehicleListViewModel(get(), get()) }
     viewModel { AddEditVehicleViewModel(get()) }
     viewModel { DetailVehicleViewModel(get()) }
-    viewModel { FuelListViewModel(get()) }
-    viewModel { AddEditFuelingViewModel(get()) }
-    viewModel { DetailFuelingViewModel(get()) }
+    viewModel { FuelListViewModel(get(), get()) }
+    viewModel { AddEditFuelingViewModel(get(), get()) }
+    viewModel { DetailFuelingViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
 }

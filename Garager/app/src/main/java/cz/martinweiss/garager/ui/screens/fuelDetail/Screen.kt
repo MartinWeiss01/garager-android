@@ -114,7 +114,7 @@ fun DetailFuelingContent(
                     text = stringResource(id = R.string.detail_fueling_price_unit),
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = data.fueling.priceUnit.toString())
+                Text(text = "${data.fueling.priceUnit} ${data.currency}/$fuelUnit")
             }
 
             Row(
@@ -143,7 +143,7 @@ fun DetailFuelingContent(
                     text = stringResource(id = R.string.detail_fueling_total),
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "${data.fueling.priceUnit * data.fueling.quantity}")
+                Text(text = "${data.fueling.priceUnit * data.fueling.quantity} ${data.currency}")
             }
         }
     }

@@ -1,20 +1,16 @@
 package cz.martinweiss.garager.ui.screens.fuelList
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +20,6 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
-import cz.martinweiss.garager.ui.elements.BottomNavigationBar
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.ui.screens.vehicleList.*
@@ -64,7 +59,8 @@ fun FuelListScreen(navigation: INavigationRouter, viewModel: FuelListViewModel =
             paddingValues = it,
             navigation = navigation,
             fuelings = fuelings,
-            listState = listState
+            listState = listState,
+            currency = viewModel.currency
         )
     }
 }
@@ -74,7 +70,8 @@ fun FuelListContent(
     paddingValues: PaddingValues,
     navigation: INavigationRouter,
     fuelings: MutableList<Fueling>,
-    listState: LazyListState
+    listState: LazyListState,
+    currency: String
 ) {
     Surface(
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
@@ -90,7 +87,7 @@ fun FuelListContent(
             )
         } else {
             Box(modifier = Modifier.padding(top = 40.dp, start = 35.dp, end = 35.dp)) {
-                FuelingRecordList(fuelings = fuelings, listState = listState, navigation = navigation)
+                FuelingRecordList(fuelings = fuelings, listState = listState, navigation = navigation, currency = currency)
             }
         }
     }
@@ -100,7 +97,8 @@ fun FuelListContent(
 fun FuelingRecordList(
     fuelings: MutableList<Fueling>,
     listState: LazyListState,
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    currency: String
 ) {
     LazyColumn(
         state = listState,
@@ -115,7 +113,7 @@ fun FuelingRecordList(
                     it.fueling.id?.let { fuelingId ->
                         navigation.navigateToDetailFuelingScreen(fuelingId)
                     }
-                })
+                }, currency = currency)
             }
         }
     }
@@ -124,7 +122,8 @@ fun FuelingRecordList(
 @Composable
 fun FuelingRecord(
     fueling: Fueling,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    currency: String
 ) {
     var fuelUnit = FuelUtils.getFuelUnit(fueling.vehicle.fuelTypeID)
     Card(
@@ -147,7 +146,8 @@ fun FuelingRecord(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        Text(text = "${fueling.fueling.priceUnit} × ${fueling.fueling.quantity} $fuelUnit", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        /* TODO round number */
+                        Text(text = "${fueling.fueling.priceUnit} ${currency}/${fuelUnit} × ${fueling.fueling.quantity} $fuelUnit", fontSize = 10.sp, fontWeight = FontWeight.Bold)
                     }
 
                     Divider(
@@ -161,8 +161,9 @@ fun FuelingRecord(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
+                        /* TODO round number */
                         Text(text = stringResource(id = R.string.fuel_list_record_total_price), fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "${fueling.fueling.priceUnit * fueling.fueling.quantity}", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "${fueling.fueling.priceUnit * fueling.fueling.quantity} $currency", fontSize = 10.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
