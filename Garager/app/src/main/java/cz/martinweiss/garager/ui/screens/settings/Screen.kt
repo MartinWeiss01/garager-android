@@ -3,7 +3,10 @@ package cz.martinweiss.garager.ui.screens.settings
 import android.os.Build
 import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,7 +25,9 @@ import cz.martinweiss.garager.model.currencies
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
 import org.koin.androidx.compose.getViewModel
+import androidx.compose.material3.ListItem
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
+
 
 @Composable
 fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel = getViewModel()) {
@@ -71,6 +76,7 @@ fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel =
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreenContent(
     paddingValues: PaddingValues,
@@ -87,46 +93,78 @@ fun SettingsScreenContent(
         modifier = Modifier.padding(paddingValues)
     ) {
         Column(
-            modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier.padding(20.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.title_settings_screen),
                 style = screenTitleStyle()
             )
-            ApplicationVersion()
-            SettingsDivider()
-            Text(text = "${data.motDaysWarning}")
-            Button(onClick = {
-                sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
-                showSheet()
-            }) {
-                Text(text = "HARDCODED: MOT DAYS DISPLAY")
-            }
 
-            Text(text = "${data.currency}")
-            Button(onClick = {
-                sheetContentState.value = { CurrencySelect(actions = actions, currencyState = currencyState)}
-                showSheet()
-            }) {
-                Text(text = "HARDCODED: CURRENCY DISPLAY")
-            }
+            ApplicationAuthor()
+
+            ApplicationVersion()
+
+            val daysString = LocalContext.current.resources.getQuantityString(
+                R.plurals.settings_mot_days_warning_days, data.motDaysWarning, data.motDaysWarning
+            )
+
+            ListItem(
+                headlineText = { Text(text = stringResource(id = R.string.settings_mot_days_warning_label)) },
+                supportingText = { Text(text = "${data.motDaysWarning} $daysString") },
+                trailingContent = {
+                    Icon(
+                        Icons.Filled.KeyboardArrowRight,
+                        contentDescription = null,
+                    )
+                },
+                modifier = Modifier.clickable(
+                    enabled = true,
+                    onClick = {
+                        sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
+                        showSheet()
+                    }
+                )
+            )
+
+            ListItem(
+                headlineText = { Text(text = stringResource(id = R.string.settings_currency_label)) },
+                supportingText = { Text(text = "${data.currency}") },
+                trailingContent = {
+                    Icon(
+                        Icons.Filled.KeyboardArrowRight,
+                        contentDescription = null,
+                    )
+                },
+                modifier = Modifier.clickable(
+                    enabled = true,
+                    onClick = {
+                        sheetContentState.value = { CurrencySelect(actions = actions, currencyState = currencyState)}
+                        showSheet()
+                    }
+                )
+            )
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApplicationAuthor() {
-    SettingsElement(
-        title = stringResource(id = R.string.settings_author_app), caption = "Martin Weiss"
-    ) {}
+    ListItem(
+        headlineText = { Text(text = stringResource(id = R.string.settings_author_app)) },
+        supportingText = { Text(text = "Martin Weiss") },
+        modifier = Modifier.clickable(enabled = true, onClick = {})
+    )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApplicationVersion() {
-    SettingsElement(
-        title = stringResource(id = R.string.settings_version_app),
-        caption = BuildConfig.VERSION_NAME
-    ) {}
+    ListItem(
+        headlineText = { Text(text = stringResource(id = R.string.settings_version_app)) },
+        supportingText = { Text(text = BuildConfig.VERSION_NAME) },
+        modifier = Modifier.clickable(enabled = true, onClick = {})
+    )
 }
 
 @Composable
