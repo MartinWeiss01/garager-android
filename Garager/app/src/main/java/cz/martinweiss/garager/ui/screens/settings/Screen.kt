@@ -50,11 +50,6 @@ fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel =
         }
     }
 
-    BackHandler(enabled = true, onBack = {
-        //handle navigation returnBack on hidden sheet
-        sheetContentState.value = {}
-    })
-
     BaseScreenSheetLayout(
         navController = navigation.getNavController(),
         hideFAB = true,
