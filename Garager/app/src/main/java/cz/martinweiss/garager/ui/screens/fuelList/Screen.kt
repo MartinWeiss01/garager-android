@@ -23,6 +23,7 @@ import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.ui.screens.vehicleList.*
+import cz.martinweiss.garager.ui.theme.screenTitleStyle
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
@@ -105,7 +106,10 @@ fun FuelingRecordList(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item {
-            Text(text = stringResource(id = R.string.fuel_list_title), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = stringResource(id = R.string.fuel_list_title),
+                style = screenTitleStyle()
+            )
         }
         fuelings.forEach {
             item(key = it.fueling.id) {

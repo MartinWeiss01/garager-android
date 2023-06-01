@@ -22,6 +22,7 @@ import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.elements.isScrollingUp
+import cz.martinweiss.garager.ui.theme.screenTitleStyle
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
 
@@ -110,8 +111,7 @@ fun VehicleItemList(
         item {
             Text(
                 text = stringResource(id = R.string.vehicle_list_title),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                style = screenTitleStyle()
             )
         }
         vehicles.forEach {

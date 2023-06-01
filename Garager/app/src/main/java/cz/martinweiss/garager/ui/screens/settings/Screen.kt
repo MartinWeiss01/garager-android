@@ -22,6 +22,7 @@ import cz.martinweiss.garager.model.currencies
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
 import org.koin.androidx.compose.getViewModel
+import cz.martinweiss.garager.ui.theme.screenTitleStyle
 
 @Composable
 fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel = getViewModel()) {
@@ -88,9 +89,10 @@ fun SettingsScreenContent(
         Column(
             modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Text(text = stringResource(id = R.string.title_settings_screen))
-            Text(text = "Build: ${Build.VERSION.SDK_INT} | Q: ${Build.VERSION_CODES.Q}")
-            SettingsDivider()
+            Text(
+                text = stringResource(id = R.string.title_settings_screen),
+                style = screenTitleStyle()
+            )
             ApplicationVersion()
             SettingsDivider()
             Text(text = "${data.motDaysWarning}")
