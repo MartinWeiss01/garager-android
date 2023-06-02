@@ -120,6 +120,7 @@ fun SettingsScreenContent(
                 modifier = Modifier.clickable(
                     enabled = true,
                     onClick = {
+                        motDaysWarningState.value = data.motDaysWarning //TODO binding problem
                         sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
                         showSheet()
                     }
@@ -138,6 +139,7 @@ fun SettingsScreenContent(
                 modifier = Modifier.clickable(
                     enabled = true,
                     onClick = {
+                        currencyState.value = data.currency //TODO binding problem
                         sheetContentState.value = { CurrencySelect(actions = actions, currencyState = currencyState)}
                         showSheet()
                     }
