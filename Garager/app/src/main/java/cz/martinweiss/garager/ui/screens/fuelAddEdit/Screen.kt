@@ -26,6 +26,7 @@ import cz.martinweiss.garager.ui.elements.CustomDropdownField
 import cz.martinweiss.garager.ui.elements.CustomTextField
 import cz.martinweiss.garager.ui.elements.ReactiveField
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.Section
+import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
@@ -90,7 +91,7 @@ fun AddEditFuelingContent(
     var fuelUnit = FuelUtils.getFuelUnit(data.vehicle.fuelTypeID)
 
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.padding(primaryMargin()),
         verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
         Section(title = stringResource(id = R.string.add_edit_fueling_section_main)) {

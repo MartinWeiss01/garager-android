@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
@@ -77,7 +78,7 @@ fun DetailFuelingContent(
     var fuelUnit = FuelUtils.getFuelUnit(data.vehicle.fuelTypeID)
 
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.padding(primaryMargin()),
         verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {

@@ -23,6 +23,7 @@ import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.ui.screens.vehicleList.*
+import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FuelUtils
@@ -87,7 +88,7 @@ fun FuelListContent(
                 description = stringResource(id = R.string.fuel_list_empty_description, stringResource(id = R.string.btn_add_new_fueling))
             )
         } else {
-            Box(modifier = Modifier.padding(top = 40.dp, start = 35.dp, end = 35.dp)) {
+            Box(modifier = Modifier.padding(top = 40.dp, start = primaryMargin(), end = primaryMargin())) {
                 FuelingRecordList(fuelings = fuelings, listState = listState, navigation = navigation, currency = currency)
             }
         }

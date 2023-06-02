@@ -1,9 +1,5 @@
 package cz.martinweiss.garager.ui.screens.settings
 
-import android.os.Build
-import android.util.Log
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -20,13 +16,13 @@ import com.chargemap.compose.numberpicker.ListItemPicker
 import com.chargemap.compose.numberpicker.NumberPicker
 import cz.martinweiss.garager.BuildConfig
 import cz.martinweiss.garager.R
-import cz.martinweiss.garager.model.Currency
 import cz.martinweiss.garager.model.currencies
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
-import org.koin.androidx.compose.getViewModel
-import androidx.compose.material3.ListItem
+import cz.martinweiss.garager.ui.elements.ClickableListItem
+import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
+import org.koin.androidx.compose.getViewModel
 
 
 @Composable
@@ -93,7 +89,7 @@ fun SettingsScreenContent(
         modifier = Modifier.padding(paddingValues)
     ) {
         Column(
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier.padding(primaryMargin()),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
