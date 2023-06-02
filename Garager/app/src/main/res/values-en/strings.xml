@@ -80,6 +80,7 @@
 
     <string name="title_green_card_vehicle">Green Card</string>
 
+    <string name="title_settings_screen_info">About the app</string>
     <string name="title_settings_screen">Settings</string>
     <string name="settings_author_app">Author</string>
     <string name="settings_version_app">Application version</string>

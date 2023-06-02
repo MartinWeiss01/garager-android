@@ -94,57 +94,62 @@ fun SettingsScreenContent(
     ) {
         Column(
             modifier = Modifier.padding(20.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.title_settings_screen),
-                style = screenTitleStyle()
-            )
-
-            ApplicationAuthor()
-
-            ApplicationVersion()
-
-            val daysString = LocalContext.current.resources.getQuantityString(
-                R.plurals.settings_mot_days_warning_days, data.motDaysWarning, data.motDaysWarning
-            )
-
-            ListItem(
-                headlineText = { Text(text = stringResource(id = R.string.settings_mot_days_warning_label)) },
-                supportingText = { Text(text = "${data.motDaysWarning} $daysString") },
-                trailingContent = {
-                    Icon(
-                        Icons.Filled.KeyboardArrowRight,
-                        contentDescription = null,
-                    )
-                },
-                modifier = Modifier.clickable(
-                    enabled = true,
-                    onClick = {
-                        motDaysWarningState.value = data.motDaysWarning //TODO binding problem
-                        sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
-                        showSheet()
-                    }
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(
+                    text = stringResource(id = R.string.title_settings_screen_info),
+                    style = screenTitleStyle()
                 )
-            )
+                Column {
+                    ApplicationAuthor()
+                    ApplicationVersion()
+                }
+            }
 
-            ListItem(
-                headlineText = { Text(text = stringResource(id = R.string.settings_currency_label)) },
-                supportingText = { Text(text = "${data.currency}") },
-                trailingContent = {
-                    Icon(
-                        Icons.Filled.KeyboardArrowRight,
-                        contentDescription = null,
-                    )
-                },
-                modifier = Modifier.clickable(
-                    enabled = true,
-                    onClick = {
-                        currencyState.value = data.currency //TODO binding problem
-                        sheetContentState.value = { CurrencySelect(actions = actions, currencyState = currencyState)}
-                        showSheet()
-                    }
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(
+                    text = stringResource(id = R.string.title_settings_screen),
+                    style = screenTitleStyle()
                 )
-            )
+                Column {
+                    val daysString = LocalContext.current.resources.getQuantityString(
+                        R.plurals.settings_mot_days_warning_days, data.motDaysWarning, data.motDaysWarning
+                    )
+
+                    ClickableListItem(
+                        headlineText = { Text(text = stringResource(id = R.string.settings_mot_days_warning_label)) },
+                        supportingText = { Text(text = "${data.motDaysWarning} $daysString") },
+                        trailingContent = {
+                            Icon(
+                                Icons.Filled.KeyboardArrowRight,
+                                contentDescription = null,
+                            )
+                        },
+                        onClick = {
+                            motDaysWarningState.value = data.motDaysWarning //TODO binding problem
+                            sheetContentState.value = { MOTExpirationDays(actions = actions, motDaysWarningState = motDaysWarningState) }
+                            showSheet()
+                        }
+                    )
+
+                    ClickableListItem(
+                        headlineText = { Text(text = stringResource(id = R.string.settings_currency_label)) },
+                        supportingText = { Text(text = "${data.currency}") },
+                        trailingContent = {
+                            Icon(
+                                Icons.Filled.KeyboardArrowRight,
+                                contentDescription = null,
+                            )
+                        },
+                        onClick = {
+                            currencyState.value = data.currency //TODO binding problem
+                            sheetContentState.value = { CurrencySelect(actions = actions, currencyState = currencyState)}
+                            showSheet()
+                        }
+                    )
+                }
+            }
         }
     }
 }
@@ -152,20 +157,18 @@ fun SettingsScreenContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApplicationAuthor() {
-    ListItem(
+    ClickableListItem(
         headlineText = { Text(text = stringResource(id = R.string.settings_author_app)) },
-        supportingText = { Text(text = "Martin Weiss") },
-        modifier = Modifier.clickable(enabled = true, onClick = {})
+        supportingText = { Text(text = "Martin Weiss") }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApplicationVersion() {
-    ListItem(
+    ClickableListItem(
         headlineText = { Text(text = stringResource(id = R.string.settings_version_app)) },
-        supportingText = { Text(text = BuildConfig.VERSION_NAME) },
-        modifier = Modifier.clickable(enabled = true, onClick = {})
+        supportingText = { Text(text = BuildConfig.VERSION_NAME) }
     )
 }
 

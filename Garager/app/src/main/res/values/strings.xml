@@ -83,6 +83,7 @@
 
     <string name="title_green_card_vehicle">Zelená karta</string>
 
+    <string name="title_settings_screen_info">O aplikaci</string>
     <string name="title_settings_screen">Nastavení</string>
     <string name="settings_author_app">Autor</string>
     <string name="settings_version_app">Verze aplikace</string>
