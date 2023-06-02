@@ -21,7 +21,7 @@ import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
-import cz.martinweiss.garager.ui.elements.isScrollingUp
+import cz.martinweiss.garager.extensions.isScrollingUp
 import cz.martinweiss.garager.ui.screens.vehicleList.*
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle

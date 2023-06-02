@@ -17,11 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
+import cz.martinweiss.garager.extensions.isScrollingUp
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
-import cz.martinweiss.garager.ui.elements.isScrollingUp
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
 import cz.martinweiss.garager.utils.DateUtils
