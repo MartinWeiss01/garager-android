@@ -47,4 +47,7 @@ interface VehiclesDao {
 
   @Delete
   suspend fun deleteFueling(fueling: RawFueling)
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  suspend fun insertManufacturer(manufacturer: Manufacturer): Long
 }

@@ -18,4 +18,5 @@ interface IVehiclesRepository {
     suspend fun insertFueling(fueling: RawFueling): Long
     suspend fun updateFueling(fueling: RawFueling)
     suspend fun deleteFueling(fueling: RawFueling)
+    suspend fun insertManufacturer(manufacturer: Manufacturer): Long
 }

@@ -59,4 +59,8 @@ class VehiclesRepositoryImpl(private val dao: VehiclesDao) : IVehiclesRepository
     override suspend fun deleteFueling(fueling: RawFueling) {
         return dao.deleteFueling(fueling)
     }
+
+    override suspend fun insertManufacturer(manufacturer: Manufacturer): Long {
+        return dao.insertManufacturer(manufacturer)
+    }
 }
