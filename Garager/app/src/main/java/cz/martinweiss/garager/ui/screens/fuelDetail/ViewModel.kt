@@ -6,7 +6,6 @@ import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.datastore.DATASTORE_CURRENCY
 import cz.martinweiss.garager.datastore.IDataStoreController
-import cz.martinweiss.garager.datastore.VALUE_TYPE
 import kotlinx.coroutines.launch
 
 class DetailFuelingViewModel(
@@ -19,11 +18,7 @@ class DetailFuelingViewModel(
 
     fun initData() {
         launch {
-            val tempCurrency = dataStore.getValueByKey(DATASTORE_CURRENCY, VALUE_TYPE.STRING)
-            if(tempCurrency != null) {
-                data.currency = tempCurrency as String
-            }
-            /* TODO Splash Screen Default dataStore value */
+            data.currency = dataStore.getStringByKey(DATASTORE_CURRENCY)!!
         }
 
         if(fuelingId != -1L) {

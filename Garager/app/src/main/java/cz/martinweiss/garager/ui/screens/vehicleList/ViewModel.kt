@@ -6,7 +6,6 @@ import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.datastore.DATASTORE_MOT_DAYS
 import cz.martinweiss.garager.datastore.IDataStoreController
-import cz.martinweiss.garager.datastore.VALUE_TYPE
 import kotlinx.coroutines.launch
 
 class VehicleListViewModel(private val repository: IVehiclesRepository, private val dataStore: IDataStoreController): BaseViewModel() {
@@ -15,11 +14,11 @@ class VehicleListViewModel(private val repository: IVehiclesRepository, private 
 
     fun loadVehicles() {
         launch {
-            val motWarning = dataStore.getValueByKey(DATASTORE_MOT_DAYS, VALUE_TYPE.INT)
+            val motWarning = dataStore.getIntByKey(DATASTORE_MOT_DAYS)
             if(motWarning != null) {
-                data.motDaysWarning = motWarning as Int
+                data.motDaysWarning = motWarning
             } else {
-                dataStore.updateKey(DATASTORE_MOT_DAYS, data.motDaysWarning)
+                dataStore.updateIntKey(DATASTORE_MOT_DAYS, data.motDaysWarning)
             }
 
             repository.getVehicles().collect {

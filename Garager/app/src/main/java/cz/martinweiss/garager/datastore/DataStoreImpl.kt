@@ -5,26 +5,36 @@ import androidx.datastore.preferences.core.*
 import kotlinx.coroutines.flow.first
 
 class DataStoreImpl(private val dataStore: DataStore<Preferences>) : IDataStoreController {
-    /* TODO Splash Screen Default dataStore value */
-    override suspend fun getValueByKey(key: String, type: VALUE_TYPE): Any? {
-        /* TODO Refactor to multiple functions: getStringByKey, getIntByKey, getBoolByKey */
+    override suspend fun getStringByKey(key: String): String? {
         val data = dataStore.data.first()
-        return when (type) {
-            VALUE_TYPE.STRING -> data[stringPreferencesKey(key)]
-            VALUE_TYPE.INT -> data[intPreferencesKey(key)]
-            VALUE_TYPE.BOOLEAN -> data[booleanPreferencesKey(key)]
+        return data[stringPreferencesKey(key)]
+    }
+
+    override suspend fun updateStringKey(key: String, value: String) {
+        dataStore.edit { preferences ->
+            preferences[stringPreferencesKey(key)] = value
         }
     }
 
-    override suspend fun updateKey(key: String, value: Any) {
-        /* TODO Refactor to multiple functions: updateStringKey, updateIntKey, updateBoolKey */
+    override suspend fun getIntByKey(key: String): Int? {
+        val data = dataStore.data.first()
+        return data[intPreferencesKey(key)]
+    }
+
+    override suspend fun updateIntKey(key: String, value: Int) {
         dataStore.edit { preferences ->
-            when (value) {
-                is String -> preferences[stringPreferencesKey(key)] = value
-                is Int -> preferences[intPreferencesKey(key)] = value
-                is Boolean -> preferences[booleanPreferencesKey(key)] = value
-                else -> throw IllegalArgumentException("Unsupported value type")
-            }
+            preferences[intPreferencesKey(key)] = value
+        }
+    }
+
+    override suspend fun getBooleanByKey(key: String): Boolean? {
+        val data = dataStore.data.first()
+        return data[booleanPreferencesKey(key)]
+    }
+
+    override suspend fun updateBooleanKey(key: String, value: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[booleanPreferencesKey(key)] = value
         }
     }
 }

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import cz.martinweiss.garager.database.IVehiclesRepository
-import cz.martinweiss.garager.datastore.IDataStoreController
+import cz.martinweiss.garager.datastore.*
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.navigation.Destination
 import cz.martinweiss.garager.navigation.NavGraph
@@ -26,31 +26,41 @@ class MainActivity : ComponentActivity(), KoinComponent {
     val dataStoreController = get<IDataStoreController>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
         //Splash Screen | LOADING
         val splashScreen = installSplashScreen()
+        var keepSplashScreenVisible = true
+        splashScreen.setKeepOnScreenCondition { keepSplashScreenVisible }
 
         val manufacturers = listOf(
             "Acura", "Alfa Romeo", "AM General", "Aston Martin", "Audi", "Bentley", "BMW", "Bugatti", "Buick", "Cadillac", "Chevrolet", "Chrysler", "Daewoo", "Datsun", "Dodge", "Eagle", "Ferrari", "FIAT", "Fisker", "Ford", "Genesis", "Geo", "GMC", "Honda", "HUMMER", "Hyundai", "Infiniti", "Isuzu", "Jaguar", "Jeep", "Kia", "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Lotus", "Maserati", "Maybach", "Mazda", "McLaren", "Mercedes-Benz", "Mercury", "MINI", "Mitsubishi", "Nissan", "Oldsmobile", "Panoz", "Plymouth", "Pontiac", "Porsche", "Ram", "Rolls-Royce", "Saab", "Saturn", "Scion", "Smart", "Sterling", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"
         )
 
         lifecycleScope.launch {
+            // [MANUFACTURERS]
             val currentManufacturers = vehiclesRepository.getManufacturers().map { it.name }
             val missingManufacturers = manufacturers - currentManufacturers
             missingManufacturers.forEach {
                 vehiclesRepository.insertManufacturer(Manufacturer(name = it))
             }
-        }
-        /*
-        var keepSplashScreenVisible = true
-        splashScreen.setKeepOnScreenCondition { keepSplashScreenVisible }
-        lifecycleScope.launch {
-            delay(3000)
+
+            // [DATASTORE]
+            val motWarning = dataStoreController.getIntByKey(DATASTORE_MOT_DAYS)
+            val currency = dataStoreController.getStringByKey(DATASTORE_CURRENCY)
+
+            if(motWarning == null) {
+                dataStoreController.updateIntKey(DATASTORE_MOT_DAYS, DEFAULT_MOT_WARNING_DAYS_VALUE)
+            }
+
+            if(currency == null) {
+                dataStoreController.updateStringKey(DATASTORE_CURRENCY, DEFAULT_CURRENCY_VALUE)
+            }
+
+            // [FINISH]
+            //delay(3000)
             keepSplashScreenVisible = false
         }
-        */
         //Splash Screen | LOADING
 
         setContent {

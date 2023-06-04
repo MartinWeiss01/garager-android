@@ -6,11 +6,12 @@ const val DATASTORE_MOT_DAYS = "warning_mot"
 const val DEFAULT_MOT_WARNING_DAYS_VALUE = 30
 const val DATASTORE_CURRENCY = "currency"
 var DEFAULT_CURRENCY_VALUE = currencies[0].name
-/* TODO Get rid of VALUE_TYPE with DataStoreImpl refactoring */
-enum class VALUE_TYPE {
-    STRING, INT, BOOLEAN
-}
+
 interface IDataStoreController {
-    suspend fun getValueByKey(key: String, type: VALUE_TYPE): Any?
-    suspend fun updateKey(key: String, value: Any)
+    suspend fun getStringByKey(key: String): String?
+    suspend fun updateStringKey(key: String, value: String)
+    suspend fun getIntByKey(key: String): Int?
+    suspend fun updateIntKey(key: String, value: Int)
+    suspend fun getBooleanByKey(key: String): Boolean?
+    suspend fun updateBooleanKey(key: String, value: Boolean)
 }
