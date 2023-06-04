@@ -15,7 +15,6 @@ import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.navigation.Destination
 import cz.martinweiss.garager.navigation.NavGraph
 import cz.martinweiss.garager.ui.theme.GaragerTheme
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get

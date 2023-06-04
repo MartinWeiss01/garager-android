@@ -4,13 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import cz.martinweiss.garager.model.Manufacturer
 import cz.martinweiss.garager.model.RawFueling
 import cz.martinweiss.garager.model.Vehicle
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @Database(entities = [Vehicle::class, Manufacturer::class, RawFueling::class], version = 18, exportSchema = true)
 abstract class VehiclesDatabase : RoomDatabase() {

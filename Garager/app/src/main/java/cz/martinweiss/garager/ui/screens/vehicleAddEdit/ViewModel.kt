@@ -10,7 +10,6 @@ import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.model.FuelType
 import cz.martinweiss.garager.model.Manufacturer
-import cz.martinweiss.garager.model.fuelTypes
 import cz.martinweiss.garager.utils.FileUtils
 import cz.martinweiss.garager.utils.FuelUtils
 import kotlinx.coroutines.launch

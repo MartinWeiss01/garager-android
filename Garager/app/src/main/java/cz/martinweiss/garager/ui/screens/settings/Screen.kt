@@ -256,13 +256,3 @@ fun SettingsElement(
         content()
     }
 }
-
-@Composable
-fun SettingsDivider() {
-    Divider(
-        color = MaterialTheme.colorScheme.onSecondaryContainer,
-        modifier = Modifier
-            .fillMaxWidth()
-            .width(1.dp)
-    )
-}

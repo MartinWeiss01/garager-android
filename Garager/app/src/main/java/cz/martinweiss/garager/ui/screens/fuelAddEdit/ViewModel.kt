@@ -7,7 +7,6 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.datastore.DATASTORE_CURRENCY
-import cz.martinweiss.garager.datastore.DEFAULT_CURRENCY_VALUE
 import cz.martinweiss.garager.datastore.IDataStoreController
 import cz.martinweiss.garager.model.Vehicle
 import kotlinx.coroutines.launch
