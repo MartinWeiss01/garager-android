@@ -55,6 +55,7 @@
     <string name="add_edit_fueling_save_btn">Uložit záznam</string>
     <string name="add_edit_fueling_field_required">Povinné</string>
     <string name="add_edit_fueling_field_invalid_format">Neplatný formát</string>
+    <string name="add_edit_fueling_field_invalid_range">Rozmezí povolených hodnot: 0–99999</string>
 
     <string name="title_detail_vehicle">Detail vozidla</string>
     <string name="detail_vehicle_vin">VIN</string>

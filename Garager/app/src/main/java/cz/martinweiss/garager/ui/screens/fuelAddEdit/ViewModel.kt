@@ -126,8 +126,14 @@ class AddEditFuelingViewModel(
             val res2 = unitDouble != null
 
             if (res2) {
-                data.fueling.priceUnit = unitDouble!!
-                data.selectUnitPriceError = null
+                val res3 = unitDouble!! > 0 && unitDouble < 999999
+                if(res3) {
+                    data.fueling.priceUnit = unitDouble
+                    data.selectUnitPriceError = null
+                } else {
+                    data.selectUnitPriceError = R.string.add_edit_fueling_field_invalid_range
+                }
+                return res3
             } else {
                 data.selectUnitPriceError = R.string.add_edit_fueling_field_invalid_format
             }
@@ -143,8 +149,14 @@ class AddEditFuelingViewModel(
             val res2 = quantityDouble != null
 
             if(res2) {
-                data.fueling.quantity = quantityDouble!!
-                data.selectQuantityError = null
+                val res3 = quantityDouble!! > 0 && quantityDouble < 999999
+                if(res3) {
+                    data.fueling.quantity = quantityDouble
+                    data.selectQuantityError = null
+                } else {
+                    data.selectQuantityError = R.string.add_edit_fueling_field_invalid_range
+                }
+                return res3
             } else {
                 data.selectQuantityError = R.string.add_edit_fueling_field_invalid_format
             }
