@@ -22,6 +22,7 @@ import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.extensions.isScrollingUp
+import cz.martinweiss.garager.extensions.round
 import cz.martinweiss.garager.ui.screens.vehicleList.*
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
@@ -151,8 +152,7 @@ fun FuelingRecord(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        /* TODO round number */
-                        Text(text = "${fueling.fueling.priceUnit} ${currency}/${fuelUnit} × ${fueling.fueling.quantity} $fuelUnit", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "${fueling.fueling.priceUnit.round()} ${currency}/${fuelUnit} × ${fueling.fueling.quantity.round()} $fuelUnit", fontSize = 10.sp, fontWeight = FontWeight.Bold)
                     }
 
                     Divider(
@@ -166,9 +166,8 @@ fun FuelingRecord(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        /* TODO round number */
                         Text(text = stringResource(id = R.string.fuel_list_record_total_price), fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "${fueling.fueling.priceUnit * fueling.fueling.quantity} $currency", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "${(fueling.fueling.priceUnit * fueling.fueling.quantity).round()} $currency", fontSize = 10.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }

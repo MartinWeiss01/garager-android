@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cz.martinweiss.garager.R
+import cz.martinweiss.garager.extensions.round
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.theme.primaryMargin
@@ -144,7 +145,7 @@ fun DetailFuelingContent(
                     text = stringResource(id = R.string.detail_fueling_total),
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "${data.fueling.priceUnit * data.fueling.quantity} ${data.currency}")
+                Text(text = "${(data.fueling.priceUnit * data.fueling.quantity).round()} ${data.currency}")
             }
         }
     }
