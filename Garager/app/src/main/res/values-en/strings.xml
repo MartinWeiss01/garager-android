@@ -50,7 +50,7 @@
     <string name="add_edit_fueling_price_unit_field">Price per unit</string>
     <string name="add_edit_fueling_quantity_field">Quantity</string>
     <string name="add_edit_fueling_specification_field">Fuel Type</string>
-    <string name="add_edit_fueling_description_field">Description</string>
+    <string name="add_edit_fueling_description_field">Note</string>
     <string name="add_edit_fueling_save_btn">Save fueling</string>
     <string name="add_edit_fueling_field_required">Required</string>
     <string name="add_edit_fueling_field_invalid_format">Invalid format</string>
@@ -73,7 +73,7 @@
     <string name="title_detail_fueling">Fueling Detail</string>
     <string name="detail_fueling_date">Date</string>
     <string name="detail_fueling_vehicle">Vehicle</string>
-    <string name="detail_fueling_description">Description</string>
+    <string name="detail_fueling_description">Note</string>
     <string name="detail_fueling_price_unit">Price per unit</string>
     <string name="detail_fueling_quantity">Quantity</string>
     <string name="detail_fueling_total">Total</string>
