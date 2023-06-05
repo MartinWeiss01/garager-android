@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.martinweiss.garager.ui.theme.globalSpacer
 
 @Composable
 fun PlaceholderScreen(
@@ -22,7 +23,7 @@ fun PlaceholderScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(40.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(globalSpacer(), Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(painter = icon, contentDescription = "", modifier = Modifier.size(70.dp))

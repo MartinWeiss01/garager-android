@@ -30,6 +30,7 @@ import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.elements.CustomDropdownField
 import cz.martinweiss.garager.ui.elements.CustomTextField
 import cz.martinweiss.garager.ui.elements.ReactiveField
+import cz.martinweiss.garager.ui.theme.Typography
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FileUtils
@@ -247,8 +248,7 @@ fun Section(
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
         Text(
             text = title,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold
+            style = Typography.labelSmall
         )
         content()
     }

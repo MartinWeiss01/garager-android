@@ -24,8 +24,7 @@ import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.screens.vehicleList.*
-import cz.martinweiss.garager.ui.theme.primaryMargin
-import cz.martinweiss.garager.ui.theme.screenTitleStyle
+import cz.martinweiss.garager.ui.theme.*
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
@@ -89,7 +88,7 @@ fun FuelListContent(
                 description = stringResource(id = R.string.fuel_list_empty_description, stringResource(id = R.string.btn_add_new_fueling))
             )
         } else {
-            Box(modifier = Modifier.padding(top = 40.dp, start = primaryMargin(), end = primaryMargin())) {
+            Box(modifier = Modifier.padding(top = 0.dp, start = primaryMargin(), end = primaryMargin())) {
                 FuelingRecordList(fuelings = fuelings, listState = listState, navigation = navigation, currency = currency)
             }
         }
@@ -105,7 +104,7 @@ fun FuelingRecordList(
 ) {
     LazyColumn(
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(globalSpacer())
     ) {
         item {
             Text(
@@ -138,21 +137,24 @@ fun FuelingRecord(
             .clickable(onClick = onClick)
     ) {
         Box(modifier = Modifier.padding(20.dp)) {
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
                 Column() {
                     val dateString = DateUtils.getDateString(fueling.fueling.date)
-                    Text(text = dateString, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = fueling.vehicle.name, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text(text = dateString, style = Typography.titleLarge)
+                    Text(text = fueling.vehicle.name, style = Typography.titleLarge)
                 }
 
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(5.dp)
+                    verticalArrangement = Arrangement.spacedBy(globalSpacer())
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        Text(text = "${fueling.fueling.priceUnit.round()} ${currency}/${fuelUnit} × ${fueling.fueling.quantity.round()} $fuelUnit", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "${fueling.fueling.priceUnit.round()} ${currency}/${fuelUnit} × ${fueling.fueling.quantity.round()} $fuelUnit",
+                            style = listItemBodyStyle()
+                        )
                     }
 
                     Divider(
@@ -166,8 +168,14 @@ fun FuelingRecord(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = stringResource(id = R.string.fuel_list_record_total_price), fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "${(fueling.fueling.priceUnit * fueling.fueling.quantity).round()} $currency", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = stringResource(id = R.string.fuel_list_record_total_price),
+                            style = listItemBodyStyle()
+                        )
+                        Text(
+                            text = "${(fueling.fueling.priceUnit * fueling.fueling.quantity).round()} $currency",
+                            style = listItemBodyStyle()
+                        )
                     }
                 }
             }

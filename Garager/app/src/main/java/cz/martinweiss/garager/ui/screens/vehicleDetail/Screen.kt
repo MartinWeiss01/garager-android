@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
@@ -96,7 +97,7 @@ fun DetailVehicleScreenContent(
             )
         }
 
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
             Column() {
                 Text(text = stringResource(id = R.string.detail_vehicle_manufacturer), fontWeight = FontWeight.Bold)
                 Text(

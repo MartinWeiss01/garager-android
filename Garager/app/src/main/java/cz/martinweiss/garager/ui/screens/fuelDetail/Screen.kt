@@ -14,6 +14,7 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.extensions.round
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
 import cz.martinweiss.garager.utils.FuelUtils
@@ -106,7 +107,7 @@ fun DetailFuelingContent(
         }
 
 
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

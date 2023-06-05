@@ -20,6 +20,7 @@ import cz.martinweiss.garager.model.currencies
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
 import cz.martinweiss.garager.ui.elements.ClickableListItem
+import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
 import org.koin.androidx.compose.getViewModel
@@ -89,10 +90,10 @@ fun SettingsScreenContent(
         modifier = Modifier.padding(paddingValues)
     ) {
         Column(
-            modifier = Modifier.padding(primaryMargin()),
+            modifier = Modifier.padding(top = 0.dp, start = primaryMargin(), end = primaryMargin()),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
                 Text(
                     text = stringResource(id = R.string.title_settings_screen_info),
                     style = screenTitleStyle()
@@ -103,7 +104,7 @@ fun SettingsScreenContent(
                 }
             }
 
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
                 Text(
                     text = stringResource(id = R.string.title_settings_screen),
                     style = screenTitleStyle()

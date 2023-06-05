@@ -22,8 +22,7 @@ import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
-import cz.martinweiss.garager.ui.theme.primaryMargin
-import cz.martinweiss.garager.ui.theme.screenTitleStyle
+import cz.martinweiss.garager.ui.theme.*
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
 
@@ -91,7 +90,7 @@ fun VehicleListContent(
                 description = stringResource(id = R.string.vehicle_list_empty_description, stringResource(id = R.string.btn_add_new_vehicle))
             )
         } else {
-            Box(modifier = Modifier.padding(top = 40.dp, start = primaryMargin(), end = primaryMargin())) {
+            Box(modifier = Modifier.padding(top = 0.dp, start = primaryMargin(), end = primaryMargin())) {
                 VehicleItemList(vehicles = vehicles, listState = listState, navigation = navigation, data = data)
             }
         }
@@ -107,7 +106,7 @@ fun VehicleItemList(
 ) {
     LazyColumn(
         state = listState,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(globalSpacer())
     ) {
         item {
             Text(
