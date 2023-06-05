@@ -2,11 +2,13 @@ package cz.martinweiss.garager.ui.elements
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -16,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import cz.martinweiss.garager.R
+import cz.martinweiss.garager.ui.theme.globalRadius
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -93,6 +96,8 @@ fun BaseScreenSheetLayout(
     }
 
     BottomSheetScaffold(
+        sheetBackgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+        sheetShape = RoundedCornerShape(topStart = globalRadius(), topEnd = globalRadius(), bottomStart = 0.dp, bottomEnd = 0.dp),
         scaffoldState = bottomSheetScaffoldState,
         sheetContent = sheetContent,
         sheetPeekHeight = 0.dp,
