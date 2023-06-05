@@ -134,9 +134,10 @@ fun FuelingRecord(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
     ) {
-        Box(modifier = Modifier.padding(20.dp)) {
+        Box(modifier = Modifier.padding(16.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
                 Column() {
                     val dateString = DateUtils.getDateString(fueling.fueling.date)

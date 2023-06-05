@@ -15,6 +15,19 @@
         <item quantity="few">STK: %s (zbývají %d dny)</item>
         <item quantity="other">STK: %s (zbývá %d dní)</item>
     </plurals>
+    <plurals name="vehicle_list_mot_expired">
+        <item quantity="zero">Platnost STK vypršela před dnes</item>
+        <item quantity="one">Platnost STK vypršela před %d dnem</item>
+        <item quantity="few">Platnost STK vypršela před %d dny</item>
+        <item quantity="other">Platnost STK vypršela před %d dny</item>
+    </plurals>
+    <plurals name="vehicle_list_mot_active">
+        <item quantity="zero">STK je platné do dnešního dne</item>
+        <item quantity="one">STK je platné, do vypršení zbývá %d den</item>
+        <item quantity="few">STK je platné, do vypršení zbývají %d dny</item>
+        <item quantity="other">STK je platné, do vypršení zbývá %d dní</item>
+    </plurals>
+    <string name="vehicle_list_mot_expired_today">STK je platné do dnešního dne</string>
     <string name="vehicle_list_green_card_available">Zelená karta je k dispozici</string>
     <string name="vehicle_list_green_card_unavailable">Zelená karta není k dispozici</string>
     <string name="vehicle_list_empty_title">Žádné vozidlo</string>

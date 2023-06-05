@@ -1,5 +1,7 @@
 package cz.martinweiss.garager.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF006D3C)
@@ -66,3 +68,15 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 
 val seed = Color(0xFF00894D)
+
+val light_onWarning = Color(0xFFFFA000)
+val light_warningContainer = Color(0xFFFFECB3)
+
+val dark_onWarning = Color(0xFFFFECB3)
+val dark_warningContainer = Color(0xFFFFB300)
+
+@Composable
+fun warningContainerColor() = if(isSystemInDarkTheme()) dark_warningContainer else light_warningContainer
+
+@Composable
+fun onWarningColor() = if(isSystemInDarkTheme()) dark_onWarning else light_onWarning

@@ -14,6 +14,15 @@
         <item quantity="one">MOT: %s (%d day left)</item>
         <item quantity="other">MOT: %s (%d days left)</item>
     </plurals>
+    <plurals name="vehicle_list_mot_expired">
+        <item quantity="one">The MOT has expired %d day ago</item>
+        <item quantity="other">The MOT has expired %d days ago</item>
+    </plurals>
+    <plurals name="vehicle_list_mot_active">
+        <item quantity="one">The MOT is still valid, expires in %d day</item>
+        <item quantity="other">The MOT is still valid, expires in %d days</item>
+    </plurals>
+    <string name="vehicle_list_mot_expired_today">The MOT is still valid, expires today</string>
     <string name="vehicle_list_green_card_available">Green card is available</string>
     <string name="vehicle_list_green_card_unavailable">Green card not available</string>
     <string name="vehicle_list_empty_title">No vehicle yet</string>
