@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
         lifecycleScope.launch {
             // [MANUFACTURERS]
             val currentManufacturers = vehiclesRepository.getManufacturers().map { it.name }
-            val missingManufacturers = manufacturers - currentManufacturers
+            val missingManufacturers = manufacturers - currentManufacturers.toSet()
             missingManufacturers.forEach {
                 vehiclesRepository.insertManufacturer(Manufacturer(name = it))
             }
