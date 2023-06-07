@@ -98,7 +98,7 @@ fun FuelListContent(
 @Composable
 fun FuelingRecordList(
     fuelings: MutableList<Fueling>,
-    listState: LazyListState,
+    listState: LazyListState = rememberLazyListState(),
     navigation: INavigationRouter,
     currency: String
 ) {

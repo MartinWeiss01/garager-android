@@ -1,11 +1,14 @@
 package cz.martinweiss.garager.ui.screens.vehicleList
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -26,13 +29,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.extensions.isScrollingUp
+import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
+import cz.martinweiss.garager.ui.screens.fuelList.FuelingRecord
+import cz.martinweiss.garager.ui.screens.fuelList.FuelingRecordList
 import cz.martinweiss.garager.ui.theme.*
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.component.getScopeId
+import org.koin.core.component.getScopeName
 
 @Composable
 fun VehicleListScreen(
@@ -49,14 +57,25 @@ fun VehicleListScreen(
         mutableStateListOf<Vehicle>()
     }
 
+    val fuelings = remember {
+        mutableStateListOf<Fueling>()
+    }
+
     viewModel.vehicleListUIState.value.let {
         when (it) {
-            VehicleListUIState.Default -> {
+            VehicleListUIState.Default -> {}
+            VehicleListUIState.Init -> {
                 viewModel.loadVehicles()
             }
             is VehicleListUIState.Success -> {
                 vehicles.clear()
                 vehicles.addAll(it.vehicles)
+                fuelings.clear()
+                fuelings.addAll(it.fuelings)
+            }
+            VehicleListUIState.Changed -> {
+                data = viewModel.data
+                viewModel.vehicleListUIState.value = VehicleListUIState.Default
             }
         }
     }
@@ -71,8 +90,10 @@ fun VehicleListScreen(
             paddingValues = it,
             navigation = navigation,
             vehicles = vehicles,
+            fuelings = fuelings,
             listState = listState,
-            data = data
+            data = data,
+            actions = viewModel
         )
     }
 }
@@ -82,47 +103,125 @@ fun VehicleListContent(
     paddingValues: PaddingValues,
     navigation: INavigationRouter,
     vehicles: MutableList<Vehicle>,
+    fuelings: MutableList<Fueling>,
     listState: LazyListState,
-    data: VehicleListData
+    data: VehicleListData,
+    actions: VehicleListActions
 ) {
     Surface(
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
+        //color = Color.Gray,
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        if(vehicles.size == 0) {
+        if (vehicles.size == 0) {
             PlaceholderScreen(
                 icon = painterResource(id = R.drawable.icon_car_crash_filled),
                 title = stringResource(id = R.string.vehicle_list_empty_title),
-                description = stringResource(id = R.string.vehicle_list_empty_description, stringResource(id = R.string.btn_add_new_vehicle))
+                description = stringResource(
+                    id = R.string.vehicle_list_empty_description,
+                    stringResource(id = R.string.btn_add_new_vehicle)
+                )
             )
         } else {
-            Box(modifier = Modifier.padding(top = 0.dp, start = primaryMargin(), end = primaryMargin())) {
-                VehicleItemList(vehicles = vehicles, listState = listState, navigation = navigation, data = data)
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                item {
+                    Text(
+                        text = stringResource(id = R.string.vehicle_list_title),
+                        style = screenTitleStyle(),
+                        modifier = Modifier.padding(
+                            top = primaryMargin() * 2,
+                            start = primaryMargin(),
+                            end = primaryMargin()
+                        )
+                    )
+                }
+
+                item {
+                    VehicleItemList(
+                        vehicles = vehicles,
+                        listState = listState,
+                        navigation = navigation,
+                        data = data,
+                        actions = actions,
+                        contentPadding = PaddingValues(
+                            top = primaryMargin(),
+                            start = primaryMargin(),
+                            end = primaryMargin()
+                        )
+                    )
+                }
+                item {
+                    Text(
+                        text = stringResource(id = R.string.fuel_list_title),
+                        style = screenTitleStyle(),
+                        modifier = Modifier.padding(
+                            top = primaryMargin() * 2,
+                            start = primaryMargin(),
+                            end = primaryMargin()
+                        )
+                    )
+                }
+
+                if(data.scrollSnapIndex in vehicles.indices) {
+                    val filteredFuelings = fuelings.filter { it.fueling.vehicleId == vehicles[data.scrollSnapIndex].id }.toMutableList()
+
+                    item {
+                        if(filteredFuelings.size == 0) {
+                            PlaceholderScreen(
+                                icon = painterResource(id = R.drawable.icon_breaking_news_filled),
+                                title = stringResource(id = R.string.fuel_list_empty_title),
+                                description = ""
+                            )
+                        } else {
+                            Column(
+                                modifier = Modifier.padding(primaryMargin()),
+                                verticalArrangement = Arrangement.spacedBy(globalSpacer())
+                            ) {
+                                filteredFuelings.forEach {
+                                    FuelingRecord(fueling = it, onClick = { it.fueling.id?.let { fuelingId ->
+                                        navigation.navigateToDetailFuelingScreen(fuelingId)
+                                    } }, currency = data.currency)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun VehicleItemList(
     vehicles: MutableList<Vehicle>,
     listState: LazyListState,
     navigation: INavigationRouter,
-    data: VehicleListData
+    data: VehicleListData,
+    actions: VehicleListActions,
+    contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
-    LazyColumn(
-        state = listState,
-        verticalArrangement = Arrangement.spacedBy(globalSpacer())
-    ) {
-        item {
-            Text(
-                text = stringResource(id = R.string.vehicle_list_title),
-                style = screenTitleStyle()
-            )
+    LaunchedEffect(listState.isScrollInProgress) {
+        if(!listState.isScrollInProgress) {
+            Log.d("###################", "UPDATING")
+            var currentIndex: Int = listState.firstVisibleItemIndex
+            if(currentIndex != 0 || listState.canScrollBackward) currentIndex += 1
+            else currentIndex = 0
+            actions.updateVehicleSnapIndex(currentIndex)
         }
-        vehicles.forEach {
+    }
+
+    LazyRow(
+        state = listState,
+        horizontalArrangement = Arrangement.spacedBy(globalSpacer()),
+        contentPadding = contentPadding,
+        flingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
+    ) {
+        vehicles.forEachIndexed { index, it ->
             item(key = it.id) {
                 VehicleItem(vehicle = it, motDaysWarning = data.motDaysWarning, onClick = {
                     it.id?.let { vehicleId -> navigation.navigateToDetailVehicleScreen(vehicleId) }
@@ -150,8 +249,8 @@ fun VehicleItem(
     Card(
         shape = shape,
         colors = CardDefaults.cardColors(
-            containerColor = if(remainingDays != null && remainingDays!! > 0) warningContainerColor() else MaterialTheme.colorScheme.errorContainer,
-            contentColor = if(remainingDays != null && remainingDays!! > 0) onWarningColor() else MaterialTheme.colorScheme.error,
+            containerColor = if (remainingDays != null && remainingDays!! > 0) warningContainerColor() else MaterialTheme.colorScheme.errorContainer,
+            contentColor = if (remainingDays != null && remainingDays!! > 0) onWarningColor() else MaterialTheme.colorScheme.error,
         )
         //elevation = 0.dp,
         //contentPadding = PaddingValues(0.dp)
@@ -159,69 +258,69 @@ fun VehicleItem(
         Column {
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .widthIn(min = 350.dp)
                     .clickable(onClick = onClick),
                 shape = shape,
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
                 //elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Box(modifier = Modifier.padding(16.dp)) {
-                Row {
-                    Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
-                        Column() {
-                            Text(text = vehicle.name, style = Typography.titleLarge)
-                            vehicle.licensePlate?.let {
-                                Text(text = it, style = Typography.titleLarge)
-                            }
-                        }
-
-                        Column() {
-                            vehicle.vin?.let {
-                                Text(
-                                    text = stringResource(id = R.string.vehicle_list_vin, it),
-                                    style = listItemBodyStyle()
-                                )
+                    Row {
+                        Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
+                            Column() {
+                                Text(text = vehicle.name, style = Typography.titleLarge)
+                                vehicle.licensePlate?.let {
+                                    Text(text = it, style = Typography.titleLarge)
+                                }
                             }
 
-                            remainingDays?.let {
-                                Text(
-                                    text = LocalContext.current.resources.getQuantityString(
-                                        R.plurals.vehicle_list_mot,
-                                        it,
-                                        dateString, it
-                                    ),
-                                    style = listItemBodyStyle(),
-                                    color = if (it <= motDaysWarning) MaterialTheme.colorScheme.error else LocalContentColor.current
-                                )
-                            }
+                            Column() {
+                                vehicle.vin?.let {
+                                    Text(
+                                        text = stringResource(id = R.string.vehicle_list_vin, it),
+                                        style = listItemBodyStyle()
+                                    )
+                                }
 
-                            if (vehicle.greenCardFilename != null) {
-                                Text(
-                                    text = stringResource(id = R.string.vehicle_list_green_card_available),
-                                    style = listItemBodyStyle(),
-                                    color = colorResource(id = R.color.success)
-                                )
-                            } else {
-                                Text(
-                                    text = stringResource(id = R.string.vehicle_list_green_card_unavailable),
-                                    style = listItemBodyStyle(),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                remainingDays?.let {
+                                    Text(
+                                        text = LocalContext.current.resources.getQuantityString(
+                                            R.plurals.vehicle_list_mot,
+                                            it,
+                                            dateString, it
+                                        ),
+                                        style = listItemBodyStyle(),
+                                        color = if (it <= motDaysWarning) MaterialTheme.colorScheme.error else LocalContentColor.current
+                                    )
+                                }
+
+                                if (vehicle.greenCardFilename != null) {
+                                    Text(
+                                        text = stringResource(id = R.string.vehicle_list_green_card_available),
+                                        style = listItemBodyStyle(),
+                                        color = colorResource(id = R.color.success)
+                                    )
+                                } else {
+                                    Text(
+                                        text = stringResource(id = R.string.vehicle_list_green_card_unavailable),
+                                        style = listItemBodyStyle(),
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
                             }
                         }
                     }
                 }
-                }
             }
 
             remainingDays?.let {
-                if(it <= motDaysWarning) {
+                if (it <= motDaysWarning) {
                     var infoText: String = ""
-                    if(it < 0) {
+                    if (it < 0) {
                         infoText = LocalContext.current.resources.getQuantityString(
                             R.plurals.vehicle_list_mot_expired,
                             it,
-                            it*-1
+                            it * -1
                         )
                     } else if (it == 0) {
                         infoText = stringResource(id = R.string.vehicle_list_mot_expired_today)
@@ -241,7 +340,7 @@ fun VehicleItem(
                         Icon(
                             imageVector = Icons.Rounded.Warning,
                             contentDescription = null,
-                            tint = if(remainingDays != null && remainingDays!! > 0) onWarningColor() else MaterialTheme.colorScheme.error,
+                            tint = if (remainingDays != null && remainingDays!! > 0) onWarningColor() else MaterialTheme.colorScheme.error,
                         )
 
                         Text(
