@@ -141,8 +141,8 @@ fun FuelingRecord(
             Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
                 Column() {
                     val dateString = DateUtils.getDateString(fueling.fueling.date)
-                    Text(text = dateString, style = Typography.titleLarge)
-                    Text(text = fueling.vehicle.name, style = Typography.titleLarge)
+                    Text(text = dateString, style = Typography.labelLarge)
+                    Text(text = fueling.vehicle.name, style = Typography.bodyLarge)
                 }
 
                 Column(

@@ -21,6 +21,14 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.ui.theme.globalRadius
 import java.util.*
 
+@Composable
+fun AppLogo() = Text(
+    text = stringResource(id = R.string.app_name).uppercase(Locale.getDefault()),
+    fontSize = 24.sp,
+    fontWeight = FontWeight.Black,
+    letterSpacing = 0.sp
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BaseScreenLayout(
@@ -35,12 +43,7 @@ fun BaseScreenLayout(
     Scaffold(topBar = {
         CenterAlignedTopAppBar(
             title = {
-                Text(
-                    text = stringResource(id = R.string.app_name).uppercase(Locale.getDefault()),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    letterSpacing = 6.sp
-                )
+                AppLogo()
             },
         )
     }, floatingActionButton = {
@@ -104,12 +107,7 @@ fun BaseScreenSheetLayout(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(
-                        text = stringResource(id = R.string.app_name).uppercase(Locale.getDefault()),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        letterSpacing = 6.sp
-                    )
+                    AppLogo()
                 },
             )
         },
