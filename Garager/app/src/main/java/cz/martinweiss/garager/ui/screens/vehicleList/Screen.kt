@@ -63,7 +63,13 @@ fun VehicleListScreen(
 
     viewModel.vehicleListUIState.value.let {
         when (it) {
-            VehicleListUIState.Default -> {}
+            VehicleListUIState.Default -> {
+                if(vehicles.isEmpty()) {
+                    viewModel.loadVehicles()
+                } else {
+
+                }
+            }
             VehicleListUIState.Init -> {
                 viewModel.loadVehicles()
             }
