@@ -106,7 +106,7 @@ fun FuelingRecordList(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(globalSpacer())
     ) {
-        item {
+        item(key = 98986) {
             Text(
                 text = stringResource(id = R.string.fuel_list_title),
                 style = screenTitleStyle()

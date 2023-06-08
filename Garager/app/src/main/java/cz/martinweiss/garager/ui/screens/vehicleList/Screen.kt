@@ -135,7 +135,7 @@ fun VehicleListContent(
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                item {
+                item(key = 1) {
                     Text(
                         text = stringResource(id = R.string.vehicle_list_title),
                         style = screenTitleStyle(),
@@ -147,7 +147,7 @@ fun VehicleListContent(
                     )
                 }
 
-                item {
+                item(key = 2) {
                     VehicleItemList(
                         vehicles = vehicles,
                         listState = listState,
@@ -161,7 +161,7 @@ fun VehicleListContent(
                         )
                     )
                 }
-                item {
+                item(key = 3) {
                     Text(
                         text = stringResource(id = R.string.fuel_list_title),
                         style = screenTitleStyle(),
@@ -176,7 +176,7 @@ fun VehicleListContent(
                 if(data.scrollSnapIndex in vehicles.indices) {
                     val filteredFuelings = fuelings.filter { it.fueling.vehicleId == vehicles[data.scrollSnapIndex].id }.toMutableList()
 
-                    item {
+                    item(key = 4) {
                         if(filteredFuelings.size == 0) {
                             PlaceholderScreen(
                                 icon = painterResource(id = R.drawable.icon_breaking_news_filled),
