@@ -277,7 +277,7 @@ fun VehicleItem(
                             Column() {
                                 Text(text = vehicle.name, style = Typography.labelLarge)
                                 vehicle.licensePlate?.let {
-                                    Text(text = it, style = Typography.bodyLarge)
+                                    Text(text = it, style = listItemTitle())
                                 }
                             }
 

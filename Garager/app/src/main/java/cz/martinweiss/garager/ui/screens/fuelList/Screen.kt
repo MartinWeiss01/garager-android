@@ -142,7 +142,7 @@ fun FuelingRecord(
                 Column() {
                     val dateString = DateUtils.getDateString(fueling.fueling.date)
                     Text(text = dateString, style = Typography.labelLarge)
-                    Text(text = fueling.vehicle.name, style = Typography.bodyLarge)
+                    Text(text = fueling.vehicle.name, style = listItemTitle())
                 }
 
                 Column(

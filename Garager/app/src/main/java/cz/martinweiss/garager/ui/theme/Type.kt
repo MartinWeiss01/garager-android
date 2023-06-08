@@ -1,5 +1,6 @@
 package cz.martinweiss.garager.ui.theme
 
+import android.app.LauncherActivity.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -12,8 +13,10 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -61,3 +64,10 @@ fun screenTitleStyle() = Typography.titleLarge
 
 @Composable
 fun listItemBodyStyle() = Typography.bodyMedium
+
+@Composable
+fun listItemTitle() = TextStyle(
+fontFamily = FontFamily.Default,
+fontWeight = FontWeight.Bold,
+fontSize = 20.sp
+)
