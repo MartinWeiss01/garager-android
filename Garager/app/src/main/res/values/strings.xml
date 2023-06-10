@@ -82,6 +82,7 @@
     <string name="detail_vehicle_manufacturer">Značka</string>
     <string name="detail_vehicle_placeholder_license_plate">žádná SPZ</string>
     <string name="detail_vehicle_placeholder_blank">nevyplněno</string>
+    <string name="detail_vehicle_fuel_type">Typ paliva</string>
     <string name="detail_vehicle_green_card_btn">Zobrazit zelenou kartu</string>
     <string name="detail_vehicle_green_card_btn_unavailable">Zelená karta není k dispozici</string>
     <string name="detail_vehicle_delete_button">Smazat</string>
@@ -89,6 +90,7 @@
     <string name="title_detail_fueling">Detail tankování</string>
     <string name="detail_fueling_date">Datum</string>
     <string name="detail_fueling_vehicle">Vozidlo</string>
+    <string name="detail_fueling_specification_field">Typ paliva</string>
     <string name="detail_fueling_description">Poznámka</string>
     <string name="detail_fueling_price_unit">Cena za jednotku</string>
     <string name="detail_fueling_quantity">Množství</string>

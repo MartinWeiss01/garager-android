@@ -21,6 +21,7 @@ import cz.martinweiss.garager.ui.elements.BackArrowScreen
 import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
+import cz.martinweiss.garager.utils.FuelUtils
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -121,6 +122,14 @@ fun DetailVehicleScreenContent(
                     Text(text = "${DateUtils.getDateString(tempMOT)} ${LocalContext.current.resources.getQuantityString(R.plurals.detail_vehicle_mot_date_remaining, remainingDays, remainingDays)}")
                 } else {
                     Text(text = stringResource(id = R.string.detail_vehicle_placeholder_blank))
+                }
+            }
+
+            val fuelTypeResourceID = FuelUtils.getNameResourceID(data.vehicle.fuelTypeID)
+            if(fuelTypeResourceID != null) {
+                Column() {
+                    Text(text = stringResource(id = R.string.detail_vehicle_fuel_type), fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(id = fuelTypeResourceID))
                 }
             }
         }

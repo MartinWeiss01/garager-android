@@ -150,8 +150,15 @@ fun FuelingRecord(
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
+                        val fuelTypeResourceID = FuelUtils.getNameResourceID(fueling.vehicle.fuelTypeID)
+
+                        Text(
+                            text = if(fuelTypeResourceID != null) "${stringResource(id = fuelTypeResourceID)} ${fueling.fueling.specification ?: ""}" else "",
+                            style = listItemBodyStyle()
+                        )
+
                         Text(
                             text = "${fueling.fueling.priceUnit.round()} ${currency}/${fuelUnit} × ${fueling.fueling.quantity.round()} $fuelUnit",
                             style = listItemBodyStyle()

@@ -80,7 +80,7 @@ fun DetailFuelingContent(
 
     Column(
         modifier = Modifier.padding(primaryMargin()),
-        verticalArrangement = Arrangement.spacedBy(40.dp)
+        verticalArrangement = Arrangement.spacedBy(60.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
             Column() {
@@ -88,6 +88,15 @@ fun DetailFuelingContent(
                 Text(
                     text = DateUtils.getDateString(data.fueling.date, includeTime = true)
                 )
+            }
+
+            val fuelTypeResourceID = FuelUtils.getNameResourceID(data.vehicle.fuelTypeID)
+
+            if(fuelTypeResourceID != null) {
+                Column() {
+                    Text(text = stringResource(id = R.string.detail_fueling_specification_field), fontWeight = FontWeight.Bold)
+                    Text(text = "${stringResource(id = fuelTypeResourceID)} ${data.fueling.specification ?: ""}")
+                }
             }
 
             Column() {
