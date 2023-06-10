@@ -2,6 +2,7 @@ package cz.martinweiss.garager.ui.screens.fuelAddEdit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.util.Log
 import android.widget.DatePicker
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -126,9 +127,12 @@ fun AddEditFuelingContent(
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
+            var selectedMonth = month
+            var selectedDay = day
+            var selectedYear = year
             val timePickerDialog = TimePickerDialog(LocalContext.current,
                 { _, hour, minute ->
-                    actions.onDateChange(DateUtils.getUnixTime(year, month, day, hour, minute))
+                    actions.onDateChange(DateUtils.getUnixTime(selectedYear, selectedMonth, selectedDay, hour, minute))
                 },
                 hour,
                 minute,
@@ -138,6 +142,9 @@ fun AddEditFuelingContent(
             val datePickerDialog = DatePickerDialog(
                 LocalContext.current,
                 { dialog: DatePicker, year: Int, month: Int, day: Int ->
+                    selectedYear = year
+                    selectedMonth = month
+                    selectedDay = day
                     actions.onDateChange(DateUtils.getUnixTime(year, month, day, hour, minute))
                     timePickerDialog.show()
                 },
