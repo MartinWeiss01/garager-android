@@ -7,4 +7,5 @@ class DetailFuelingData {
     var fueling: RawFueling = RawFueling(-1L, -1L)
     var vehicle: Vehicle = Vehicle("")
     var currency: String = ""
+    var loading: Boolean = true
 }

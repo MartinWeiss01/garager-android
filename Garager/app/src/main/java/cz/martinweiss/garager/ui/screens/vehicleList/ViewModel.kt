@@ -19,6 +19,7 @@ class VehicleListViewModel(private val repository: IVehiclesRepository, private 
 
             val fuelings = repository.getFuelingRecords().first()
             val vehicles = repository.getVehicles().first()
+            data.loading = false
             vehicleListUIState.value = VehicleListUIState.Success(vehicles, fuelings)
         }
     }

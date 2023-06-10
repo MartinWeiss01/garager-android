@@ -20,6 +20,7 @@ class DetailVehicleViewModel(private val repository: IVehiclesRepository): BaseV
                     if(vehicle != null) {
                         data.vehicle = vehicle.vehicle
                         data.manufacturer = vehicle.manufacturer
+                        data.loading = false
                         detailVehicleUIState.value = DetailVehicleUIState.Default
                     } else {
                         detailVehicleUIState.value = DetailVehicleUIState.ReturnToPreviousScreen

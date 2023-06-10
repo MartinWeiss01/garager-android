@@ -14,6 +14,7 @@ class SettingsViewModel(private val dataStore: IDataStoreController): BaseViewMo
         launch {
             data.motDaysWarning = dataStore.getIntByKey(DATASTORE_MOT_DAYS) ?: DEFAULT_MOT_WARNING_DAYS_VALUE
             data.currency = dataStore.getStringByKey(DATASTORE_CURRENCY) ?: DEFAULT_CURRENCY_VALUE
+            data.loading = false
             settingsUIState.value = SettingsUIState.Updated
         }
     }

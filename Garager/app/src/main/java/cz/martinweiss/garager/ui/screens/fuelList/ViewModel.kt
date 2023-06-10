@@ -14,6 +14,7 @@ class FuelListViewModel(
     private val dataStore: IDataStoreController
 ): BaseViewModel() {
     var currency: String = ""
+    var loading: Boolean = true
     val fuelListUIState: MutableState<FuelListUIState> = mutableStateOf(FuelListUIState.Default)
 
     fun loadFuelings() {
@@ -23,6 +24,7 @@ class FuelListViewModel(
 
         launch {
             repository.getFuelingRecords().collect {
+                loading = false
                 fuelListUIState.value = FuelListUIState.Success(it)
             }
         }

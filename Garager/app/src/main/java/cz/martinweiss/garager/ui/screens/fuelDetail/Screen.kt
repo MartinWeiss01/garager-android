@@ -14,6 +14,7 @@ import cz.martinweiss.garager.R
 import cz.martinweiss.garager.extensions.round
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.elements.LoadingSpinner
 import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
@@ -64,10 +65,14 @@ fun DetailFuelingScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
             }
         }
     ) {
-        DetailFuelingContent(
-            data = data,
-            actions = viewModel
-        )
+        if(data.loading) {
+            LoadingSpinner()
+        } else {
+            DetailFuelingContent(
+                data = data,
+                actions = viewModel
+            )
+        }
     }
 }
 

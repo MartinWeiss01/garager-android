@@ -28,6 +28,7 @@ class DetailFuelingViewModel(
                     if(fueling != null) {
                         data.fueling = fueling.fueling
                         data.vehicle = fueling.vehicle
+                        data.loading = false
                         detailFuelingUIState.value = DetailFuelingUIState.Default
                     } else {
                         detailFuelingUIState.value = DetailFuelingUIState.ReturnToPreviousScreen

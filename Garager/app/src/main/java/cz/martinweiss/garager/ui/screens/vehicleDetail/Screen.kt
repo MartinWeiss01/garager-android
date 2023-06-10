@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BackArrowScreen
+import cz.martinweiss.garager.ui.elements.LoadingSpinner
 import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
@@ -69,11 +70,15 @@ fun DetailVehicleScreen(navigation: INavigationRouter, id: Long, viewModel: Deta
             }
         }
     ) {
-        DetailVehicleScreenContent(
-            navigation = navigation,
-            data = data,
-            actions = viewModel
-        )
+        if(data.loading) {
+            LoadingSpinner()
+        } else {
+            DetailVehicleScreenContent(
+                navigation = navigation,
+                data = data,
+                actions = viewModel
+            )
+        }
     }
 }
 

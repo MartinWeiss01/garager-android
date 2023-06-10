@@ -2,6 +2,7 @@
     <string name="app_name">Garager</string>
     <string name="btn_add_new_vehicle">Přidat vozidlo</string>
     <string name="btn_add_new_fueling">Přidat nový záznam</string>
+    <string name="loading">Probíhá načítání...</string>
 
     <string name="navigation_item_list">Přehled</string>
     <string name="navigation_item_fuelings">Tankování</string>

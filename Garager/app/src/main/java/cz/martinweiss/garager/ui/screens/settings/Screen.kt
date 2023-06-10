@@ -20,6 +20,7 @@ import cz.martinweiss.garager.model.currencies
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenSheetLayout
 import cz.martinweiss.garager.ui.elements.ClickableListItem
+import cz.martinweiss.garager.ui.elements.LoadingSpinner
 import cz.martinweiss.garager.ui.theme.globalSpacer
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.ui.theme.screenTitleStyle
@@ -60,16 +61,20 @@ fun SettingsScreen(navigation: INavigationRouter, viewModel: SettingsViewModel =
         isSheetVisible = isSheetVisibleState.value,
         onSheetCollapsed = { sheetContentState.value = {} }
     ) {
-        SettingsScreenContent(
-            paddingValues = it,
-            actions = viewModel,
-            data = data,
-            sheetContentState = sheetContentState,
-            isSheetVisibleState = isSheetVisibleState,
-            showSheet = {
-                isSheetVisibleState.value = true
-            }
-        )
+        if(data.loading) {
+            LoadingSpinner()
+        } else {
+            SettingsScreenContent(
+                paddingValues = it,
+                actions = viewModel,
+                data = data,
+                sheetContentState = sheetContentState,
+                isSheetVisibleState = isSheetVisibleState,
+                showSheet = {
+                    isSheetVisibleState.value = true
+                }
+            )
+        }
     }
 }
 

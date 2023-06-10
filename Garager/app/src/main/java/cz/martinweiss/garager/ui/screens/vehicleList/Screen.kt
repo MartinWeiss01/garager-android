@@ -30,6 +30,7 @@ import cz.martinweiss.garager.model.Fueling
 import cz.martinweiss.garager.model.Vehicle
 import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
+import cz.martinweiss.garager.ui.elements.LoadingSpinner
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.screens.fuelList.FuelingRecord
 import cz.martinweiss.garager.ui.theme.*
@@ -87,15 +88,19 @@ fun VehicleListScreen(
         expandedFAB = listState.isScrollingUp(),
         onFABClick = { navigation.navigateToAddEditVehicleScreen(-1L) }
     ) {
-        VehicleListContent(
-            paddingValues = it,
-            navigation = navigation,
-            vehicles = vehicles,
-            fuelings = fuelings,
-            listState = listState,
-            data = data,
-            actions = viewModel
-        )
+        if(data.loading) {
+            LoadingSpinner()
+        } else {
+            VehicleListContent(
+                paddingValues = it,
+                navigation = navigation,
+                vehicles = vehicles,
+                fuelings = fuelings,
+                listState = listState,
+                data = data,
+                actions = viewModel
+            )
+        }
     }
 }
 

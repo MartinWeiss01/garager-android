@@ -6,4 +6,5 @@ import cz.martinweiss.garager.model.Vehicle
 class DetailVehicleData {
     var vehicle: Vehicle = Vehicle("")
     var manufacturer: Manufacturer? = null
+    var loading: Boolean = true
 }

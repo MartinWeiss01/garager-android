@@ -21,10 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.navigation.INavigationRouter
-import cz.martinweiss.garager.ui.elements.BackArrowScreen
-import cz.martinweiss.garager.ui.elements.CustomDropdownField
-import cz.martinweiss.garager.ui.elements.CustomTextField
-import cz.martinweiss.garager.ui.elements.ReactiveField
+import cz.martinweiss.garager.ui.elements.*
 import cz.martinweiss.garager.ui.screens.vehicleAddEdit.Section
 import cz.martinweiss.garager.ui.theme.primaryMargin
 import cz.martinweiss.garager.utils.DateUtils
@@ -73,10 +70,14 @@ fun AddEditFuelingScreen(navigation: INavigationRouter, id: Long?, viewModel: Ad
             }
         }
     ) {
-        AddEditFuelingContent(
-            actions = viewModel,
-            data = data
-        )
+        if(data.loading) {
+            LoadingSpinner()
+        } else {
+            AddEditFuelingContent(
+                actions = viewModel,
+                data = data
+            )
+        }
     }
 }
 
