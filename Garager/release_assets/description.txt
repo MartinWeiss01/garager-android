@@ -1,0 +1,9 @@
+App Description (80 characters limit)
+====================================
+cs
+---
+Udržujte přehled o svých autech a jejich spotřebě. STK, tankování, zelená karta.
+
+en
+---
+Keep track of your cars and their consumption. MOT, refueling, green card.
