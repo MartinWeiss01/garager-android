@@ -1,7 +1,5 @@
 package cz.martinweiss.garager.ui.theme
 
-import android.app.LauncherActivity.ListItem
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle

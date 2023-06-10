@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.datastore.*
-import cz.martinweiss.garager.model.Vehicle
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
