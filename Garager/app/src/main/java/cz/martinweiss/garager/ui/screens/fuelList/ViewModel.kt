@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import cz.martinweiss.garager.architecture.BaseViewModel
 import cz.martinweiss.garager.database.IVehiclesRepository
 import cz.martinweiss.garager.datastore.DATASTORE_CURRENCY
+import cz.martinweiss.garager.datastore.DEFAULT_CURRENCY_VALUE
 import cz.martinweiss.garager.datastore.IDataStoreController
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ class FuelListViewModel(
 
     fun loadFuelings() {
         launch {
-            currency = dataStore.getStringByKey(DATASTORE_CURRENCY)!!
+            currency = dataStore.getStringByKey(DATASTORE_CURRENCY) ?: DEFAULT_CURRENCY_VALUE
         }
 
         launch {
