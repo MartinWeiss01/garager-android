@@ -18,12 +18,9 @@ class VehicleListViewModel(private val repository: IVehiclesRepository, private 
             data.motDaysWarning = dataStore.getIntByKey(DATASTORE_MOT_DAYS) ?: DEFAULT_MOT_WARNING_DAYS_VALUE
             data.currency = dataStore.getStringByKey(DATASTORE_CURRENCY) ?: DEFAULT_CURRENCY_VALUE
 
-            //val fuelings = repository.getFuelingRecords().first()
-            //val vehicles = repository.getVehicles().first()
-            data.vehicles = repository.getVehicles().first()
-            data.fuelings = repository.getFuelingRecords().first()
-            //vehicleListUIState.value = VehicleListUIState.Success(vehicles, fuelings)
-            vehicleListUIState.value = VehicleListUIState.Changed
+            val fuelings = repository.getFuelingRecords().first()
+            val vehicles = repository.getVehicles().first()
+            vehicleListUIState.value = VehicleListUIState.Success(vehicles, fuelings)
         }
     }
 

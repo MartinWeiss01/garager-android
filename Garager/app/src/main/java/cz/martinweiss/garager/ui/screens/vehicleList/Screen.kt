@@ -66,39 +66,24 @@ fun VehicleListScreen(
         mutableStateOf(false)
     }
 
-    Log.d("[###############]", "${loaded.value}")
-
     viewModel.vehicleListUIState.value.let {
         when (it) {
-            VehicleListUIState.Default -> {
-                Log.d("[############################################ STATE VEHLIST]", "Default prepare")
-                if(loaded.value == false) {
-                    Log.d("[############################################ STATE VEHLIST]", "Default isEmpty")
+            VehicleListUIState.Init -> {
+                if(!loaded.value) {
                     viewModel.loadVehicles()
                     loaded.value = true
-                } else {
-                    Log.d("[############################################ STATE VEHLIST]", "Default isNotEmpty")
                 }
             }
-            VehicleListUIState.Init -> {
-                Log.d("[############################################ STATE VEHLIST]", "Init")
-                viewModel.loadVehicles()
-            }
             is VehicleListUIState.Success -> {
-                Log.d("[############################################ STATE VEHLIST]", "Success")
                 vehicles.clear()
                 vehicles.addAll(it.vehicles)
                 fuelings.clear()
                 fuelings.addAll(it.fuelings)
+                viewModel.vehicleListUIState.value = VehicleListUIState.Init
             }
             VehicleListUIState.Changed -> {
-                Log.d("[############################################ STATE VEHLIST]", "Changed")
                 data = viewModel.data
-                vehicles.clear()
-                vehicles.addAll(data.vehicles)
-                fuelings.clear()
-                fuelings.addAll(data.fuelings)
-                viewModel.vehicleListUIState.value = VehicleListUIState.Default
+                viewModel.vehicleListUIState.value = VehicleListUIState.Init
             }
         }
     }
