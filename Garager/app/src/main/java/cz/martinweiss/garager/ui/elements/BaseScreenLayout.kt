@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,6 +26,7 @@ import java.util.*
 fun AppLogo() = Text(
     text = stringResource(id = R.string.app_name).uppercase(Locale.getDefault()),
     fontSize = 24.sp,
+    fontStyle = FontStyle.Italic,
     fontWeight = FontWeight.Black,
     letterSpacing = 0.sp
 )
