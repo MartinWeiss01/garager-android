@@ -75,8 +75,15 @@ val light_warningContainer = Color(0xFFFFECB3)
 val dark_onWarning = Color(0xFFFFECB3)
 val dark_warningContainer = Color(0xFFFFB300)
 
+val surfaceSecondary = Color(0xFF1B1B1B)
+val dark_surface_container = Color(0xFF333333)
+val light_surface_container = Color(0xFF1A1A1A)
+
 @Composable
 fun warningContainerColor() = if(isSystemInDarkTheme()) dark_warningContainer else light_warningContainer
 
 @Composable
 fun onWarningColor() = if(isSystemInDarkTheme()) dark_onWarning else light_onWarning
+
+@Composable
+fun surfaceContainerColor() = if(isSystemInDarkTheme()) dark_surface_container else light_surface_container

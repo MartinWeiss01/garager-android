@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -24,10 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cz.martinweiss.garager.R
 import cz.martinweiss.garager.extensions.isScrollingUp
 import cz.martinweiss.garager.model.Fueling
@@ -36,12 +32,9 @@ import cz.martinweiss.garager.navigation.INavigationRouter
 import cz.martinweiss.garager.ui.elements.BaseScreenLayout
 import cz.martinweiss.garager.ui.elements.PlaceholderScreen
 import cz.martinweiss.garager.ui.screens.fuelList.FuelingRecord
-import cz.martinweiss.garager.ui.screens.fuelList.FuelingRecordList
 import cz.martinweiss.garager.ui.theme.*
 import cz.martinweiss.garager.utils.DateUtils
 import org.koin.androidx.compose.getViewModel
-import org.koin.core.component.getScopeId
-import org.koin.core.component.getScopeName
 
 @Composable
 fun VehicleListScreen(
@@ -117,8 +110,7 @@ fun VehicleListContent(
     actions: VehicleListActions
 ) {
     Surface(
-        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
-        //color = Color.Gray,
+        shape = RoundedCornerShape(topStart = globalRadius()*2, topEnd = globalRadius()*2),
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
@@ -134,7 +126,7 @@ fun VehicleListContent(
             )
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 item(key = 1) {
                     Text(
@@ -142,8 +134,7 @@ fun VehicleListContent(
                         style = screenTitleStyle(),
                         modifier = Modifier.padding(
                             top = primaryMargin() * 2,
-                            start = primaryMargin(),
-                            end = primaryMargin()
+                            start = primaryMargin()
                         )
                     )
                 }
@@ -155,40 +146,44 @@ fun VehicleListContent(
                         navigation = navigation,
                         data = data,
                         actions = actions,
-                        contentPadding = PaddingValues(
-                            top = primaryMargin(),
-                            start = primaryMargin(),
-                            end = primaryMargin()
-                        )
-                    )
-                }
-                item(key = 3) {
-                    Text(
-                        text = stringResource(id = R.string.fuel_list_title),
-                        style = screenTitleStyle(),
-                        modifier = Modifier.padding(
-                            top = primaryMargin() * 2,
-                            start = primaryMargin(),
-                            end = primaryMargin()
-                        )
+                        contentPadding = PaddingValues(primaryMargin())
                     )
                 }
 
                 if(data.scrollSnapIndex in vehicles.indices) {
                     val filteredFuelings = fuelings.filter { it.fueling.vehicleId == vehicles[data.scrollSnapIndex].id }.toMutableList()
 
-                    item(key = 4) {
-                        if(filteredFuelings.size == 0) {
-                            PlaceholderScreen(
-                                icon = painterResource(id = R.drawable.icon_breaking_news_filled),
-                                title = stringResource(id = R.string.fuel_list_empty_title),
-                                description = ""
+                    item(key = 3) {
+                        Column(
+                            modifier = Modifier
+                                .padding(top = primaryMargin() * 1)
+                                .clip(RoundedCornerShape(globalRadius() * 2))
+                                .background(surfaceContainerColor())
+                                .padding(
+                                    top = primaryMargin() * 2,
+                                    start = primaryMargin(),
+                                    end = primaryMargin(),
+                                    bottom = primaryMargin() * 2
+                                ),
+                            verticalArrangement = Arrangement.spacedBy(globalSpacer())
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.vehicle_list_title_fuel_history),
+                                style = screenTitleStyle(),
+                                color = Color.White,
+                                modifier = Modifier.padding(
+                                    bottom = primaryMargin() * 1,
+                                )
                             )
-                        } else {
-                            Column(
-                                modifier = Modifier.padding(primaryMargin()),
-                                verticalArrangement = Arrangement.spacedBy(globalSpacer())
-                            ) {
+
+                            if(filteredFuelings.size == 0) {
+                                PlaceholderScreen(
+                                    icon = painterResource(id = R.drawable.icon_breaking_news_filled),
+                                    title = stringResource(id = R.string.fuel_list_empty_title),
+                                    description = "",
+                                    darkContainer = true
+                                )
+                            } else {
                                 filteredFuelings.forEach {
                                     FuelingRecord(fueling = it, onClick = { it.fueling.id?.let { fuelingId ->
                                         navigation.navigateToDetailFuelingScreen(fuelingId)
@@ -260,8 +255,6 @@ fun VehicleItem(
             containerColor = if (remainingDays != null && remainingDays!! > 0) warningContainerColor() else MaterialTheme.colorScheme.errorContainer,
             contentColor = if (remainingDays != null && remainingDays!! > 0) onWarningColor() else MaterialTheme.colorScheme.error,
         )
-        //elevation = 0.dp,
-        //contentPadding = PaddingValues(0.dp)
     ) {
         Column {
             Card(

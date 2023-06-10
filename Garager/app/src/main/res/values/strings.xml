@@ -8,6 +8,7 @@
     <string name="navigation_item_settings">Nastavení</string>
 
     <string name="vehicle_list_title">Přehled vozidel</string>
+    <string name="vehicle_list_title_fuel_history">Historie tankování</string>
     <string name="vehicle_list_vin">VIN: %s</string>
     <plurals name="vehicle_list_mot">
         <item quantity="zero">STK: %s (zbývá %d dní)</item>

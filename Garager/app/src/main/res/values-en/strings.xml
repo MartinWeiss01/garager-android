@@ -9,6 +9,7 @@
     <string name="navigation_item_settings">Settings</string>
 
     <string name="vehicle_list_title">Vehicle List</string>
+    <string name="vehicle_list_title_fuel_history">Fueling history</string>
     <string name="vehicle_list_vin">VIN: %s</string>
     <plurals name="vehicle_list_mot">
         <item quantity="one">MOT: %s (%d day left)</item>

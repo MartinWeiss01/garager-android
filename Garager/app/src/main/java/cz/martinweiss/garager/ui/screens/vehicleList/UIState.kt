@@ -5,7 +5,6 @@ import cz.martinweiss.garager.model.Vehicle
 
 sealed class VehicleListUIState {
     object Init : VehicleListUIState()
-    object Default : VehicleListUIState()
     class Success(val vehicles: List<Vehicle>, val fuelings: List<Fueling>) : VehicleListUIState()
     object Changed : VehicleListUIState()
 }
