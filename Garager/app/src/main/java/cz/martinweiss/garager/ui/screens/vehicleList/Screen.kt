@@ -275,7 +275,7 @@ fun VehicleItem(
                     Row {
                         Column(verticalArrangement = Arrangement.spacedBy(globalSpacer())) {
                             Column() {
-                                Text(text = vehicle.name, style = Typography.labelLarge)
+                                Text(text = vehicle.name, style = listItemLabel())
                                 vehicle.licensePlate?.let {
                                     Text(text = it, style = listItemTitle())
                                 }

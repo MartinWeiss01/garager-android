@@ -29,11 +29,6 @@ val Typography = Typography(
         fontSize = 13.sp,
         lineHeight = 24.sp
     ),
-    labelLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
-    ),
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
@@ -67,7 +62,14 @@ fun listItemBodyStyle() = Typography.bodyMedium
 
 @Composable
 fun listItemTitle() = TextStyle(
-fontFamily = FontFamily.Default,
-fontWeight = FontWeight.Bold,
-fontSize = 20.sp
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Bold,
+    fontSize = 20.sp
+)
+
+@Composable
+fun listItemLabel() = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Bold,
+    fontSize = 18.sp
 )
