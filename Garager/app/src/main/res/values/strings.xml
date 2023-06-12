@@ -1,138 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Garager</string>
     <string name="app_author">Martin Weiss</string>
-    <string name="btn_add_new_vehicle">Přidat vozidlo</string>
-    <string name="btn_add_new_fueling">Přidat nový záznam</string>
-    <string name="loading">Probíhá načítání…</string>
+    <string name="btn_add_new_vehicle">Add new vehicle</string>
+    <string name="btn_add_new_fueling">Add new record</string>
+    <string name="loading">Loading…</string>
 
-    <string name="navigation_item_list">Přehled</string>
-    <string name="navigation_item_fuelings">Tankování</string>
-    <string name="navigation_item_settings">Nastavení</string>
+    <string name="navigation_item_list">Home</string>
+    <string name="navigation_item_fuelings">Fuelings</string>
+    <string name="navigation_item_settings">Settings</string>
 
-    <string name="vehicle_list_title">Přehled vozidel</string>
-    <string name="vehicle_list_title_fuel_history">Historie tankování</string>
+    <string name="vehicle_list_title">Vehicle List</string>
+    <string name="vehicle_list_title_fuel_history">Fueling history</string>
     <string name="vehicle_list_vin">VIN: %s</string>
     <plurals name="vehicle_list_mot">
-        <item quantity="zero">STK: %s (zbývá %d dní)</item>
-        <item quantity="one">STK: %s (zbývá %d den)</item>
-        <item quantity="few">STK: %s (zbývají %d dny)</item>
-        <item quantity="other">STK: %s (zbývá %d dní)</item>
+        <item quantity="one">MOT: %s (%d day left)</item>
+        <item quantity="other">MOT: %s (%d days left)</item>
     </plurals>
     <plurals name="vehicle_list_mot_expired">
-        <item quantity="zero">Platnost STK vypršela před dnes</item>
-        <item quantity="one">Platnost STK vypršela před %d dnem</item>
-        <item quantity="few">Platnost STK vypršela před %d dny</item>
-        <item quantity="other">Platnost STK vypršela před %d dny</item>
+        <item quantity="one">The MOT has expired %d day ago</item>
+        <item quantity="other">The MOT has expired %d days ago</item>
     </plurals>
     <plurals name="vehicle_list_mot_active">
-        <item quantity="zero">STK je platné do dnešního dne</item>
-        <item quantity="one">STK je platné, do vypršení zbývá %d den</item>
-        <item quantity="few">STK je platné, do vypršení zbývají %d dny</item>
-        <item quantity="other">STK je platné, do vypršení zbývá %d dní</item>
+        <item quantity="one">The MOT is still valid, expires in %d day</item>
+        <item quantity="other">The MOT is still valid, expires in %d days</item>
     </plurals>
-    <string name="vehicle_list_mot_expired_today">STK je platné do dnešního dne</string>
-    <string name="vehicle_list_green_card_available">Zelená karta je k dispozici</string>
-    <string name="vehicle_list_green_card_unavailable">Zelená karta není k dispozici</string>
-    <string name="vehicle_list_empty_title">Žádné vozidlo</string>
-    <string name="vehicle_list_empty_description">Nové vozidlo můžeš přidat stisknutím tlačítka \'%s\'</string>
+    <string name="vehicle_list_mot_expired_today">The MOT is still valid, expires today</string>
+    <string name="vehicle_list_green_card_available">Green card is available</string>
+    <string name="vehicle_list_green_card_unavailable">Green card not available</string>
+    <string name="vehicle_list_empty_title">No vehicle yet</string>
+    <string name="vehicle_list_empty_description">You can add a new vehicle by pressing \'%s\' button</string>
 
-    <string name="fuel_list_title">Přehled tankování</string>
-    <string name="fuel_list_record_total_price">Celkem</string>
-    <string name="fuel_list_empty_title">Žádný záznam</string>
-    <string name="fuel_list_empty_description">Nový záznam můžeš přidat stisknutím tlačítka \'%s\'</string>
+    <string name="fuel_list_title">Fueling Records</string>
+    <string name="fuel_list_record_total_price">Total</string>
+    <string name="fuel_list_empty_title">No fueling record yet</string>
+    <string name="fuel_list_empty_description">You can add a new record by pressing \'%s\' button</string>
 
-    <string name="title_add_edit_vehicle_add">Přidat nové vozidlo</string>
-    <string name="title_add_edit_vehicle_edit">Upravit vozidlo</string>
-    <string name="add_edit_vehicle_name_field">Název</string>
-    <string name="add_edit_vehicle_name_required">Toto pole je povinné</string>
-    <string name="add_edit_vehicle_license_plate_field">SPZ</string>
+    <string name="title_add_edit_vehicle_add">Add new vehicle</string>
+    <string name="title_add_edit_vehicle_edit">Edit vehicle</string>
+    <string name="add_edit_vehicle_name_field">Name</string>
+    <string name="add_edit_vehicle_name_required">Required</string>
+    <string name="add_edit_vehicle_license_plate_field">License Plate</string>
     <string name="add_edit_vehicle_vin_field">VIN</string>
-    <string name="add_edit_vehicle_vin_format_error">Neplatný formát</string>
-    <string name="add_edit_vehicle_manufacturer_field">Značka</string>
-    <string name="add_edit_vehicle_fuel_type_field">Typ paliva</string>
-    <string name="add_edit_vehicle_fuel_type_unspecified">Nenastaveno</string>
-    <string name="add_edit_vehicle_save_btn">Uložit vozidlo</string>
-    <string name="add_edit_vehicle_upload_file">Vybrat soubor</string>
-    <string name="add_edit_vehicle_file_field">Zelená karta (PDF či foto)</string>
-    <string name="add_edit_vehicle_mot_date_field">Datum splatnosti STK</string>
-    <string name="add_edit_vehicle_section_main">Základní údaje</string>
-    <string name="add_edit_vehicle_section_docs">Doklady</string>
+    <string name="add_edit_vehicle_vin_format_error">Invalid format</string>
+    <string name="add_edit_vehicle_manufacturer_field">Manufacturer</string>
+    <string name="add_edit_vehicle_fuel_type_field">Fuel Type</string>
+    <string name="add_edit_vehicle_fuel_type_unspecified">Unspecified</string>
+    <string name="add_edit_vehicle_save_btn">Save vehicle</string>
+    <string name="add_edit_vehicle_upload_file">Select file</string>
+    <string name="add_edit_vehicle_file_field">Green card (PDF or image)</string>
+    <string name="add_edit_vehicle_mot_date_field">MOT due date</string>
+    <string name="add_edit_vehicle_section_main">Basic information</string>
+    <string name="add_edit_vehicle_section_docs">Documents</string>
 
-    <string name="title_add_edit_fueling_add">Přidat nový záznam</string>
-    <string name="title_add_edit_fueling_edit">Upravit záznam</string>
-    <string name="add_edit_fueling_vehicle_field">Vozidlo</string>
-    <string name="add_edit_fueling_date_field">Datum</string>
-    <string name="add_edit_fueling_section_main">Základní údaje</string>
-    <string name="add_edit_fueling_section_details">Podrobnosti</string>
-    <string name="add_edit_fueling_price_unit_field">Cena za jednotku</string>
-    <string name="add_edit_fueling_quantity_field">Množství</string>
-    <string name="add_edit_fueling_specification_field">Typ paliva</string>
-    <string name="add_edit_fueling_description_field">Poznámka</string>
-    <string name="add_edit_fueling_save_btn">Uložit záznam</string>
-    <string name="add_edit_fueling_field_required">Povinné</string>
-    <string name="add_edit_fueling_field_invalid_format">Neplatný formát</string>
-    <string name="add_edit_fueling_field_invalid_range">Rozmezí povolených hodnot: 0–99999</string>
+    <string name="title_add_edit_fueling_add">Add new fueling</string>
+    <string name="title_add_edit_fueling_edit">Edit fueling</string>
+    <string name="add_edit_fueling_vehicle_field">Vehicle</string>
+    <string name="add_edit_fueling_date_field">Date</string>
+    <string name="add_edit_fueling_section_main">Basic data</string>
+    <string name="add_edit_fueling_section_details">Details</string>
+    <string name="add_edit_fueling_price_unit_field">Price per unit</string>
+    <string name="add_edit_fueling_quantity_field">Quantity</string>
+    <string name="add_edit_fueling_specification_field">Fuel Type</string>
+    <string name="add_edit_fueling_description_field">Note</string>
+    <string name="add_edit_fueling_save_btn">Save fueling</string>
+    <string name="add_edit_fueling_field_required">Required</string>
+    <string name="add_edit_fueling_field_invalid_format">Invalid format</string>
+    <string name="add_edit_fueling_field_invalid_range">Allowed value range: 0–99999</string>
 
-    <string name="title_detail_vehicle">Detail vozidla</string>
+    <string name="title_detail_vehicle">Vehicle Detail</string>
     <string name="detail_vehicle_vin">VIN</string>
-    <string name="detail_vehicle_mot_date">Platnost STK</string>
+    <string name="detail_vehicle_mot_date">MOT due date</string>
     <plurals name="detail_vehicle_mot_date_remaining">
-        <item quantity="zero">(zbývá %d dní)</item>
-        <item quantity="one">(zbývá %d den)</item>
-        <item quantity="few">(zbývají %d dny)</item>
-        <item quantity="other">(zbývá %d dní)</item>
+        <item quantity="one">(%d day left)</item>
+        <item quantity="other">(%d days left)</item>
     </plurals>
-    <string name="detail_vehicle_manufacturer">Značka</string>
-    <string name="detail_vehicle_placeholder_license_plate">žádná SPZ</string>
-    <string name="detail_vehicle_placeholder_blank">nevyplněno</string>
-    <string name="detail_vehicle_fuel_type">Typ paliva</string>
-    <string name="detail_vehicle_green_card_btn">Zobrazit zelenou kartu</string>
-    <string name="detail_vehicle_green_card_btn_unavailable">Zelená karta není k dispozici</string>
-    <string name="detail_vehicle_delete_button">Smazat</string>
+    <string name="detail_vehicle_manufacturer">Manufacturer</string>
+    <string name="detail_vehicle_placeholder_license_plate">no license plate</string>
+    <string name="detail_vehicle_placeholder_blank">not specified</string>
+    <string name="detail_vehicle_fuel_type">Fuel Type</string>
+    <string name="detail_vehicle_green_card_btn">View green card</string>
+    <string name="detail_vehicle_green_card_btn_unavailable">Green card not available</string>
+    <string name="detail_vehicle_delete_button">Delete</string>
 
-    <string name="title_detail_fueling">Detail tankování</string>
-    <string name="detail_fueling_date">Datum</string>
-    <string name="detail_fueling_vehicle">Vozidlo</string>
-    <string name="detail_fueling_specification_field">Typ paliva</string>
-    <string name="detail_fueling_description">Poznámka</string>
-    <string name="detail_fueling_price_unit">Cena za jednotku</string>
-    <string name="detail_fueling_quantity">Množství</string>
-    <string name="detail_fueling_total">Celkem</string>
-    <string name="detail_fueling_delete_button">Smazat</string>
+    <string name="title_detail_fueling">Fueling Detail</string>
+    <string name="detail_fueling_date">Date</string>
+    <string name="detail_fueling_vehicle">Vehicle</string>
+    <string name="detail_fueling_specification_field">Fuel Type</string>
+    <string name="detail_fueling_description">Note</string>
+    <string name="detail_fueling_price_unit">Price per unit</string>
+    <string name="detail_fueling_quantity">Quantity</string>
+    <string name="detail_fueling_total">Total</string>
+    <string name="detail_fueling_delete_button">Delete</string>
 
-    <string name="title_green_card_vehicle">Zelená karta</string>
+    <string name="title_green_card_vehicle">Green Card</string>
 
-    <string name="title_settings_screen_info">O aplikaci</string>
-    <string name="title_settings_screen">Nastavení</string>
-    <string name="settings_author_app">Autor</string>
-    <string name="settings_version_app">Verze aplikace</string>
-    <string name="settings_mot_days_warning_label">Upozornění na STK</string>
-    <string name="settings_mot_days_warning_description">Nastavte počet dní předem pro upozornění na blížící se termín STK</string>
+    <string name="title_settings_screen_info">About the app</string>
+    <string name="title_settings_screen">Settings</string>
+    <string name="settings_author_app">Author</string>
+    <string name="settings_version_app">Application version</string>
+    <string name="settings_mot_days_warning_label">MOT Reminder</string>
+    <string name="settings_mot_days_warning_description">Set the number of days in advance to be reminded of upcoming MOT test</string>
     <plurals name="settings_mot_days_warning_days">
-        <item quantity="zero">dní</item>
-        <item quantity="one">den</item>
-        <item quantity="few">dny</item>
-        <item quantity="other">dní</item>
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
     </plurals>
-    <string name="settings_currency_label">Měna aplikace</string>
-    <string name="settings_currency_description">Ceny za tankování se zobrazí ve zvolené měně</string>
+    <string name="settings_currency_label">Currency</string>
+    <string name="settings_currency_description">Prices for fuelings will be displayed in the selected currency</string>
 
-
-    <string name="permission_storage_denied">Oprávnění bylo zamítnuto</string>
+    <string name="permission_storage_denied">Permission denied</string>
 
     <!-- Dataset -->
-    <string name="fuel_type_name_electric">Elektřina</string>
-    <string name="fuel_type_name_gas">Benzin</string>
-    <string name="fuel_type_name_diesel">Nafta</string>
-    <string name="fuel_type_name_naturalgas">Zemní plyn</string>
-    <string name="fuel_type_name_hydro">Vodík</string>
-    <string name="fuel_type_name_ethanol">Etanol</string>
-    <string name="fuel_type_name_propane">Propan</string>
-    <string name="fuel_type_name_lpg">LPG</string>
-    <string name="fuel_type_name_cng">CNG</string>
-    <string name="fuel_type_name_flex">Flex</string>
+    <string name="fuel_type_name_electric">Electricity</string>
+    <string name="fuel_type_name_gas">Gasoline</string>
+    <string name="fuel_type_name_diesel">Diesel</string>
+    <string name="fuel_type_name_naturalgas">Natural Gas</string>
+    <string name="fuel_type_name_hydro">Hydrogen</string>
+    <string name="fuel_type_name_ethanol">Ethanol</string>
+    <string name="fuel_type_name_propane">Propane</string>
+    <string name="fuel_type_name_lpg">Liquefied Petroleum Gas</string>
+    <string name="fuel_type_name_cng">Compressed Natural Gas</string>
+    <string name="fuel_type_name_flex">Flex Fuel</string>
 
-    <string name="currency_name_czk">Kč</string>
+    <string name="currency_name_czk">CZK</string>
     <string name="currency_name_usd">$</string>
     <string name="currency_name_eur">€</string>
 </resources>
