@@ -214,11 +214,13 @@ fun VehicleItemList(
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     LaunchedEffect(listState.isScrollInProgress) {
-        if(!listState.isScrollInProgress) {
-            var currentIndex: Int = listState.firstVisibleItemIndex
-            if(currentIndex != 0 || listState.canScrollBackward) currentIndex += 1
-            else currentIndex = 0
-            actions.updateVehicleSnapIndex(currentIndex)
+        if(vehicles.size > 1) {
+            if(!listState.isScrollInProgress) {
+                var currentIndex: Int = listState.firstVisibleItemIndex
+                if(currentIndex != 0 || listState.canScrollBackward) currentIndex += 1
+                else currentIndex = 0
+                actions.updateVehicleSnapIndex(currentIndex)
+            }
         }
     }
 
