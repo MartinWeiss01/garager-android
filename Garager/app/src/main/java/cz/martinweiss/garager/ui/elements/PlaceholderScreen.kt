@@ -40,6 +40,7 @@ fun PlaceholderScreen(
             text = title,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
             color = if(darkContainer) Color.White else Color.Unspecified
         )
         Text(
