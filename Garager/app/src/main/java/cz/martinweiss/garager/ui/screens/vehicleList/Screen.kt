@@ -215,7 +215,6 @@ fun VehicleItemList(
 ) {
     LaunchedEffect(listState.isScrollInProgress) {
         if(!listState.isScrollInProgress) {
-            Log.d("###################", "UPDATING")
             var currentIndex: Int = listState.firstVisibleItemIndex
             if(currentIndex != 0 || listState.canScrollBackward) currentIndex += 1
             else currentIndex = 0

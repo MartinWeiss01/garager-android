@@ -156,16 +156,14 @@ fun SettingsScreenContent(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApplicationAuthor() {
     ClickableListItem(
         headlineText = { Text(text = stringResource(id = R.string.settings_author_app)) },
-        supportingText = { Text(text = "Martin Weiss") }
+        supportingText = { Text(text = stringResource(id = R.string.app_author)) }
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApplicationVersion() {
     ClickableListItem(
@@ -226,7 +224,7 @@ fun CurrencySelect(
         ) {
             ListItemPicker(
                 value = currencyState.value,
-                list = currencies.map { it.name },
+                list = currencies.map { stringResource(id = it.resource) },
                 onValueChange = { it
                     actions.updateCurrency(it)
                     currencyState.value = it

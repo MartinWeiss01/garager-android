@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Garager</string>
+    <string name="app_author">Martin Weiss</string>
     <string name="btn_add_new_vehicle">Přidat vozidlo</string>
     <string name="btn_add_new_fueling">Přidat nový záznam</string>
-    <string name="loading">Probíhá načítání...</string>
+    <string name="loading">Probíhá načítání…</string>
 
     <string name="navigation_item_list">Přehled</string>
     <string name="navigation_item_fuelings">Tankování</string>
@@ -130,4 +131,8 @@
     <string name="fuel_type_name_lpg">LPG</string>
     <string name="fuel_type_name_cng">CNG</string>
     <string name="fuel_type_name_flex">Flex</string>
+
+    <string name="currency_name_czk">Kč</string>
+    <string name="currency_name_usd">$</string>
+    <string name="currency_name_eur">€</string>
 </resources>
